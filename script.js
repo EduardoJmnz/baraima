@@ -266,7 +266,7 @@ window.addEventListener("scroll", requestProcessBlock, { passive: true });
 window.addEventListener("resize", requestProcessBlock);
 requestProcessBlock();
 
-const lightSectionsForUi = Array.from(document.querySelectorAll(".mixology-section, .quote-section, .white-section, [data-ui-theme='light'], [data-ui-theme='warm']"));
+const lightSectionsForUi = Array.from(document.querySelectorAll(".mixology-section, .quote-section, .products-section, .white-section, [data-ui-theme='light'], [data-ui-theme='warm']"));
 
 function isPointInsideLightSection(x, y) {
   return lightSectionsForUi.some((section) => {
@@ -392,3 +392,148 @@ if (topbarLogo) {
     }
   });
 }
+
+/* V58: Products tabs */
+const productsData = {
+  blanco: {
+    title: "BLANCO",
+    subtitle: "Fresco y cristalino.",
+    description: "Su perfil fresco y cristalino revela notas suaves de caña y cítricos ligeros, creando un ron versátil, elegante y fácil de disfrutar. Perfecto para mixología, sobremesas largas y momentos que merecen servirse sin prisa.",
+    href: "recipe.html?recipe=spritz"
+  },
+  anejo: {
+    title: "AÑEJO",
+    subtitle: "Suave e intenso.",
+    description: "Un ron de carácter más profundo, pensado para momentos pausados. Sus notas cálidas acompañan recetas con personalidad y rituales donde el sabor se disfruta con calma.",
+    href: "recipe.html?recipe=mojito"
+  },
+  cubaraima: {
+    title: "CUBARAIMA",
+    subtitle: "Tropical y cremoso.",
+    description: "Una expresión ideal para cocteles tropicales: redonda, amable y lista para mezclarse con frutas, hielo y sobremesas largas que saben a Caribe.",
+    href: "recipe.html?recipe=colada"
+  }
+};
+
+const productTabs = document.querySelectorAll(".products-tab");
+const productName = document.getElementById("productName");
+const productSubtitle = document.getElementById("productSubtitle");
+const productDescription = document.getElementById("productDescription");
+const productCta = document.getElementById("productCta");
+
+const productsContent = document.querySelector(".products-content");
+let currentProductKey = "blanco";
+let productAnimationLock = false;
+
+function updateProductContent(item) {
+  if (productName) productName.textContent = item.title;
+  if (productSubtitle) productSubtitle.textContent = item.subtitle;
+  if (productDescription) productDescription.textContent = item.description;
+  if (productCta) productCta.setAttribute("href", item.href);
+}
+
+productTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const key = tab.dataset.product;
+    const item = productsData[key];
+    if (!item || key === currentProductKey || productAnimationLock) return;
+
+    productTabs.forEach((button) => button.classList.remove("is-active"));
+    tab.classList.add("is-active");
+    currentProductKey = key;
+
+    if (!productsContent) {
+      updateProductContent(item);
+      return;
+    }
+
+    productAnimationLock = true;
+    productsContent.classList.remove("is-sliding-in");
+    productsContent.classList.add("is-sliding-out");
+
+    window.setTimeout(() => {
+      updateProductContent(item);
+      productsContent.classList.remove("is-sliding-out");
+      void productsContent.offsetWidth;
+      productsContent.classList.add("is-sliding-in");
+    }, 220);
+
+    window.setTimeout(() => {
+      productsContent.classList.remove("is-sliding-in", "is-sliding-out");
+      productAnimationLock = false;
+    }, 700);
+  });
+});
+
+
+/* V64: stores keeps red nav/bubbles and opens location search modal */
+const storesSection = document.getElementById("stores");
+function updateStoresUi() {
+  if (!storesSection) return;
+  const rect = storesSection.getBoundingClientRect();
+  const isStoresActive = rect.top <= 70 && rect.bottom > 70;
+  document.body.classList.toggle("stores-active", isStoresActive);
+  if (isStoresActive && topbarLogo) {
+    topbarLogo.setAttribute("src", "assets/logo-white.png");
+  }
+}
+window.addEventListener("scroll", updateStoresUi, { passive: true });
+window.addEventListener("resize", updateStoresUi);
+updateStoresUi();
+
+const storesModalOpen = document.getElementById("storesModalOpen");
+const storesModal = document.getElementById("storesModal");
+const storesModalClose = document.getElementById("storesModalClose");
+
+function openStoresModal() {
+  if (!storesModal) return;
+  storesModal.classList.remove("is-closing");
+  storesModal.classList.add("is-open");
+  storesModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("stores-modal-active");
+  window.setTimeout(() => storesModal.querySelector("input")?.focus(), 320);
+}
+
+function closeStoresModal() {
+  if (!storesModal || !storesModal.classList.contains("is-open")) return;
+  storesModal.classList.add("is-closing");
+  window.setTimeout(() => {
+    storesModal.classList.remove("is-open", "is-closing");
+    storesModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("stores-modal-active");
+  }, 620);
+}
+
+storesModalOpen?.addEventListener("click", openStoresModal);
+storesModalClose?.addEventListener("click", closeStoresModal);
+storesModal?.addEventListener("click", (event) => {
+  if (event.target === storesModal) closeStoresModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && storesModal?.classList.contains("is-open")) closeStoresModal();
+});
+
+/* V65: close Stores modal with scroll gesture instead of relying on internal panel scroll */
+let storesModalTouchStartY = null;
+
+storesModal?.addEventListener("wheel", (event) => {
+  if (!storesModal.classList.contains("is-open")) return;
+  if (Math.abs(event.deltaY) < 12) return;
+  event.preventDefault();
+  closeStoresModal();
+}, { passive: false });
+
+storesModal?.addEventListener("touchstart", (event) => {
+  if (!storesModal.classList.contains("is-open")) return;
+  storesModalTouchStartY = event.touches?.[0]?.clientY ?? null;
+}, { passive: true });
+
+storesModal?.addEventListener("touchmove", (event) => {
+  if (!storesModal.classList.contains("is-open") || storesModalTouchStartY === null) return;
+  const currentY = event.touches?.[0]?.clientY ?? storesModalTouchStartY;
+  const distance = storesModalTouchStartY - currentY;
+  if (Math.abs(distance) < 26) return;
+  event.preventDefault();
+  storesModalTouchStartY = null;
+  closeStoresModal();
+}, { passive: false });

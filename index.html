@@ -61,6 +61,7 @@
           <a href="#proceso">PROCESO</a>
           <a href="#mixologia">MIXOLOGÍA</a>
           <a href="#productos">PRODUCTOS</a>
+          <a href="#stores">STORES</a>
           <a href="#blog">BLOG</a>
           <a href="#contacto">CONTACTO</a>
         </nav>
@@ -216,6 +217,129 @@
     <section class="quote-section" id="quote" data-ui-theme="warm">
       <h2><span>...eso sí, que sea con</span><strong>ron!</strong></h2>
     </section>
+
+    <section class="products-section" id="productos" data-ui-theme="warm">
+      <div class="products-inner">
+        <header class="products-header">
+          <h2>MIS RONES</h2>
+          <p>Unos días más fresco, otros más intenso. Pero la esencia siempre es la misma.</p>
+        </header>
+
+        <div class="products-tabs" role="tablist" aria-label="Rones Baraima">
+          <button class="products-tab is-active" type="button" data-product="blanco">Baraima Blanco</button>
+          <button class="products-tab" type="button" data-product="anejo">Baraima Añejo</button>
+          <button class="products-tab" type="button" data-product="cubaraima">Baraima Cubaraima</button>
+        </div>
+
+        <div class="products-content">
+          <div class="products-bottle" aria-hidden="true">
+            <img src="assets/baraima-bottle.png" alt="" />
+          </div>
+
+          <article class="products-copy" aria-live="polite">
+            <h3 id="productName">BLANCO</h3>
+            <p class="products-subtitle" id="productSubtitle">Fresco y cristalino.</p>
+            <p class="products-description" id="productDescription">Su perfil fresco y cristalino revela notas suaves de caña y cítricos ligeros, creando un ron versátil, elegante y fácil de disfrutar. Perfecto para mixología, sobremesas largas y momentos que merecen servirse sin prisa.</p>
+            <a class="products-cta" id="productCta" href="recipe.html?recipe=spritz">DESCUBRIR RITUAL</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="stores-section" id="stores" data-ui-theme="dark">
+      <div class="stores-inner">
+        <header class="stores-header">
+          <h2>DÓNDE EMPIEZA EL RITUAL</h2>
+          <p>Encuentra Baraima en tiendas físicas y plataformas online seleccionadas.</p>
+        </header>
+
+        <div class="stores-marquee" aria-label="Tiendas donde encontrar Baraima">
+          <div class="stores-track">
+            <div class="stores-logo"><img src="assets/1.png" alt="Tienda 1" /></div>
+            <div class="stores-logo"><img src="assets/2.png" alt="Tienda 2" /></div>
+            <div class="stores-logo"><img src="assets/3.png" alt="Tienda 3" /></div>
+            <div class="stores-logo"><img src="assets/4.png" alt="Tienda 4" /></div>
+            <div class="stores-logo"><img src="assets/5.png" alt="Tienda 5" /></div>
+            <div class="stores-logo"><img src="assets/6.png" alt="Tienda 6" /></div>
+            <div class="stores-logo"><img src="assets/7.png" alt="Tienda 7" /></div>
+            <div class="stores-logo"><img src="assets/8.png" alt="Tienda 8" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/1.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/2.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/3.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/4.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/5.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/6.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/7.png" alt="" /></div>
+            <div class="stores-logo" aria-hidden="true"><img src="assets/8.png" alt="" /></div>
+          </div>
+        </div>
+
+        <button class="stores-cta" id="storesModalOpen" type="button">BUSCAR CERCA</button>
+      </div>
+    </section>
+
+    <aside class="stores-modal" id="storesModal" aria-hidden="true">
+      <div class="stores-modal-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,52 C160,82 270,20 430,50 C610,84 720,78 875,48 C1040,16 1160,82 1440,40 L1440,120 L0,120 Z"></path>
+        </svg>
+        <div class="stores-modal-wave-body"></div>
+      </div>
+
+      <div class="stores-modal-panel" role="dialog" aria-modal="true" aria-labelledby="storesModalTitle">
+        <button class="stores-modal-close" id="storesModalClose" type="button" aria-label="Cerrar búsqueda"><span></span><span></span></button>
+        <p class="stores-modal-kicker">Tiendas cerca</p>
+        <h2 id="storesModalTitle">ENCUENTRA TU RITUAL</h2>
+        <p class="stores-modal-copy">Ingresa tu código postal para ver tiendas cercanas donde puedes encontrar Baraima.</p>
+
+        <form class="stores-search" onsubmit="return false;">
+          <input type="text" inputmode="numeric" placeholder="Código postal" aria-label="Código postal" maxlength="5" />
+          <button type="submit">BUSCAR</button>
+        </form>
+
+        <div class="stores-locator-split">
+          <section class="stores-nearby-list" aria-label="Direcciones cercanas de ejemplo">
+            <p class="stores-list-title">Tiendas cerca de ti</p>
+            <article class="store-place">
+              <strong>La Europea Polanco</strong>
+              <span>Av. Presidente Masaryk 390, Polanco · 1.2 km</span>
+            </article>
+            <article class="store-place">
+              <strong>City Market Moliere</strong>
+              <span>Moliere 222, Granada · 1.8 km</span>
+            </article>
+            <article class="store-place">
+              <strong>El Palacio de Hierro</strong>
+              <span>Av. Moliere 222, Polanco · 2.1 km</span>
+            </article>
+            <article class="store-place">
+              <strong>Walmart Express Horacio</strong>
+              <span>Av. Horacio 340, Polanco · 2.7 km</span>
+            </article>
+            <article class="store-place">
+              <strong>Superama Lomas</strong>
+              <span>Monte Athos 425, Lomas de Chapultepec · 3.4 km</span>
+            </article>
+          </section>
+
+          <section class="stores-fake-map" aria-label="Mapa de ejemplo con tiendas cercanas">
+            <div class="map-road map-road-a"></div>
+            <div class="map-road map-road-b"></div>
+            <div class="map-road map-road-c"></div>
+            <div class="map-road map-road-d"></div>
+            <span class="map-pin pin-a"></span>
+            <span class="map-pin pin-b"></span>
+            <span class="map-pin pin-c"></span>
+            <span class="map-pin pin-d"></span>
+            <span class="map-pin pin-e"></span>
+            <div class="map-summary">
+              <strong>Mapa de zona</strong>
+              <span>5 tiendas encontradas</span>
+            </div>
+          </section>
+        </div>
+      </div>
+    </aside>
   </main>
 
   <script src="script.js"></script>
