@@ -685,7 +685,7 @@ updateHistoriaProcesoBubbleThemeV87();
     if (!el || el.closest(blockedSelectors)) return false;
     // Los productos debajo de cada cocktail deben verse desde el primer render,
     // no depender del observer ni de volver desde recipe.html.
-    if (el.matches(".mixology-card-copy p")) {
+    if (el.matches(".mixology-card-copy p, .products-tabs, .products-tab")) {
       el.classList.remove("scroll-reveal-item", "is-visible");
       el.style.opacity = "1";
       el.style.visibility = "visible";
@@ -719,3 +719,13 @@ updateHistoriaProcesoBubbleThemeV87();
 
   elements.forEach((el) => observer.observe(el));
 })();
+
+
+/* V104 REAL: mantener visible el menú selector de Mis Rones desde el primer render. */
+document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
+  el.classList.remove('scroll-reveal-item', 'is-visible');
+  el.style.opacity = '1';
+  el.style.visibility = 'visible';
+  el.style.transform = 'none';
+  el.style.filter = 'none';
+});

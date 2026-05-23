@@ -8543,3 +8543,541 @@ body.recipe-page .recipe-block ul{
   transform:none !important;
   filter:none !important;
 }
+
+/* V101 REAL: Mis Rones-only layout and red wave fix from v99 stable */
+.products-section {
+  padding-bottom: 0 !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+.products-inner {
+  z-index: 3 !important;
+}
+
+.products-content {
+  grid-template-columns: minmax(330px, 470px) minmax(300px, 1fr) !important;
+  gap: clamp(24px, 4vw, 64px) !important;
+  align-items: end !important;
+  margin-top: clamp(18px, 2.6vw, 34px) !important;
+}
+
+.products-copy {
+  max-width: 560px !important;
+  transform: translate(-86px, -34px) !important;
+  z-index: 5 !important;
+}
+
+.products-copy .products-tabs {
+  position: relative !important;
+  top: auto !important;
+  z-index: 6 !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  max-width: 560px !important;
+  gap: clamp(24px, 3.3vw, 54px) !important;
+  margin: 0 0 clamp(28px, 3.8vw, 46px) !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.products-tab {
+  font-size: clamp(13px, 1.05vw, 16px) !important;
+  white-space: nowrap !important;
+}
+
+.products-copy h3 {
+  font-size: clamp(38px, 4vw, 56px) !important;
+  line-height: .88 !important;
+  letter-spacing: .16em !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+.products-subtitle {
+  font-size: clamp(18px, 1.75vw, 24px) !important;
+  margin: 16px 0 26px !important;
+}
+
+.products-description {
+  font-size: clamp(13px, 1vw, 15px) !important;
+  max-width: 470px !important;
+  margin-bottom: clamp(38px, 4vw, 54px) !important;
+}
+
+.products-bottle {
+  height: clamp(650px, 82vh, 900px) !important;
+  transform: translate(-52px, 128px) rotate(0deg) !important;
+  align-items: flex-end !important;
+  z-index: 4 !important;
+}
+
+.products-bottle img {
+  max-height: 100% !important;
+  transform: none !important;
+}
+
+.products-red-wave {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: -1px !important;
+  width: 100vw !important;
+  height: clamp(180px, 20vw, 260px) !important;
+  transform: translateX(-50%) !important;
+  z-index: 6 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+.products-red-wave svg {
+  position: absolute !important;
+  left: -4vw !important;
+  top: 0 !important;
+  width: 108vw !important;
+  height: clamp(92px, 11vw, 145px) !important;
+  display: block !important;
+  animation: productsRedWaveDrift 3.2s ease-in-out infinite alternate !important;
+}
+
+.products-red-wave path,
+.products-red-wave__body {
+  fill: var(--nav-red, #FF0B00) !important;
+  background: var(--nav-red, #FF0B00) !important;
+}
+
+.products-red-wave__body {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: clamp(78px, 9vw, 125px) !important;
+  bottom: 0 !important;
+}
+
+.stores-section {
+  margin-top: 0 !important;
+  padding-top: calc(var(--nav-height, 92px) + 18px) !important;
+}
+
+@keyframes productsRedWaveDrift {
+  0% { transform: translateX(-2.2vw) scaleX(1.02); }
+  100% { transform: translateX(2.2vw) scaleX(1.02); }
+}
+
+@media (max-width: 980px) {
+  .products-copy {
+    transform: translate(-40px, -22px) !important;
+  }
+
+  .products-bottle {
+    transform: translate(-22px, 116px) rotate(0deg) !important;
+  }
+}
+
+@media (max-width: 860px) {
+  .products-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .products-copy {
+    transform: none !important;
+    margin: 0 auto !important;
+  }
+
+  .products-copy .products-tabs {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 16px 26px !important;
+  }
+
+  .products-bottle {
+    height: clamp(520px, 72vh, 720px) !important;
+    transform: translateY(112px) rotate(0deg) !important;
+  }
+
+  .products-copy h3 {
+    white-space: normal !important;
+    letter-spacing: .1em !important;
+  }
+}
+
+/* V102: Mis Rones selector/title/bottle micro-adjustments
+   Scope: products section only. Keeps previous blocks untouched. */
+.products-section .products-copy{
+  transform: translate(-86px, -34px) !important;
+}
+
+.products-section .products-copy .products-tabs{
+  order: 0 !important;
+  display: flex !important;
+  position: relative !important;
+  top: auto !important;
+  z-index: 8 !important;
+  margin: 0 0 clamp(14px, 2vw, 24px) !important;
+  padding: 0 !important;
+  background: transparent !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+.products-section .products-copy h3{
+  margin-top: 0 !important;
+  font-size: clamp(34px, 3.55vw, 50px) !important;
+  line-height: .9 !important;
+  letter-spacing: .12em !important;
+  white-space: nowrap !important;
+}
+
+.products-section .products-subtitle{
+  font-size: clamp(17px, 1.55vw, 22px) !important;
+}
+
+.products-section .products-bottle{
+  transform: translate(-22px, 153px) rotate(0deg) !important;
+}
+
+@media (max-width: 980px){
+  .products-section .products-copy{
+    transform: translate(-36px, -22px) !important;
+  }
+  .products-section .products-bottle{
+    transform: translate(0, 141px) rotate(0deg) !important;
+  }
+}
+
+@media (max-width: 860px){
+  .products-section .products-copy{
+    transform: none !important;
+  }
+  .products-section .products-copy .products-tabs{
+    justify-content: center !important;
+    margin-bottom: 18px !important;
+  }
+  .products-section .products-bottle{
+    transform: translateY(137px) rotate(0deg) !important;
+  }
+}
+
+/* V103: Mis Rones selector placed exactly above the product title, following PRODUCTS.pdf.
+   Scoped only to the products section to avoid affecting previous blocks. */
+.products-section .products-header .section-subtitle{
+  color: rgba(255, 11, 0, .72) !important;
+  width: min(520px, 92vw) !important;
+  margin-top: 22px !important;
+}
+
+.products-section .products-content{
+  grid-template-columns: minmax(300px, 520px) minmax(300px, 460px) !important;
+  gap: clamp(28px, 5vw, 76px) !important;
+  align-items: end !important;
+  justify-content: center !important;
+  margin-top: clamp(18px, 2.4vw, 32px) !important;
+}
+
+.products-section .products-copy{
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  max-width: 530px !important;
+  transform: translate(-10px, -26px) !important;
+  z-index: 8 !important;
+}
+
+.products-section .products-copy .products-tabs{
+  order: -1 !important;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: static !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 530px !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: clamp(30px, 4.2vw, 64px) !important;
+  margin: 0 0 clamp(26px, 3.1vw, 42px) !important;
+  padding: 0 !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+
+.products-section .products-tab{
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: rgba(255, 11, 0, .36) !important;
+  font-size: clamp(13px, 1.05vw, 16px) !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  padding: 10px 0 !important;
+}
+
+.products-section .products-tab.is-active{
+  color: var(--nav-red, #FF0B00) !important;
+}
+
+.products-section .products-copy h3{
+  order: 0 !important;
+  margin: 0 !important;
+  font-size: clamp(42px, 4.45vw, 64px) !important;
+  line-height: .88 !important;
+  letter-spacing: .16em !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+}
+
+.products-section .products-subtitle{
+  order: 1 !important;
+  font-size: clamp(17px, 1.45vw, 22px) !important;
+  margin: 16px 0 24px !important;
+}
+
+.products-section .products-description{
+  order: 2 !important;
+  font-size: clamp(12px, .92vw, 14px) !important;
+  max-width: 470px !important;
+  margin-bottom: clamp(34px, 4vw, 52px) !important;
+}
+
+.products-section .products-cta{
+  order: 3 !important;
+}
+
+.products-section .products-bottle{
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  height: clamp(660px, 84vh, 920px) !important;
+  transform: translate(-42px, 158px) rotate(0deg) !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  z-index: 5 !important;
+}
+
+.products-section .products-red-wave{
+  left: 50% !important;
+  width: 100vw !important;
+  transform: translateX(-50%) !important;
+  bottom: -1px !important;
+  z-index: 7 !important;
+}
+
+.products-section + .stores-section,
+.products-section + section{
+  margin-top: 0 !important;
+}
+
+@media (max-width: 980px){
+  .products-section .products-copy{
+    transform: translate(0, -18px) !important;
+  }
+  .products-section .products-bottle{
+    transform: translate(-16px, 148px) rotate(0deg) !important;
+  }
+}
+
+@media (max-width: 860px){
+  .products-section .products-content{
+    grid-template-columns: 1fr !important;
+  }
+  .products-section .products-copy,
+  .products-section .products-bottle{
+    grid-column: 1 !important;
+  }
+  .products-section .products-copy{
+    grid-row: 1 !important;
+    align-items: center !important;
+    text-align: center !important;
+    transform: none !important;
+    margin: 0 auto !important;
+  }
+  .products-section .products-copy .products-tabs{
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 16px 24px !important;
+    margin-bottom: 20px !important;
+  }
+  .products-section .products-bottle{
+    grid-row: 2 !important;
+    height: clamp(520px, 72vh, 720px) !important;
+    transform: translateY(138px) rotate(0deg) !important;
+  }
+  .products-section .products-copy h3{
+    white-space: normal !important;
+    letter-spacing: .1em !important;
+  }
+}
+
+
+/* V104 REAL: selector de ron visible arriba del nombre del producto (solo Mis Rones). */
+.products-section .products-copy{
+  display:flex !important;
+  flex-direction:column !important;
+}
+.products-section .products-copy .products-tabs,
+.products-section .products-copy .products-selector-menu{
+  order:-10 !important;
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+  width:100% !important;
+  max-width:560px !important;
+  justify-content:flex-start !important;
+  align-items:center !important;
+  gap:clamp(34px,4.6vw,72px) !important;
+  margin:0 0 clamp(24px,3vw,38px) 0 !important;
+  padding:0 !important;
+  z-index:50 !important;
+  pointer-events:auto !important;
+  filter:none !important;
+}
+.products-section .products-copy .products-tab{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  transform:none !important;
+  filter:none !important;
+  position:relative !important;
+  z-index:51 !important;
+  pointer-events:auto !important;
+  border:0 !important;
+  background:transparent !important;
+  color:rgba(255,11,0,.38) !important;
+  font-size:clamp(13px,1.05vw,16px) !important;
+  font-weight:500 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  padding:10px 0 !important;
+}
+.products-section .products-copy .products-tab.is-active{
+  color:#ff0b00 !important;
+}
+.products-section .products-copy .products-tab.is-active::after{
+  content:"" !important;
+  position:absolute !important;
+  left:50% !important;
+  bottom:0 !important;
+  width:56px !important;
+  height:2px !important;
+  transform:translateX(-50%) !important;
+  background:#ff0b00 !important;
+  border-radius:999px !important;
+}
+.products-section .products-copy h3{
+  order:0 !important;
+}
+@media (max-width:860px){
+  .products-section .products-copy .products-tabs,
+  .products-section .products-copy .products-selector-menu{
+    justify-content:center !important;
+    flex-wrap:wrap !important;
+    gap:16px 24px !important;
+  }
+}
+
+
+/* V105 REAL: Mis Rones vertical rhythm + faster 4-crest red waves.
+   Solo toca el bloque Mis Rones. */
+.products-section .products-content{
+  margin-top: clamp(2px, .8vw, 12px) !important;
+  align-items: end !important;
+}
+.products-section .products-copy{
+  transform: translate(-10px, -82px) !important;
+}
+.products-section .products-bottle{
+  height: clamp(700px, 88vh, 980px) !important;
+  transform: translate(-62px, 108px) rotate(0deg) !important;
+  z-index: 6 !important;
+}
+.products-section .products-bottle img{
+  max-height: 100% !important;
+}
+.products-section .products-copy h3{
+  font-size: clamp(38px, 4.05vw, 58px) !important;
+}
+.products-section .products-subtitle{
+  font-size: clamp(16px, 1.35vw, 20px) !important;
+}
+.products-section .products-red-wave{
+  left: 50% !important;
+  width: 100vw !important;
+  height: clamp(230px, 22vw, 310px) !important;
+  bottom: -2px !important;
+  transform: translateX(-50%) !important;
+  overflow: hidden !important;
+  z-index: 8 !important;
+}
+.products-section .products-red-wave svg,
+.products-section .products-red-wave__svg{
+  position: absolute !important;
+  left: -8vw !important;
+  top: 0 !important;
+  width: 116vw !important;
+  height: clamp(118px, 12vw, 170px) !important;
+  display: block !important;
+  overflow: visible !important;
+  fill: #ff0b00 !important;
+}
+.products-section .products-red-wave__svg--back{
+  opacity: .72 !important;
+  animation: productsRedWaveFastBack 2.05s ease-in-out infinite alternate !important;
+}
+.products-section .products-red-wave__svg--front{
+  top: clamp(10px, 1.1vw, 16px) !important;
+  opacity: 1 !important;
+  animation: productsRedWaveFastFront 1.65s ease-in-out infinite alternate-reverse !important;
+}
+.products-section .products-red-wave path,
+.products-section .products-red-wave__body{
+  fill: #ff0b00 !important;
+  background: #ff0b00 !important;
+}
+.products-section .products-red-wave__body{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: clamp(106px, 10.6vw, 150px) !important;
+  bottom: 0 !important;
+}
+.products-section + .stores-section,
+.products-section + section{
+  margin-top: 0 !important;
+}
+@keyframes productsRedWaveFastFront{
+  0%{ transform: translateX(-3.2vw) scaleX(1.03); }
+  100%{ transform: translateX(3.2vw) scaleX(1.03); }
+}
+@keyframes productsRedWaveFastBack{
+  0%{ transform: translateX(2.4vw) scaleX(1.02); }
+  100%{ transform: translateX(-2.4vw) scaleX(1.02); }
+}
+@media (max-width: 980px){
+  .products-section .products-copy{
+    transform: translate(0, -54px) !important;
+  }
+  .products-section .products-bottle{
+    transform: translate(-30px, 104px) rotate(0deg) !important;
+  }
+}
+@media (max-width: 860px){
+  .products-section .products-content{
+    margin-top: 16px !important;
+  }
+  .products-section .products-copy{
+    transform: none !important;
+  }
+  .products-section .products-bottle{
+    height: clamp(540px, 72vh, 760px) !important;
+    transform: translateY(102px) rotate(0deg) !important;
+  }
+}
