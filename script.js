@@ -266,7 +266,7 @@ window.addEventListener("scroll", requestProcessBlock, { passive: true });
 window.addEventListener("resize", requestProcessBlock);
 requestProcessBlock();
 
-const lightSectionsForUi = Array.from(document.querySelectorAll(".mixology-section, .quote-section, .products-section, .white-section, [data-ui-theme='light'], [data-ui-theme='warm']"));
+const lightSectionsForUi = Array.from(document.querySelectorAll(".mixology-section, .quote-section, .products-section, .rituales-section, .white-section, [data-ui-theme='light'], [data-ui-theme='warm']"));
 
 function isPointInsideLightSection(x, y) {
   return lightSectionsForUi.some((section) => {
@@ -513,27 +513,139 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && storesModal?.classList.contains("is-open")) closeStoresModal();
 });
 
-/* V65: close Stores modal with scroll gesture instead of relying on internal panel scroll */
-let storesModalTouchStartY = null;
+/* V71: disabled blog/article links + contact modal */
+document.querySelectorAll(".no-link").forEach((link) => {
+  link.addEventListener("click", (event) => event.preventDefault());
+});
 
-storesModal?.addEventListener("wheel", (event) => {
-  if (!storesModal.classList.contains("is-open")) return;
-  if (Math.abs(event.deltaY) < 12) return;
+const contactModalOpen = document.getElementById("contactModalOpen");
+const contactModal = document.getElementById("contactModal");
+const contactModalClose = document.getElementById("contactModalClose");
+
+function openContactModal() {
+  if (!contactModal) return;
+  contactModal.classList.remove("is-closing");
+  contactModal.scrollTop = 0;
+  contactModal.classList.add("is-open");
+  contactModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("contact-modal-active");
+  window.setTimeout(() => contactModal.querySelector("input")?.focus(), 420);
+}
+
+function closeContactModal() {
+  if (!contactModal || !contactModal.classList.contains("is-open")) return;
+  contactModal.classList.add("is-closing");
+  window.setTimeout(() => {
+    contactModal.classList.remove("is-open", "is-closing");
+    contactModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("contact-modal-active");
+  }, 620);
+}
+
+contactModalOpen?.addEventListener("click", openContactModal);
+contactModalClose?.addEventListener("click", closeContactModal);
+contactModal?.addEventListener("click", (event) => {
+  if (event.target === contactModal) closeContactModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && contactModal?.classList.contains("is-open")) closeContactModal();
+});
+
+/* V75: Hide global bubbles and scroll indicator while footer is visible */
+const footerSection = document.getElementById("footer");
+function updateFooterUi() {
+  if (!footerSection) return;
+  const rect = footerSection.getBoundingClientRect();
+  const vh = window.innerHeight || 1;
+  const footerVisible = rect.top < vh * 0.92 && rect.bottom > 0;
+  document.body.classList.toggle("footer-active", footerVisible);
+}
+window.addEventListener("scroll", updateFooterUi, { passive: true });
+window.addEventListener("resize", updateFooterUi);
+updateFooterUi();
+
+
+/* V82: close contact modal when ENVIAR is pressed */
+const contactFormSubmitCloseV82 = document.querySelector("#contactModal .contact-form");
+contactFormSubmitCloseV82?.addEventListener("submit", (event) => {
   event.preventDefault();
-  closeStoresModal();
-}, { passive: false });
-
-storesModal?.addEventListener("touchstart", (event) => {
-  if (!storesModal.classList.contains("is-open")) return;
-  storesModalTouchStartY = event.touches?.[0]?.clientY ?? null;
-}, { passive: true });
-
-storesModal?.addEventListener("touchmove", (event) => {
-  if (!storesModal.classList.contains("is-open") || storesModalTouchStartY === null) return;
-  const currentY = event.touches?.[0]?.clientY ?? storesModalTouchStartY;
-  const distance = storesModalTouchStartY - currentY;
-  if (Math.abs(distance) < 26) return;
+  closeContactModal();
+});
+contactFormSubmitCloseV82?.querySelector('button[type="submit"]')?.addEventListener("click", (event) => {
   event.preventDefault();
-  storesModalTouchStartY = null;
-  closeStoresModal();
-}, { passive: false });
+  closeContactModal();
+});
+
+
+/* V86: force original white bubbles while Historia or Proceso is active */
+function updateHistoriaProcesoBubbleThemeV86() {
+  const sections = [
+    document.getElementById("historia"),
+    document.getElementById("proceso")
+  ].filter(Boolean);
+
+  const active = sections.some((section) => {
+    const rect = section.getBoundingClientRect();
+    const y = Math.min(120, (window.innerHeight || 0) * 0.28);
+    return rect.top <= y && rect.bottom >= y;
+  });
+
+  document.body.classList.toggle("historia-proceso-bubbles-white", active);
+}
+
+window.addEventListener("scroll", updateHistoriaProcesoBubbleThemeV86, { passive: true });
+window.addEventListener("resize", updateHistoriaProcesoBubbleThemeV86);
+updateHistoriaProcesoBubbleThemeV86();
+
+
+/* V87: restore menu close button behavior */
+const menuCloseV87 = document.getElementById("menuClose") || document.querySelector(".menu-close");
+menuCloseV87?.addEventListener("click", () => {
+  const menu =
+    document.getElementById("menu") ||
+    document.querySelector(".menu-overlay") ||
+    document.querySelector(".site-menu") ||
+    document.querySelector(".menu-panel")?.closest("aside");
+
+  if (typeof closeMenu === "function") {
+    closeMenu();
+    return;
+  }
+
+  if (menu) {
+    menu.classList.remove("is-open", "open", "active");
+    menu.setAttribute("aria-hidden", "true");
+  }
+
+  document.body.classList.remove("menu-open", "nav-open", "is-menu-open");
+});
+
+
+/* V87: stronger active state for Historia/Proceso bubble color */
+function updateHistoriaProcesoBubbleThemeV87() {
+  const historia = document.getElementById("historia");
+  const proceso = document.getElementById("proceso");
+  const points = [
+    80,
+    (window.innerHeight || 0) * 0.25,
+    (window.innerHeight || 0) * 0.5
+  ];
+
+  function sectionActive(section) {
+    if (!section) return false;
+    const rect = section.getBoundingClientRect();
+    return points.some((y) => rect.top <= y && rect.bottom >= y);
+  }
+
+  const hActive = sectionActive(historia);
+  const pActive = sectionActive(proceso);
+
+  document.body.classList.toggle("history-active", hActive);
+  document.body.classList.toggle("process-active", pActive);
+  document.body.classList.toggle("proceso-active", pActive);
+  document.body.classList.toggle("historia-proceso-bubbles-white", hActive || pActive);
+}
+
+window.addEventListener("scroll", updateHistoriaProcesoBubbleThemeV87, { passive: true });
+window.addEventListener("resize", updateHistoriaProcesoBubbleThemeV87);
+updateHistoriaProcesoBubbleThemeV87();

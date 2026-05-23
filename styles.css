@@ -6032,3 +6032,2205 @@ body.stores-modal-active #menuButton.menu span {
     min-height: 320px !important;
   }
 }
+
+
+/* V69 clean reset: Stores modal closes only with close button + Rituales editorial block */
+.stores-modal {
+  overscroll-behavior: contain;
+}
+
+.stores-modal-panel {
+  overflow: visible !important;
+}
+
+.rituales-section {
+  min-height: 100svh;
+  background: var(--cream);
+  color: var(--nav-red, #FF0B00);
+  position: relative;
+  z-index: 1;
+  padding: calc(var(--nav-height, 92px) + 42px) clamp(22px, 5.2vw, 78px) 78px;
+  overflow: hidden;
+}
+
+.rituales-inner {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+}
+
+.rituales-header {
+  text-align: center;
+  margin-bottom: clamp(26px, 4vw, 48px);
+}
+
+.rituales-header h2 {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(58px, 8vw, 108px);
+  line-height: .86;
+  letter-spacing: -0.065em;
+  font-weight: 900;
+  color: var(--nav-red, #FF0B00);
+}
+
+.rituales-header p {
+  width: min(560px, 92vw);
+  margin: 16px auto 0;
+  color: rgba(255, 11, 0, .58);
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.2;
+}
+
+.rituales-grid {
+  display: grid;
+  grid-template-columns: 1.25fr .85fr .85fr;
+  grid-auto-rows: minmax(235px, auto);
+  gap: 18px;
+}
+
+.ritual-card {
+  position: relative;
+  min-height: 255px;
+  border: 1px solid rgba(255, 11, 0, .18);
+  border-radius: 30px;
+  background: rgba(255,255,255,.22);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  text-decoration: none;
+}
+
+.ritual-card-featured {
+  grid-row: span 2;
+  min-height: 528px;
+}
+
+.ritual-card-small {
+  min-height: 230px;
+  background: var(--nav-red, #FF0B00);
+  color: var(--cream);
+  border-color: transparent;
+}
+
+.ritual-card-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  transition: transform .55s ease, filter .55s ease;
+}
+
+.ritual-img-1 {
+  background: radial-gradient(circle at 30% 20%, rgba(255,168,0,.85), transparent 32%), linear-gradient(135deg, rgba(255,11,0,.85), rgba(70,6,0,.65)), url('assets/mixologia-spritz.png');
+  background-size: 120px auto, cover, 66% auto;
+  background-repeat: no-repeat;
+  background-position: 26% 20%, center, 58% 42%;
+}
+
+.ritual-img-2 {
+  background: radial-gradient(circle at 35% 25%, rgba(255,242,218,.65), transparent 36%), linear-gradient(135deg, rgba(255,11,0,.78), rgba(247,168,0,.65)), url('assets/mixologia-mojito.png');
+  background-size: 120px auto, cover, 70% auto;
+  background-repeat: no-repeat;
+  background-position: 40% 22%, center, 58% 36%;
+}
+
+.ritual-img-3 {
+  background: radial-gradient(circle at 35% 25%, rgba(255,242,218,.65), transparent 36%), linear-gradient(135deg, rgba(247,168,0,.72), rgba(255,11,0,.72)), url('assets/mixologia-colada.png');
+  background-size: 120px auto, cover, 72% auto;
+  background-repeat: no-repeat;
+  background-position: 40% 22%, center, 58% 36%;
+}
+
+.ritual-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(70,6,0,.66) 100%);
+  z-index: -1;
+  opacity: .96;
+  transition: background .35s ease, opacity .35s ease;
+}
+
+.ritual-card-small::after {
+  display: none;
+}
+
+.ritual-card-copy {
+  padding: clamp(22px, 3vw, 34px);
+  color: var(--cream);
+}
+
+.ritual-card-small .ritual-card-copy {
+  color: var(--cream);
+}
+
+.ritual-card-copy span {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .18em;
+  font-weight: 900;
+  text-transform: uppercase;
+  opacity: .78;
+}
+
+.ritual-card-copy h3 {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(25px, 2.5vw, 40px);
+  line-height: .92;
+  letter-spacing: -0.045em;
+  font-weight: 900;
+}
+
+.ritual-card:not(.ritual-card-featured) .ritual-card-copy h3 {
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.ritual-card-copy p {
+  max-width: 460px;
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.28;
+  opacity: .82;
+}
+
+.ritual-card-copy a {
+  display: inline-flex;
+  margin-top: 20px;
+  color: inherit;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .14em;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ritual-card:hover .ritual-card-image {
+  transform: scale(1.08);
+  filter: saturate(1.12);
+}
+
+.ritual-card:hover::after {
+  background: linear-gradient(180deg, rgba(255,11,0,.18) 0%, rgba(255,11,0,.82) 100%);
+}
+
+.ritual-card:hover {
+  transform: translateY(-3px);
+  transition: transform .3s ease;
+}
+
+.rituales-cta {
+  display: flex;
+  width: fit-content;
+  min-width: 142px;
+  height: 52px;
+  margin: clamp(28px, 4vw, 44px) auto 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--nav-red, #FF0B00);
+  color: var(--nav-red, #FF0B00);
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .12em;
+  font-weight: 900;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.rituales-cta:hover {
+  background: var(--nav-red, #FF0B00);
+  color: var(--cream);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 920px) {
+  .rituales-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ritual-card-featured {
+    grid-column: span 2;
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 640px) {
+  .rituales-section {
+    padding-inline: 18px;
+  }
+  .rituales-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+  }
+  .ritual-card,
+  .ritual-card-featured,
+  .ritual-card-small {
+    flex: 0 0 82vw;
+    min-height: 410px;
+    scroll-snap-align: center;
+  }
+}
+
+/* V70: Rituales visibles pero sin navegación */
+.no-link {
+  cursor: default !important;
+}
+
+/* V71: Contacto */
+.contact-section {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--red);
+  color: var(--cream);
+  display: grid;
+  place-items: center;
+  padding: clamp(110px, 13vw, 170px) 24px clamp(80px, 9vw, 120px);
+}
+
+.contact-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: clamp(70px, 8vw, 105px);
+}
+
+.contact-content h2 {
+  margin: 0;
+  font-size: clamp(46px, 7.8vw, 112px);
+  line-height: .92;
+  letter-spacing: -.065em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.contact-cta {
+  appearance: none;
+  min-width: clamp(280px, 30vw, 500px);
+  min-height: clamp(70px, 7.4vw, 112px);
+  padding: 0 clamp(28px, 4vw, 58px);
+  border: 3px solid var(--cream);
+  border-radius: 28px;
+  background: transparent;
+  color: var(--cream);
+  font: inherit;
+  font-size: clamp(18px, 1.55vw, 31px);
+  font-weight: 300;
+  letter-spacing: -.02em;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.contact-cta:hover,
+.contact-cta:focus-visible {
+  background: var(--cream);
+  color: var(--red);
+  transform: translateY(-3px);
+}
+
+.contact-bubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contact-bubble {
+  position: absolute;
+  width: var(--size, 90px);
+  height: var(--size, 90px);
+  border: 3px solid rgba(255, 241, 207, .92);
+  border-radius: 999px;
+  opacity: .95;
+  animation: contactFloat var(--dur, 7s) ease-in-out infinite alternate;
+}
+
+.contact-bubble::before {
+  content: "";
+  position: absolute;
+  width: 35%;
+  height: 18%;
+  left: 15%;
+  top: 18%;
+  border-radius: 999px;
+  background: var(--cream);
+  transform: rotate(-42deg);
+}
+
+.bubble-a { --size: 118px; --dur: 8s; left: 8%; top: 10%; }
+.bubble-b { --size: 146px; --dur: 9s; left: 22%; top: 5%; animation-delay: -2s; }
+.bubble-c { --size: 132px; --dur: 7s; right: 16%; top: 6%; animation-delay: -4s; }
+.bubble-d { --size: 120px; --dur: 8s; right: 21%; top: 31%; animation-delay: -1s; }
+.bubble-e { --size: 92px; --dur: 7s; right: 9%; top: 40%; animation-delay: -3s; }
+.bubble-f { --size: 100px; --dur: 9s; left: 17%; top: 52%; animation-delay: -5s; }
+.bubble-g { --size: 78px; --dur: 6s; left: 34%; bottom: 18%; animation-delay: -2s; }
+.bubble-h { --size: 74px; --dur: 8s; right: 18%; bottom: 20%; animation-delay: -4s; }
+.bubble-i { --size: 86px; --dur: 6s; left: 6%; bottom: 18%; animation-delay: -1s; }
+
+@keyframes contactFloat {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(10px, -22px, 0) scale(1.03); }
+}
+
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482600;
+  display: grid;
+  place-items: center;
+  padding: clamp(70px, 7vw, 110px) 24px 42px;
+  background: var(--cream);
+  color: var(--red);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(18px);
+  transition: opacity .38s ease, visibility .38s ease, transform .38s ease;
+}
+
+.contact-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.contact-modal-panel {
+  width: min(760px, 100%);
+  text-align: center;
+}
+
+.contact-modal-panel h2 {
+  margin: 0 0 clamp(54px, 6vw, 92px);
+  font-size: clamp(52px, 7.4vw, 112px);
+  line-height: .96;
+  letter-spacing: -.06em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.contact-form {
+  display: grid;
+  justify-items: center;
+  gap: clamp(42px, 4.8vw, 70px);
+}
+
+.contact-form label {
+  width: min(590px, 88vw);
+  display: grid;
+  gap: 10px;
+  text-align: center;
+  color: rgba(255, 31, 8, .62);
+  font-size: clamp(20px, 1.7vw, 31px);
+  font-weight: 300;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid var(--red);
+  background: transparent;
+  color: var(--red);
+  text-align: center;
+  font: inherit;
+  font-size: clamp(20px, 1.7vw, 30px);
+  outline: none;
+  resize: none;
+  border-radius: 0;
+}
+
+.contact-form textarea {
+  min-height: 70px;
+}
+
+.contact-form button[type="submit"] {
+  appearance: none;
+  margin-top: clamp(28px, 3vw, 54px);
+  min-width: min(520px, 86vw);
+  min-height: clamp(74px, 7vw, 112px);
+  border: 4px solid var(--red);
+  border-radius: 28px;
+  background: transparent;
+  color: var(--red);
+  font: inherit;
+  font-size: clamp(20px, 1.7vw, 31px);
+  font-weight: 300;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.contact-form button[type="submit"]:hover,
+.contact-form button[type="submit"]:focus-visible {
+  background: var(--red);
+  color: var(--cream);
+  transform: translateY(-3px);
+}
+
+.contact-modal-close {
+  position: fixed;
+  right: 42px;
+  top: 34px;
+  width: 68px;
+  height: 68px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--red);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.contact-modal-close span {
+  position: absolute;
+  width: 34px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--cream);
+}
+
+.contact-modal-close span:first-child { transform: rotate(45deg); }
+.contact-modal-close span:last-child { transform: rotate(-45deg); }
+
+body.contact-modal-active {
+  overflow: hidden;
+}
+
+body.contact-modal-active > .topbar,
+body.contact-modal-active .topbar,
+body.contact-modal-active > .scroll,
+body.contact-modal-active .scroll {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-overlay.is-open .menu-nav a:nth-child(8) { transition-delay: .40s; }
+.menu-overlay.is-open .menu-nav a:nth-child(9) { transition-delay: .45s; }
+
+@media (max-width: 700px) {
+  .contact-section {
+    padding-top: 130px;
+  }
+
+  .contact-content {
+    gap: 54px;
+  }
+
+  .contact-content h2 {
+    font-size: clamp(42px, 15vw, 70px);
+  }
+
+  .contact-cta {
+    min-width: min(320px, 86vw);
+    min-height: 70px;
+    border-radius: 21px;
+    font-size: 17px;
+  }
+
+  .contact-bubble {
+    transform: scale(.7);
+  }
+
+  .contact-modal {
+    align-items: start;
+    overflow-y: auto;
+    padding-top: 90px;
+  }
+
+  .contact-modal-panel h2 {
+    font-size: clamp(44px, 14vw, 70px);
+    margin-bottom: 46px;
+  }
+
+  .contact-form {
+    gap: 36px;
+  }
+
+  .contact-form label {
+    font-size: 20px;
+  }
+
+  .contact-form button[type="submit"] {
+    min-height: 76px;
+    border-radius: 22px;
+  }
+
+  .contact-modal-close {
+    right: 20px;
+    top: 20px;
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* V72: Contacto proportion and modal scroll fixes */
+.contact-content {
+  gap: clamp(34px, 4vw, 52px) !important;
+}
+
+.contact-content h2 {
+  font-size: clamp(23px, 3.9vw, 56px) !important;
+  line-height: .96 !important;
+  letter-spacing: -.055em !important;
+}
+
+.contact-cta {
+  min-width: clamp(210px, 22vw, 290px) !important;
+  min-height: clamp(58px, 6vw, 78px) !important;
+  padding: 0 30px !important;
+  border: 2.5px solid var(--cream) !important;
+  border-radius: 18px !important;
+  font-size: clamp(14px, 1.2vw, 18px) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.01em !important;
+}
+
+/* Remove duplicated oversized local bubbles from the Contact block */
+.contact-bubbles {
+  display: none !important;
+}
+
+.contact-modal {
+  display: block !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  padding: clamp(54px, 5.5vw, 78px) 20px clamp(36px, 5vw, 72px) !important;
+}
+
+.contact-modal-panel {
+  width: min(520px, 100%) !important;
+  min-height: auto !important;
+  margin: 0 auto !important;
+  padding-bottom: 30px !important;
+}
+
+.contact-modal-panel h2 {
+  margin: 0 0 clamp(27px, 3vw, 46px) !important;
+  font-size: clamp(26px, 3.7vw, 56px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.055em !important;
+}
+
+.contact-form {
+  gap: clamp(21px, 2.4vw, 35px) !important;
+}
+
+.contact-form label {
+  width: min(420px, 86vw) !important;
+  gap: 5px !important;
+  font-size: clamp(14px, .95vw, 16px) !important;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-size: clamp(14px, .95vw, 16px) !important;
+  border-bottom-width: 1.5px !important;
+  padding: 4px 0 !important;
+}
+
+.contact-form textarea {
+  min-height: 54px !important;
+}
+
+.contact-form button[type="submit"] {
+  min-width: clamp(210px, 22vw, 290px) !important;
+  min-height: clamp(58px, 6vw, 78px) !important;
+  margin-top: clamp(14px, 1.5vw, 27px) !important;
+  border: 2.5px solid var(--red) !important;
+  border-radius: 18px !important;
+  font-size: clamp(14px, 1.2vw, 18px) !important;
+  font-weight: 400 !important;
+}
+
+.contact-modal-close {
+  right: 24px !important;
+  top: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+}
+
+.contact-modal-close span {
+  width: 24px !important;
+  height: 3px !important;
+}
+
+@media (max-width: 700px) {
+  .contact-section {
+    min-height: 80svh !important;
+    padding-top: 105px !important;
+  }
+
+  .contact-content {
+    gap: 30px !important;
+  }
+
+  .contact-content h2 {
+    font-size: clamp(30px, 8vw, 40px) !important;
+  }
+
+  .contact-cta {
+    min-width: min(280px, 84vw) !important;
+    min-height: 58px !important;
+    font-size: 14px !important;
+  }
+
+  .contact-modal {
+    padding-top: 78px !important;
+    padding-bottom: 46px !important;
+  }
+
+  .contact-modal-panel h2 {
+    font-size: clamp(30px, 8.5vw, 40px) !important;
+    margin-bottom: 28px !important;
+  }
+
+  .contact-form {
+    gap: 22px !important;
+  }
+
+  .contact-form label,
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 14px !important;
+  }
+
+  .contact-form button[type="submit"] {
+    min-height: 58px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* V73: Contact modal uses the same wave reveal language and closes above menu layer */
+.contact-modal {
+  z-index: 2147483640 !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+.contact-modal.is-open,
+.contact-modal.is-closing {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.contact-modal-wave {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120vh;
+  transform: translate3d(0, 105%, 0);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.contact-modal-wave svg {
+  position: absolute;
+  left: 0;
+  top: -118px;
+  width: 100%;
+  height: 120px;
+  fill: var(--cream);
+  animation: storesModalWaveMove 4.8s ease-in-out infinite alternate;
+}
+
+.contact-modal-wave-body {
+  position: absolute;
+  inset: 0;
+  background: var(--cream);
+}
+
+.contact-modal.is-open .contact-modal-wave {
+  animation: storesModalWaveUp .78s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.contact-modal.is-closing .contact-modal-wave {
+  animation: storesModalWaveDown .58s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.contact-modal-panel {
+  position: relative !important;
+  z-index: 1 !important;
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.contact-modal.is-open .contact-modal-panel {
+  animation: storesPanelIn .55s ease .22s forwards;
+}
+
+.contact-modal.is-closing .contact-modal-panel {
+  animation: storesPanelOut .28s ease forwards;
+}
+
+.contact-modal-close {
+  position: fixed !important;
+  z-index: 2147483641 !important;
+  pointer-events: auto !important;
+}
+
+body.contact-modal-active #menuButton,
+body.contact-modal-active .menu,
+body.contact-modal-active .topbar,
+body.contact-modal-active .scroll {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.contact-modal-active .always-bubbles {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Stores is a red section: bubbles become cream/white, matching the other red blocks */
+body.stores-active .always-bubbles span {
+  border-color: rgba(255, 246, 225, .95) !important;
+  background: radial-gradient(circle at 32% 26%, rgba(255,255,255,.9), transparent 18%), rgba(255,246,225,.14) !important;
+  box-shadow: inset 6px 7px 0 rgba(255,246,225,.86), 0 0 0 1px rgba(255,246,225,.18), 0 0 18px rgba(255,246,225,.24) !important;
+}
+
+/* V74: Contact close button aligned like Buscar Cerca modal + final footer */
+.contact-modal {
+  padding-top: calc(var(--nav-height, 92px) + 18px) !important;
+}
+
+.contact-modal-panel {
+  position: relative !important;
+  padding-top: clamp(42px, 4.4vw, 62px) !important;
+}
+
+.contact-modal-close {
+  position: absolute !important;
+  top: 22px !important;
+  right: 22px !important;
+  width: 42px !important;
+  height: 42px !important;
+  border: 2px solid var(--nav-red, #FF0B00) !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+.contact-modal-close span {
+  position: absolute !important;
+  left: 9px !important;
+  right: 9px !important;
+  top: 19px !important;
+  width: auto !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: var(--nav-red, #FF0B00) !important;
+}
+
+.contact-modal-close span:first-child { transform: rotate(45deg) !important; }
+.contact-modal-close span:last-child { transform: rotate(-45deg) !important; }
+
+@media (max-width: 700px) {
+  .contact-modal-panel {
+    padding-top: 54px !important;
+  }
+
+  .contact-modal-close {
+    top: 16px !important;
+    right: 16px !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+.site-footer {
+  position: relative;
+  z-index: 2;
+  min-height: 92svh;
+  padding: clamp(54px, 8vw, 92px) clamp(24px, 10vw, 150px) 44px;
+  background: #202020;
+  color: var(--cream, #FFF2DA);
+  overflow: hidden;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.15fr) minmax(230px, .9fr) minmax(220px, .8fr);
+  gap: clamp(42px, 8vw, 130px);
+  align-items: start;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.footer-column h2 {
+  margin: 0 0 24px;
+  color: var(--cream, #FFF2DA);
+  font-size: clamp(17px, 1.5vw, 23px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+
+.footer-column a {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 14px;
+  color: rgba(255, 242, 218, .52);
+  text-decoration: none;
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  transition: color .25s ease, transform .25s ease;
+}
+
+.footer-column a[href^="mailto"] {
+  text-transform: none;
+}
+
+.footer-column a:hover,
+.footer-column a:focus-visible {
+  color: var(--cream, #FFF2DA);
+  transform: translateX(2px);
+  outline: none;
+}
+
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(110px, max-content));
+  column-gap: clamp(34px, 5vw, 80px);
+}
+
+.footer-brand {
+  margin: clamp(120px, 18vw, 190px) auto 0;
+  color: var(--cream, #FFF2DA);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(84px, 17.2vw, 300px);
+  line-height: .74;
+  font-weight: 900;
+  letter-spacing: -.075em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.footer-credit {
+  margin: clamp(64px, 7vw, 100px) 0 0;
+  color: var(--cream, #FFF2DA);
+  text-align: center;
+  font-size: clamp(16px, 1.45vw, 22px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    min-height: auto;
+    padding: 58px 24px 36px;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .footer-nav-grid {
+    grid-template-columns: repeat(2, minmax(110px, 1fr));
+  }
+
+  .footer-brand {
+    margin-top: 88px;
+    font-size: clamp(58px, 19vw, 150px);
+  }
+
+  .footer-credit {
+    margin-top: 44px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-nav-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-column a {
+    font-size: 20px;
+  }
+}
+
+/* V75: Footer polish */
+.site-footer .footer-navigation h2 {
+  font-size: clamp(8.5px, .75vw, 11.5px) !important;
+  margin-bottom: 14px !important;
+}
+
+.site-footer .footer-navigation a {
+  font-size: clamp(9px, .85vw, 12px) !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -.035em !important;
+}
+
+.site-footer .footer-navigation .footer-nav-grid {
+  grid-template-columns: repeat(2, minmax(58px, max-content)) !important;
+  column-gap: clamp(18px, 2.5vw, 40px) !important;
+  row-gap: 0 !important;
+}
+
+body.footer-active .always-bubbles,
+body.footer-active .scroll {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 900px) {
+  .site-footer .footer-navigation a {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-footer .footer-navigation .footer-nav-grid {
+    grid-template-columns: repeat(2, minmax(54px, max-content)) !important;
+  }
+}
+
+/* V76: footer red + balanced footer typography + contact close position */
+.site-footer {
+  background: var(--red, #FF1F08) !important;
+  color: var(--cream, #FFF2DA) !important;
+}
+
+.site-footer .footer-column h2 {
+  font-size: clamp(8.5px, .75vw, 11.5px) !important;
+  margin: 0 0 14px !important;
+  line-height: 1 !important;
+}
+
+.site-footer .footer-column a {
+  font-size: clamp(9px, .85vw, 12px) !important;
+  margin-bottom: 8px !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.035em !important;
+  color: rgba(255, 242, 218, .66) !important;
+}
+
+.site-footer .footer-column a:hover,
+.site-footer .footer-column a:focus-visible {
+  color: var(--cream, #FFF2DA) !important;
+}
+
+.site-footer .footer-navigation .footer-nav-grid {
+  grid-template-columns: repeat(2, minmax(58px, max-content)) !important;
+  column-gap: clamp(18px, 2.5vw, 40px) !important;
+  row-gap: 0 !important;
+}
+
+.contact-modal-panel {
+  padding-top: clamp(18px, 2vw, 28px) !important;
+}
+
+.contact-modal-close {
+  position: fixed !important;
+  top: 28px !important;
+  right: 48px !important;
+  width: 68px !important;
+  height: 68px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  z-index: 2147483641 !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.contact-modal-close span {
+  position: absolute !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  width: 34px !important;
+  height: 5px !important;
+  border-radius: 999px !important;
+  background: var(--red, #FF1F08) !important;
+}
+
+@media (max-width: 900px) {
+  .site-footer .footer-column a {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-modal-close {
+    top: 24px !important;
+    right: 24px !important;
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .contact-modal-close span {
+    width: 30px !important;
+    height: 4px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-footer .footer-navigation .footer-nav-grid {
+    grid-template-columns: repeat(2, minmax(54px, max-content)) !important;
+  }
+}
+
+
+/* V77: Footer columns moved under BARAIMA brand */
+.site-footer {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+}
+
+.site-footer .footer-brand {
+  order: 1 !important;
+  margin: auto auto 0 !important;
+}
+
+.site-footer .footer-under-brand {
+  order: 2 !important;
+  width: min(900px, 100%) !important;
+  margin: clamp(28px, 4.5vw, 62px) auto 0 !important;
+  grid-template-columns: repeat(3, max-content) !important;
+  justify-content: center !important;
+  align-items: start !important;
+  gap: clamp(34px, 7vw, 118px) !important;
+}
+
+.site-footer .footer-credit {
+  order: 3 !important;
+  margin: clamp(34px, 5vw, 72px) 0 0 !important;
+}
+
+@media (max-width: 700px) {
+  .site-footer .footer-under-brand {
+    grid-template-columns: repeat(3, max-content) !important;
+    gap: clamp(18px, 6vw, 34px) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-footer .footer-under-brand {
+    grid-template-columns: 1fr !important;
+    justify-content: start !important;
+    gap: 22px !important;
+  }
+}
+
+
+/* Footer final adjustments */
+.footer-section{
+  background:#ff2408 !important;
+  position:relative;
+  overflow:hidden;
+}
+
+.footer-section .bubble-field,
+.footer-section .always-bubbles{
+  display:block !important;
+  opacity:.45;
+}
+
+.footer-columns{
+  width:100%;
+  justify-content:flex-start !important;
+  align-items:flex-start !important;
+  padding-left:clamp(24px,8vw,120px);
+  gap:80px !important;
+}
+
+.footer-columns h3,
+.footer-columns a,
+.footer-columns p{
+  text-align:left !important;
+}
+
+.rones-subtext{
+  max-width:520px;
+  margin-top:18px;
+  font-size:clamp(14px,1.3vw,18px);
+  line-height:1.6;
+  opacity:.82;
+}
+
+
+/* v79 footer corrections */
+.footer-section,
+footer,
+.site-footer{
+  background:#ff2408 !important;
+  position:relative !important;
+  overflow:hidden !important;
+}
+
+.rones-subtext{
+  color:#101010 !important;
+  opacity:1 !important;
+  max-width:520px !important;
+  margin-top:18px !important;
+  font-size:clamp(14px,1.3vw,18px) !important;
+  line-height:1.6 !important;
+}
+
+.footer-columns,
+.footer-links,
+.footer-nav-grid{
+  width:100% !important;
+  max-width:none !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding-left:0 !important;
+  justify-content:flex-start !important;
+  align-items:flex-start !important;
+  gap:80px !important;
+}
+
+/* Make the nav/legal/contact block start exactly where the BARAIMA title starts */
+.footer-brand + .footer-columns,
+.footer-logo + .footer-columns,
+.footer-title + .footer-columns,
+.footer-content .footer-columns{
+  padding-left:0 !important;
+  margin-left:0 !important;
+}
+
+.footer-columns h3,
+.footer-columns a,
+.footer-columns p,
+.footer-links h3,
+.footer-links a,
+.footer-links p{
+  text-align:left !important;
+}
+
+/* Footer decorative bubbles visible again because footer is red */
+.footer-bubbles{
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+  overflow:hidden !important;
+}
+
+.footer-bubbles span{
+  display:block !important;
+  position:absolute !important;
+  border:1.5px solid rgba(255,255,255,.65) !important;
+  border-radius:999px !important;
+  opacity:.8 !important;
+}
+
+.footer-bubbles span:nth-child(1){ width:120px; height:120px; left:7%; top:18%; }
+.footer-bubbles span:nth-child(2){ width:78px; height:78px; left:28%; bottom:16%; }
+.footer-bubbles span:nth-child(3){ width:150px; height:150px; right:12%; top:12%; }
+.footer-bubbles span:nth-child(4){ width:58px; height:58px; right:34%; bottom:20%; }
+.footer-bubbles span:nth-child(5){ width:96px; height:96px; right:5%; bottom:6%; }
+
+.footer-section > *:not(.footer-bubbles),
+footer > *:not(.footer-bubbles),
+.site-footer > *:not(.footer-bubbles){
+  position:relative !important;
+  z-index:1 !important;
+}
+
+
+/* v80 unified subtitles */
+.section-subtitle,
+.rones-subtext,
+.mixologia-subtext,
+.rituales-subtext,
+.mixology-subtext,
+.section-intro,
+.section-description{
+  color:#ff2408 !important;
+  font-size:clamp(14px,1.3vw,18px) !important;
+  line-height:1.55 !important;
+  font-weight:400 !important;
+  max-width:560px !important;
+  margin-top:18px !important;
+  margin-bottom:0 !important;
+  opacity:1 !important;
+}
+
+/* keep the title-to-subtitle spacing equal in the requested sections */
+.mixologia h1 + p,
+.mixologia h2 + p,
+.mixology h1 + p,
+.mixology h2 + p,
+.mis-rones h1 + p,
+.mis-rones h2 + p,
+.rones h1 + p,
+.rones h2 + p,
+.rituales h1 + p,
+.rituales h2 + p,
+.rituals h1 + p,
+.rituals h2 + p{
+  color:#ff2408 !important;
+  font-size:clamp(14px,1.3vw,18px) !important;
+  line-height:1.55 !important;
+  margin-top:18px !important;
+}
+
+/* v80 footer cleanup */
+.footer-columns,
+.footer-links,
+.footer-nav-grid,
+.footer-bubbles{
+  display:none !important;
+}
+
+.footer-section,
+footer,
+.site-footer{
+  background:#ff2408 !important;
+  overflow:hidden !important;
+}
+
+/* v80 unified bubble system: same shapes/positions, color changes per section */
+.bubble,
+.bubbles span,
+.bubble-field span,
+.bubble-layer span,
+.decor-bubbles span,
+.section-bubbles span,
+.always-bubbles span{
+  border-radius:999px !important;
+  background:transparent !important;
+  border-width:1.5px !important;
+  border-style:solid !important;
+  box-shadow:none !important;
+}
+
+.bubbles span:nth-child(1),
+.bubble-field span:nth-child(1),
+.bubble-layer span:nth-child(1),
+.decor-bubbles span:nth-child(1),
+.section-bubbles span:nth-child(1),
+.always-bubbles span:nth-child(1){ width:120px !important; height:120px !important; left:7% !important; top:18% !important; }
+
+.bubbles span:nth-child(2),
+.bubble-field span:nth-child(2),
+.bubble-layer span:nth-child(2),
+.decor-bubbles span:nth-child(2),
+.section-bubbles span:nth-child(2),
+.always-bubbles span:nth-child(2){ width:78px !important; height:78px !important; left:28% !important; bottom:16% !important; }
+
+.bubbles span:nth-child(3),
+.bubble-field span:nth-child(3),
+.bubble-layer span:nth-child(3),
+.decor-bubbles span:nth-child(3),
+.section-bubbles span:nth-child(3),
+.always-bubbles span:nth-child(3){ width:150px !important; height:150px !important; right:12% !important; top:12% !important; }
+
+.bubbles span:nth-child(4),
+.bubble-field span:nth-child(4),
+.bubble-layer span:nth-child(4),
+.decor-bubbles span:nth-child(4),
+.section-bubbles span:nth-child(4),
+.always-bubbles span:nth-child(4){ width:58px !important; height:58px !important; right:34% !important; bottom:20% !important; }
+
+.bubbles span:nth-child(5),
+.bubble-field span:nth-child(5),
+.bubble-layer span:nth-child(5),
+.decor-bubbles span:nth-child(5),
+.section-bubbles span:nth-child(5),
+.always-bubbles span:nth-child(5){ width:96px !important; height:96px !important; right:5% !important; bottom:6% !important; }
+
+/* red bubbles by default */
+.bubble,
+.bubbles span,
+.bubble-field span,
+.bubble-layer span,
+.decor-bubbles span,
+.section-bubbles span,
+.always-bubbles span{
+  border-color:rgba(255,36,8,.55) !important;
+}
+
+/* white bubbles on red sections, including Contacto */
+.red-section .bubble,
+.red-section .bubbles span,
+.red-section .bubble-field span,
+.red-section .bubble-layer span,
+.red-section .decor-bubbles span,
+.red-section .section-bubbles span,
+.red-section .always-bubbles span,
+.contacto .bubble,
+.contacto .bubbles span,
+.contacto .bubble-field span,
+.contacto .bubble-layer span,
+.contacto .decor-bubbles span,
+.contacto .section-bubbles span,
+.contacto .always-bubbles span,
+.contact .bubble,
+.contact .bubbles span,
+.contact .bubble-field span,
+.contact .bubble-layer span,
+.contact .decor-bubbles span,
+.contact .section-bubbles span,
+.contact .always-bubbles span,
+#contacto .bubble,
+#contacto .bubbles span,
+#contacto .bubble-field span,
+#contacto .bubble-layer span,
+#contacto .decor-bubbles span,
+#contacto .section-bubbles span,
+#contacto .always-bubbles span,
+#contact .bubble,
+#contact .bubbles span,
+#contact .bubble-field span,
+#contact .bubble-layer span,
+#contact .decor-bubbles span,
+#contact .section-bubbles span,
+#contact .always-bubbles span{
+  border-color:rgba(255,255,255,.68) !important;
+  display:block !important;
+}
+
+/* Contact bubble layers visible again */
+.contacto .bubbles,
+.contacto .bubble-field,
+.contacto .bubble-layer,
+.contacto .decor-bubbles,
+.contacto .section-bubbles,
+.contacto .always-bubbles,
+.contact .bubbles,
+.contact .bubble-field,
+.contact .bubble-layer,
+.contact .decor-bubbles,
+.contact .section-bubbles,
+.contact .always-bubbles,
+#contacto .bubbles,
+#contacto .bubble-field,
+#contacto .bubble-layer,
+#contacto .decor-bubbles,
+#contacto .section-bubbles,
+#contacto .always-bubbles,
+#contact .bubbles,
+#contact .bubble-field,
+#contact .bubble-layer,
+#contact .decor-bubbles,
+#contact .section-bubbles,
+#contact .always-bubbles{
+  display:block !important;
+  opacity:1 !important;
+}
+
+
+/* v81: single subtitle style for Mixologia / Mis Rones / Rituales */
+.section-subtitle,
+.rones-subtext,
+.mixologia-subtext,
+.rituales-subtext,
+.mixology-subtext{
+  color:#ff2408 !important;
+  font-size:clamp(14px,1.3vw,18px) !important;
+  line-height:1.55 !important;
+  font-weight:400 !important;
+  max-width:560px !important;
+  margin-top:16px !important;
+  margin-bottom:0 !important;
+  opacity:1 !important;
+}
+
+/* Compact spacing between Mis Rones subtitle and product menu */
+#mis-rones .section-subtitle,
+#rones .section-subtitle,
+.mis-rones .section-subtitle,
+.rones .section-subtitle{
+  margin-bottom:18px !important;
+}
+
+#mis-rones .product-menu,
+#mis-rones .products-menu,
+#mis-rones .tabs,
+#mis-rones .filter-menu,
+#rones .product-menu,
+#rones .products-menu,
+#rones .tabs,
+#rones .filter-menu,
+.mis-rones .product-menu,
+.mis-rones .products-menu,
+.mis-rones .tabs,
+.mis-rones .filter-menu,
+.rones .product-menu,
+.rones .products-menu,
+.rones .tabs,
+.rones .filter-menu{
+  margin-top:0 !important;
+  padding-top:0 !important;
+}
+
+/* Footer clean: no columns and no bubbles */
+.footer-columns,
+.footer-links,
+.footer-nav-grid,
+.footer-bubbles{
+  display:none !important;
+}
+
+.footer-section .bubble,
+.footer-section .bubbles,
+.footer-section .bubble-field,
+.footer-section .bubble-layer,
+.footer-section .decor-bubbles,
+.footer-section .section-bubbles,
+.footer-section .always-bubbles,
+footer .bubble,
+footer .bubbles,
+footer .bubble-field,
+footer .bubble-layer,
+footer .decor-bubbles,
+footer .section-bubbles,
+footer .always-bubbles,
+.site-footer .bubble,
+.site-footer .bubbles,
+.site-footer .bubble-field,
+.site-footer .bubble-layer,
+.site-footer .decor-bubbles,
+.site-footer .section-bubbles,
+.site-footer .always-bubbles{
+  display:none !important;
+}
+
+/* Restore/use the previous white-bubble visual style across the project.
+   Same bubble design everywhere; only border color changes by section. */
+.bubble,
+.bubbles span,
+.bubble-field span,
+.bubble-layer span,
+.decor-bubbles span,
+.section-bubbles span,
+.always-bubbles span{
+  background:transparent !important;
+  border-radius:50% !important;
+  border:1px solid currentColor !important;
+  box-shadow:none !important;
+  opacity:.42 !important;
+}
+
+/* Red bubbles by default on light sections */
+.bubble,
+.bubbles,
+.bubble-field,
+.bubble-layer,
+.decor-bubbles,
+.section-bubbles,
+.always-bubbles{
+  color:#ff2408 !important;
+}
+
+/* White bubbles on red sections, including Contacto */
+.red-section .bubble,
+.red-section .bubbles,
+.red-section .bubble-field,
+.red-section .bubble-layer,
+.red-section .decor-bubbles,
+.red-section .section-bubbles,
+.red-section .always-bubbles,
+.contacto .bubble,
+.contacto .bubbles,
+.contacto .bubble-field,
+.contacto .bubble-layer,
+.contacto .decor-bubbles,
+.contacto .section-bubbles,
+.contacto .always-bubbles,
+.contact .bubble,
+.contact .bubbles,
+.contact .bubble-field,
+.contact .bubble-layer,
+.contact .decor-bubbles,
+.contact .section-bubbles,
+.contact .always-bubbles,
+#contacto .bubble,
+#contacto .bubbles,
+#contacto .bubble-field,
+#contacto .bubble-layer,
+#contacto .decor-bubbles,
+#contacto .section-bubbles,
+#contacto .always-bubbles,
+#contact .bubble,
+#contact .bubbles,
+#contact .bubble-field,
+#contact .bubble-layer,
+#contact .decor-bubbles,
+#contact .section-bubbles,
+#contact .always-bubbles{
+  color:#ffffff !important;
+  display:block !important;
+}
+
+/* Contact bubbles visible again */
+.contacto .bubble,
+.contacto .bubbles,
+.contacto .bubble-field,
+.contacto .bubble-layer,
+.contacto .decor-bubbles,
+.contacto .section-bubbles,
+.contacto .always-bubbles,
+.contact .bubble,
+.contact .bubbles,
+.contact .bubble-field,
+.contact .bubble-layer,
+.contact .decor-bubbles,
+.contact .section-bubbles,
+.contact .always-bubbles,
+#contacto .bubble,
+#contacto .bubbles,
+#contacto .bubble-field,
+#contacto .bubble-layer,
+#contacto .decor-bubbles,
+#contacto .section-bubbles,
+#contacto .always-bubbles,
+#contact .bubble,
+#contact .bubbles,
+#contact .bubble-field,
+#contact .bubble-layer,
+#contact .decor-bubbles,
+#contact .section-bubbles,
+#contact .always-bubbles{
+  display:block !important;
+  opacity:1 !important;
+}
+
+/* Remove contact modal close button visually too, in case it is generated by JS */
+.contact-modal .modal-close,
+.contact-modal .close,
+.contact-modal .cerrar,
+#contactModal .modal-close,
+#contactModal .close,
+#contactModal .cerrar,
+.modal-contact .modal-close,
+.modal-contact .close,
+.modal-contact .cerrar{
+  display:none !important;
+}
+
+
+/* V82 final corrections */
+
+/* Restore original white bubbles style exactly from earlier global layer */
+.always-bubbles {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 500 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.always-bubbles span {
+  position: absolute !important;
+  left: var(--x) !important;
+  bottom: -80px !important;
+  width: var(--s) !important;
+  height: var(--s) !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  animation: alwaysBubbleRise var(--dur) linear infinite !important;
+  animation-delay: var(--delay) !important;
+}
+
+/* Contact section: use the same original white bubble feel, no red-only bug */
+.contact-section .contact-bubbles {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+.contact-section .contact-bubble,
+.contact-section .contact-bubbles span {
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  color: initial !important;
+}
+
+/* Subtitle unification */
+.section-subtitle,
+.mixologia-subtext,
+.mixology-subtext,
+.rones-subtext,
+.rituales-subtext {
+  color: #ff2408 !important;
+  font-size: clamp(14px,1.3vw,18px) !important;
+  line-height: 1.55 !important;
+  font-weight: 400 !important;
+  max-width: 560px !important;
+  margin-top: 16px !important;
+  margin-bottom: 0 !important;
+  opacity: 1 !important;
+}
+
+#mixologia h1 + .section-subtitle,
+#mixologia h2 + .section-subtitle,
+.mixologia h1 + .section-subtitle,
+.mixologia h2 + .section-subtitle {
+  color: #ff2408 !important;
+}
+
+/* Compact Mis Rones spacing */
+.products-header .section-subtitle {
+  margin-bottom: 16px !important;
+}
+.products-tabs {
+  margin-top: 0 !important;
+}
+
+/* VER BLOG button: match Mixologia CTA */
+.rituales-cta {
+  position: relative !important;
+  z-index: 5 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  width: auto !important;
+  min-width: clamp(160px, 15vw, 210px) !important;
+  min-height: clamp(52px, 5vw, 68px) !important;
+  height: auto !important;
+  padding: 0 28px !important;
+  border: 2px solid var(--red) !important;
+  border-radius: 16px !important;
+  background: transparent !important;
+  color: var(--red) !important;
+  font-family: inherit !important;
+  font-size: clamp(13px, 1vw, 16px) !important;
+  line-height: 1 !important;
+  letter-spacing: -.01em !important;
+  text-transform: uppercase !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: transform .3s cubic-bezier(.19,1,.22,1), background .3s ease, color .3s ease !important;
+}
+
+.rituales-cta:hover {
+  transform: translateY(-3px) !important;
+  background: var(--red) !important;
+  color: var(--cream) !important;
+}
+
+/* Footer: keep only BARAIMA and credit */
+.site-footer .footer-under-brand,
+.site-footer .footer-top,
+.site-footer .footer-column,
+.site-footer .footer-navigation,
+.footer-columns,
+.footer-links,
+.footer-nav-grid {
+  display: none !important;
+}
+
+/* Footer has no bubbles */
+.site-footer .bubble,
+.site-footer .bubbles,
+.site-footer .bubble-field,
+.site-footer .bubble-layer,
+.site-footer .decor-bubbles,
+.site-footer .section-bubbles,
+.site-footer .always-bubbles,
+.site-footer .footer-bubbles,
+footer .footer-bubbles {
+  display: none !important;
+}
+
+/* Contact modal closes with submit, no close button */
+.contact-modal .modal-close,
+.contact-modal .close,
+.contact-modal .cerrar,
+#contactModal .modal-close,
+#contactModal .close,
+#contactModal .cerrar,
+#contactModalClose {
+  display: none !important;
+}
+
+
+/* V83: bubble consistency based on Historia bubble style */
+
+/* Shared section bubble layer */
+.section-bubbles.history-style-bubbles {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.section-bubbles.history-style-bubbles span {
+  position: absolute !important;
+  left: var(--x) !important;
+  bottom: -80px !important;
+  width: var(--s) !important;
+  height: var(--s) !important;
+  border-radius: 999px !important;
+  animation: alwaysBubbleRise var(--dur) linear infinite !important;
+  animation-delay: var(--delay) !important;
+}
+
+/* Same bubble design as Historia: white on red sections */
+.history-section .section-bubbles.history-style-bubbles span,
+.stores-section .section-bubbles.history-style-bubbles span,
+.store-section .section-bubbles.history-style-bubbles span,
+.contact-section .section-bubbles.history-style-bubbles span,
+.red-section .section-bubbles.history-style-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+}
+
+/* Same bubble design, red version for white / cream blocks */
+.mixology-section .section-bubbles.history-style-bubbles span,
+.products-section .section-bubbles.history-style-bubbles span,
+.rituales-section .section-bubbles.history-style-bubbles span,
+.white-section .section-bubbles.history-style-bubbles span,
+.cream-section .section-bubbles.history-style-bubbles span {
+  border: 2px solid rgba(255, 36, 8, .72) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.55), transparent 18%),
+    rgba(255,36,8,.06) !important;
+  box-shadow:
+    0 0 24px rgba(255,36,8,.28),
+    inset 0 0 10px rgba(255,255,255,.18) !important;
+}
+
+/* Apply red bubble version to existing global bubbles while white/cream sections are active */
+body:not(.stores-active):not(.history-active):not(.contact-active) .always-bubbles span {
+  border-color: rgba(255,36,8,.72) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.55), transparent 18%),
+    rgba(255,36,8,.06) !important;
+  box-shadow:
+    0 0 24px rgba(255,36,8,.28),
+    inset 0 0 10px rgba(255,255,255,.18) !important;
+}
+
+/* Store must match Historia white bubbles */
+body.stores-active .always-bubbles span,
+#stores .section-bubbles.history-style-bubbles span,
+.stores-section .section-bubbles.history-style-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+}
+
+/* Contact: remove old custom bubbles and use Historia style */
+.contact-bubbles,
+.contact-bubble {
+  display: none !important;
+}
+
+.contact-section {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.contact-section > *:not(.section-bubbles) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Center VER BLOG */
+.rituales-cta {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  display: inline-grid !important;
+}
+
+.rituales-inner,
+.rituales-section {
+  text-align: initial;
+}
+
+
+/* V84 restore original bubbles for Historia + Proceso only */
+.history-section .section-bubbles.history-style-bubbles span,
+.process-section .section-bubbles.history-style-bubbles span,
+#historia .section-bubbles.history-style-bubbles span,
+#proceso .section-bubbles.history-style-bubbles span{
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+}
+
+
+/* V85 FINAL: restore ONLY original Historia + Proceso bubble rendering */
+.history-section .always-bubbles span,
+#historia .always-bubbles span,
+.process-section .always-bubbles span,
+#proceso .always-bubbles span{
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+}
+
+
+/* V86: Historia + Proceso bubble outline must be WHITE, not red.
+   This overrides the global red bubble rules only while those modules are active. */
+body.historia-proceso-bubbles-white .always-bubbles span,
+body.historia-proceso-bubbles-white .bubble-field span,
+body.historia-proceso-bubbles-white .bubbles span,
+body.historia-proceso-bubbles-white .bubble-layer span,
+body.historia-proceso-bubbles-white .decor-bubbles span,
+body.historia-proceso-bubbles-white .section-bubbles span,
+body.historia-proceso-bubbles-white .history-style-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .88) !important;
+  border-color: rgba(255, 241, 207, .88) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  color: #fff1cf !important;
+}
+
+/* Also force any section-local bubbles in Historia/Proceso to white */
+#historia .bubble,
+#historia .bubble-field span,
+#historia .bubbles span,
+#historia .bubble-layer span,
+#historia .decor-bubbles span,
+#historia .section-bubbles span,
+#historia .history-style-bubbles span,
+#proceso .bubble,
+#proceso .bubble-field span,
+#proceso .bubbles span,
+#proceso .bubble-layer span,
+#proceso .decor-bubbles span,
+#proceso .section-bubbles span,
+#proceso .history-style-bubbles span,
+.history-section .bubble,
+.history-section .bubble-field span,
+.history-section .bubbles span,
+.history-section .bubble-layer span,
+.history-section .decor-bubbles span,
+.history-section .section-bubbles span,
+.history-section .history-style-bubbles span,
+.process-section .bubble,
+.process-section .bubble-field span,
+.process-section .bubbles span,
+.process-section .bubble-layer span,
+.process-section .decor-bubbles span,
+.process-section .section-bubbles span,
+.process-section .history-style-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .88) !important;
+  border-color: rgba(255, 241, 207, .88) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  color: #fff1cf !important;
+}
+
+/* V86: center VER BLOG in the viewport/screen */
+.rituales-cta {
+  display: inline-grid !important;
+  place-items: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  position: relative !important;
+}
+
+.rituales-cta:hover {
+  transform: translateX(-50%) translateY(-3px) !important;
+}
+
+.rituales-inner,
+.rituales-section .rituales-inner {
+  text-align: center !important;
+}
+
+.rituales-grid {
+  text-align: left !important;
+}
+
+
+/* V87: restore menu close button */
+.menu-close {
+  position: fixed !important;
+  top: 28px !important;
+  right: 48px !important;
+  width: 68px !important;
+  height: 68px !important;
+  border: 0 !important;
+  background: var(--cream, #fff1cf) !important;
+  display: grid !important;
+  place-items: center !important;
+  z-index: 2147483000 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+}
+
+.menu-close span {
+  position: absolute !important;
+  width: 34px !important;
+  height: 5px !important;
+  border-radius: 999px !important;
+  background: var(--red, #ff2408) !important;
+}
+
+.menu-close span:first-child { transform: rotate(45deg) !important; }
+.menu-close span:last-child { transform: rotate(-45deg) !important; }
+
+/* V87: force Historia and Proceso visible bubble layer to original WHITE.
+   This must come last because earlier rules turn .always-bubbles red on light sections. */
+body.historia-proceso-bubbles-white .always-bubbles span,
+body.history-active .always-bubbles span,
+body.process-active .always-bubbles span,
+body.proceso-active .always-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .88) !important;
+  border-color: rgba(255, 241, 207, .88) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+}
+
+/* If any local bubble layer exists in Historia/Proceso, it is also forced white */
+#historia span,
+#proceso span,
+.history-section span,
+.process-section span {
+  --bubble-white-border: rgba(255, 241, 207, .88);
+}
+
+#historia .section-bubbles span,
+#historia .history-style-bubbles span,
+#historia .bubble-field span,
+#historia .bubbles span,
+#historia .bubble-layer span,
+#historia .decor-bubbles span,
+#proceso .section-bubbles span,
+#proceso .history-style-bubbles span,
+#proceso .bubble-field span,
+#proceso .bubbles span,
+#proceso .bubble-layer span,
+#proceso .decor-bubbles span,
+.history-section .section-bubbles span,
+.history-section .history-style-bubbles span,
+.history-section .bubble-field span,
+.history-section .bubbles span,
+.history-section .bubble-layer span,
+.history-section .decor-bubbles span,
+.process-section .section-bubbles span,
+.process-section .history-style-bubbles span,
+.process-section .bubble-field span,
+.process-section .bubbles span,
+.process-section .bubble-layer span,
+.process-section .decor-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .88) !important;
+  border-color: rgba(255, 241, 207, .88) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+}
+
+/* V87: center VER BLOG correctly */
+.rituales-cta {
+  display: grid !important;
+  place-items: center !important;
+  width: fit-content !important;
+  margin: clamp(28px, 4vw, 44px) auto 0 !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  position: relative !important;
+}
+
+.rituales-cta:hover {
+  transform: translateY(-3px) !important;
+}
+
+.rituales-inner {
+  display: grid !important;
+  justify-items: stretch !important;
+}
+
+.rituales-inner > .rituales-cta {
+  justify-self: center !important;
+}
+
+/* V92: single bubble style copied from Contacto and applied project-wide.
+   This removes the mixed highlight/glass variants by forcing every bubble layer
+   to the same visual language visible in the Contacto block. */
+.hero,
+.history-section,
+.contact-section,
+.site-footer,
+.stores-section {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+.section-bubbles.contact-style-bubbles,
+.hero .section-bubbles,
+.history-section .section-bubbles,
+.contact-section .section-bubbles,
+.site-footer .section-bubbles,
+.stores-section .section-bubbles {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  display: block !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+.hero > *:not(.section-bubbles),
+.history-section > *:not(.section-bubbles),
+.contact-section > *:not(.section-bubbles),
+.site-footer > *:not(.section-bubbles),
+.stores-section > *:not(.section-bubbles) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.section-bubbles.contact-style-bubbles span,
+.hero .section-bubbles span,
+.history-section .section-bubbles span,
+.contact-section .section-bubbles span,
+.site-footer .section-bubbles span,
+.stores-section .section-bubbles span,
+.always-bubbles span,
+.bubble-field span,
+.bubbles span,
+.bubble-layer span,
+.decor-bubbles span,
+.contact-bubble {
+  position: absolute !important;
+  left: var(--x) !important;
+  bottom: -80px !important;
+  width: var(--s) !important;
+  height: var(--s) !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  opacity: 1 !important;
+  color: #fff1cf !important;
+  filter: none !important;
+  animation: alwaysBubbleRise var(--dur, 11s) linear infinite !important;
+  animation-delay: var(--delay, 0s) !important;
+  transform-origin: center !important;
+}
+
+.section-bubbles.contact-style-bubbles span::before,
+.hero .section-bubbles span::before,
+.history-section .section-bubbles span::before,
+.contact-section .section-bubbles span::before,
+.site-footer .section-bubbles span::before,
+.stores-section .section-bubbles span::before,
+.always-bubbles span::before,
+.bubble-field span::before,
+.bubbles span::before,
+.bubble-layer span::before,
+.decor-bubbles span::before,
+.contact-bubble::before {
+  content: "" !important;
+  position: absolute !important;
+  width: 35% !important;
+  height: 18% !important;
+  left: 15% !important;
+  top: 18% !important;
+  border-radius: 999px !important;
+  background: rgba(255, 241, 207, .95) !important;
+  transform: rotate(-42deg) !important;
+}
+
+/* Keep the older Contacto local bubble layer off so it cannot create a second style. */
+.contact-bubbles,
+.contact-bubbles .contact-bubble {
+  display: none !important;
+}
+
+/* Prevent body-state overrides from changing the style to red or thick highlight. */
+body.on-white-section .always-bubbles span,
+body.light-site-background .always-bubbles span,
+body:not(.stores-active):not(.history-active):not(.contact-active) .always-bubbles span,
+body.stores-active .always-bubbles span,
+body.history-active .always-bubbles span,
+body.footer-active .always-bubbles span,
+body.historia-proceso-bubbles-white .always-bubbles span {
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  opacity: 1 !important;
+}

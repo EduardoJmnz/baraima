@@ -26,6 +26,21 @@
 
 <main>
     <section class="hero" id="hero">
+      <div class="section-bubbles contact-style-bubbles" aria-hidden="true">
+        <span style="--x:4%;--s:30px;--dur:11s;--delay:-2s;"></span>
+        <span style="--x:9%;--s:18px;--dur:8s;--delay:-5s;"></span>
+        <span style="--x:15%;--s:42px;--dur:15s;--delay:-8s;"></span>
+        <span style="--x:21%;--s:20px;--dur:10s;--delay:-3s;"></span>
+        <span style="--x:28%;--s:54px;--dur:18s;--delay:-12s;"></span>
+        <span style="--x:35%;--s:24px;--dur:12s;--delay:-6s;"></span>
+        <span style="--x:43%;--s:36px;--dur:16s;--delay:-9s;"></span>
+        <span style="--x:51%;--s:16px;--dur:9s;--delay:-4s;"></span>
+        <span style="--x:59%;--s:48px;--dur:17s;--delay:-11s;"></span>
+        <span style="--x:66%;--s:22px;--dur:10s;--delay:-1s;"></span>
+        <span style="--x:74%;--s:40px;--dur:15s;--delay:-7s;"></span>
+        <span style="--x:83%;--s:26px;--dur:12s;--delay:-10s;"></span>
+        <span style="--x:92%;--s:58px;--dur:19s;--delay:-14s;"></span>
+      </div>
 <div class="spark-field" aria-hidden="true"></div>
 
       <header class="topbar">
@@ -47,6 +62,7 @@
     </section>
 
     <aside class="menu-overlay" id="menuOverlay" aria-hidden="true">
+<button class="menu-close" id="menuClose" type="button" aria-label="Cerrar menú"><span></span><span></span></button>
       <div class="menu-wave" aria-hidden="true">
         <svg class="wave-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path d="M0,52 C160,82 270,20 430,50 C610,84 720,78 875,48 C1040,16 1160,82 1440,40 L1440,120 L0,120 Z"></path>
@@ -54,7 +70,7 @@
         <div class="wave-body"></div>
       </div>
       <div class="menu-panel">
-        <button class="menu-close" id="menuClose" aria-label="Cerrar menú"><span></span><span></span></button>
+        
         <nav class="menu-nav" aria-label="Menú principal">
           <a href="#hero">INICIO</a>
           <a href="#historia">HISTORIA</a>
@@ -62,6 +78,7 @@
           <a href="#mixologia">MIXOLOGÍA</a>
           <a href="#productos">PRODUCTOS</a>
           <a href="#stores">STORES</a>
+          <a href="#rituales">RITUALES</a>
           <a href="#blog">BLOG</a>
           <a href="#contacto">CONTACTO</a>
         </nav>
@@ -73,6 +90,21 @@
       </div>
     </aside>
     <section class="history-section" id="historia">
+      <div class="section-bubbles contact-style-bubbles" aria-hidden="true">
+        <span style="--x:4%;--s:30px;--dur:11s;--delay:-2s;"></span>
+        <span style="--x:9%;--s:18px;--dur:8s;--delay:-5s;"></span>
+        <span style="--x:15%;--s:42px;--dur:15s;--delay:-8s;"></span>
+        <span style="--x:21%;--s:20px;--dur:10s;--delay:-3s;"></span>
+        <span style="--x:28%;--s:54px;--dur:18s;--delay:-12s;"></span>
+        <span style="--x:35%;--s:24px;--dur:12s;--delay:-6s;"></span>
+        <span style="--x:43%;--s:36px;--dur:16s;--delay:-9s;"></span>
+        <span style="--x:51%;--s:16px;--dur:9s;--delay:-4s;"></span>
+        <span style="--x:59%;--s:48px;--dur:17s;--delay:-11s;"></span>
+        <span style="--x:66%;--s:22px;--dur:10s;--delay:-1s;"></span>
+        <span style="--x:74%;--s:40px;--dur:15s;--delay:-7s;"></span>
+        <span style="--x:83%;--s:26px;--dur:12s;--delay:-10s;"></span>
+        <span style="--x:92%;--s:58px;--dur:19s;--delay:-14s;"></span>
+      </div>
       <div class="history-copy">
         <div class="history-number">100</div>
 
@@ -95,9 +127,7 @@
         <div class="modal-wave-body"></div>
       </div>
 
-      <button class="history-modal-close" id="historyModalClose" aria-label="Cerrar historia">
-        <span></span><span></span>
-      </button>
+      
 
       <div class="modal-exit-wave" aria-hidden="true">
         <svg class="modal-exit-wave-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
@@ -171,8 +201,9 @@
       <header class="mixology-header">
         <img src="assets/logo-red.png" alt="Ron Baraima" class="mixology-logo" />
         <h2>MIXOLOGÍA</h2>
-        <p>Cada ritual tiene su receta...</p>
-      </header>
+<p class="section-subtitle">Mixología hecha para experimentar con sabores, aromas y momentos memorables.</p>
+
+</header>
 
       <div class="mixology-cards" aria-label="Recetas de mixología Baraima">
         <a class="mixology-card" href="recipe.html?recipe=spritz" aria-label="Ver receta Baraima Spritz">
@@ -222,8 +253,9 @@
       <div class="products-inner">
         <header class="products-header">
           <h2>MIS RONES</h2>
-          <p>Unos días más fresco, otros más intenso. Pero la esencia siempre es la misma.</p>
-        </header>
+<p class="section-subtitle">Una colección creada para acompañar rituales inolvidables.</p>
+
+</header>
 
         <div class="products-tabs" role="tablist" aria-label="Rones Baraima">
           <button class="products-tab is-active" type="button" data-product="blanco">Baraima Blanco</button>
@@ -247,6 +279,22 @@
     </section>
 
     <section class="stores-section" id="stores" data-ui-theme="dark">
+      <div class="section-bubbles contact-style-bubbles" aria-hidden="true">
+        <span style="--x:4%;--s:30px;--dur:11s;--delay:-2s;"></span>
+        <span style="--x:9%;--s:18px;--dur:8s;--delay:-5s;"></span>
+        <span style="--x:15%;--s:42px;--dur:15s;--delay:-8s;"></span>
+        <span style="--x:21%;--s:20px;--dur:10s;--delay:-3s;"></span>
+        <span style="--x:28%;--s:54px;--dur:18s;--delay:-12s;"></span>
+        <span style="--x:35%;--s:24px;--dur:12s;--delay:-6s;"></span>
+        <span style="--x:43%;--s:36px;--dur:16s;--delay:-9s;"></span>
+        <span style="--x:51%;--s:16px;--dur:9s;--delay:-4s;"></span>
+        <span style="--x:59%;--s:48px;--dur:17s;--delay:-11s;"></span>
+        <span style="--x:66%;--s:22px;--dur:10s;--delay:-1s;"></span>
+        <span style="--x:74%;--s:40px;--dur:15s;--delay:-7s;"></span>
+        <span style="--x:83%;--s:26px;--dur:12s;--delay:-10s;"></span>
+        <span style="--x:92%;--s:58px;--dur:19s;--delay:-14s;"></span>
+      </div>
+
       <div class="stores-inner">
         <header class="stores-header">
           <h2>DÓNDE EMPIEZA EL RITUAL</h2>
@@ -278,6 +326,126 @@
       </div>
     </section>
 
+    <section class="rituales-section" id="rituales" data-ui-theme="warm">
+      <div class="rituales-inner">
+        <header class="rituales-header">
+          <h2>Rituales</h2>
+<p class="section-subtitle">Historias, momentos y formas de disfrutar BARAIMA en cada ocasión.</p>
+
+</header>
+
+        <div class="rituales-grid" aria-label="Entradas destacadas del blog">
+          <article class="ritual-card ritual-card-featured">
+            <div class="ritual-card-image ritual-img-1" aria-hidden="true"></div>
+            <div class="ritual-card-copy">
+              <span>Historia</span>
+              <h3>El ron que acompaña sobremesas largas</h3>
+              <p>Una mirada a esos encuentros que empiezan con una copa y terminan volviéndose tradición.</p>
+              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
+            </div>
+          </article>
+
+          <article class="ritual-card">
+            <div class="ritual-card-image ritual-img-2" aria-hidden="true"></div>
+            <div class="ritual-card-copy">
+              <span>Mixología</span>
+              <h3>Cómo preparar un spritz con carácter</h3>
+              <p>Fresco, ligero y perfecto para tardes que piden algo distinto.</p>
+              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
+            </div>
+          </article>
+
+          <article class="ritual-card">
+            <div class="ritual-card-image ritual-img-3" aria-hidden="true"></div>
+            <div class="ritual-card-copy">
+              <span>Momentos</span>
+              <h3>La hora ideal para servirlo sin prisa</h3>
+              <p>El ritual no empieza en el vaso, empieza en el ambiente.</p>
+              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
+            </div>
+          </article>
+
+          <article class="ritual-card ritual-card-small">
+            <div class="ritual-card-copy">
+              <span>Guía</span>
+              <h3>Notas para elegir tu ron</h3>
+              <p>Blanco, añejo o Cubaraima: cada perfil tiene su propio momento.</p>
+              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
+            </div>
+          </article>
+
+          <article class="ritual-card ritual-card-small">
+            <div class="ritual-card-copy">
+              <span>Noche</span>
+              <h3>Playlist para un ritual en casa</h3>
+              <p>Sonidos cálidos, copas listas y una historia para repetir.</p>
+              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
+            </div>
+          </article>
+        </div>
+
+        <a class="rituales-cta no-link" href="#" aria-disabled="true">VER BLOG</a>
+      </div>
+    </section>
+
+
+    <section class="contact-section" id="contacto">
+      <div class="section-bubbles contact-style-bubbles" aria-hidden="true">
+        <span style="--x:4%;--s:30px;--dur:11s;--delay:-2s;"></span>
+        <span style="--x:9%;--s:18px;--dur:8s;--delay:-5s;"></span>
+        <span style="--x:15%;--s:42px;--dur:15s;--delay:-8s;"></span>
+        <span style="--x:21%;--s:20px;--dur:10s;--delay:-3s;"></span>
+        <span style="--x:28%;--s:54px;--dur:18s;--delay:-12s;"></span>
+        <span style="--x:35%;--s:24px;--dur:12s;--delay:-6s;"></span>
+        <span style="--x:43%;--s:36px;--dur:16s;--delay:-9s;"></span>
+        <span style="--x:51%;--s:16px;--dur:9s;--delay:-4s;"></span>
+        <span style="--x:59%;--s:48px;--dur:17s;--delay:-11s;"></span>
+        <span style="--x:66%;--s:22px;--dur:10s;--delay:-1s;"></span>
+        <span style="--x:74%;--s:40px;--dur:15s;--delay:-7s;"></span>
+        <span style="--x:83%;--s:26px;--dur:12s;--delay:-10s;"></span>
+        <span style="--x:92%;--s:58px;--dur:19s;--delay:-14s;"></span>
+      </div>
+
+<div class="contact-content">
+        <h2>¿NECESITAS MÁS<br />INFORMACIÓN?</h2>
+        <button class="contact-cta" id="contactModalOpen" type="button">QUIERO CONTACTAR</button>
+      </div>
+    </section>
+
+    <aside class="contact-modal" id="contactModal" aria-hidden="true">
+      <div class="contact-modal-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,52 C160,82 270,20 430,50 C610,84 720,78 875,48 C1040,16 1160,82 1440,40 L1440,120 L0,120 Z"></path>
+        </svg>
+        <div class="contact-modal-wave-body"></div>
+      </div>
+
+      <div class="contact-modal-panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        
+        <h2 id="contactModalTitle">¡MÁNDANOS UN<br />MENSAJE!</h2>
+
+        <form class="contact-form" onsubmit="return false;">
+          <label>
+            <span>Tu nombre</span>
+            <input type="text" name="nombre" autocomplete="name" aria-label="Tu nombre" />
+          </label>
+
+          <label>
+            <span>Tu e-mail</span>
+            <input type="email" name="email" autocomplete="email" aria-label="Tu e-mail" />
+          </label>
+
+          <label class="contact-message-field">
+            <span>Escribe aquí tu mensaje...</span>
+            <textarea name="mensaje" rows="3" aria-label="Escribe aquí tu mensaje"></textarea>
+          </label>
+
+          <button type="submit">ENVIAR</button>
+        </form>
+      </div>
+    </aside>
+
+
     <aside class="stores-modal" id="storesModal" aria-hidden="true">
       <div class="stores-modal-wave" aria-hidden="true">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
@@ -287,7 +455,7 @@
       </div>
 
       <div class="stores-modal-panel" role="dialog" aria-modal="true" aria-labelledby="storesModalTitle">
-        <button class="stores-modal-close" id="storesModalClose" type="button" aria-label="Cerrar búsqueda"><span></span><span></span></button>
+        
         <p class="stores-modal-kicker">Tiendas cerca</p>
         <h2 id="storesModalTitle">ENCUENTRA TU RITUAL</h2>
         <p class="stores-modal-copy">Ingresa tu código postal para ver tiendas cercanas donde puedes encontrar Baraima.</p>
@@ -341,6 +509,28 @@
       </div>
     </aside>
   </main>
+
+  <footer class="site-footer" id="footer" data-ui-theme="dark">
+      <div class="section-bubbles contact-style-bubbles" aria-hidden="true">
+        <span style="--x:4%;--s:30px;--dur:11s;--delay:-2s;"></span>
+        <span style="--x:9%;--s:18px;--dur:8s;--delay:-5s;"></span>
+        <span style="--x:15%;--s:42px;--dur:15s;--delay:-8s;"></span>
+        <span style="--x:21%;--s:20px;--dur:10s;--delay:-3s;"></span>
+        <span style="--x:28%;--s:54px;--dur:18s;--delay:-12s;"></span>
+        <span style="--x:35%;--s:24px;--dur:12s;--delay:-6s;"></span>
+        <span style="--x:43%;--s:36px;--dur:16s;--delay:-9s;"></span>
+        <span style="--x:51%;--s:16px;--dur:9s;--delay:-4s;"></span>
+        <span style="--x:59%;--s:48px;--dur:17s;--delay:-11s;"></span>
+        <span style="--x:66%;--s:22px;--dur:10s;--delay:-1s;"></span>
+        <span style="--x:74%;--s:40px;--dur:15s;--delay:-7s;"></span>
+        <span style="--x:83%;--s:26px;--dur:12s;--delay:-10s;"></span>
+        <span style="--x:92%;--s:58px;--dur:19s;--delay:-14s;"></span>
+      </div>
+<div class="footer-brand" aria-label="Baraima">BARAIMA</div>
+</div>
+
+    <p class="footer-credit">EDUARDO JIMÉNEZ 2026 ©</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
