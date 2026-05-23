@@ -8234,3 +8234,126 @@ body.historia-proceso-bubbles-white .always-bubbles span {
     inset 0 0 10px rgba(255,255,255,.22) !important;
   opacity: 1 !important;
 }
+
+
+/* V93: Contacto bubble style in red for white sections */
+.mixology-section,
+.products-section,
+.rituales-section {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+.mixology-section > *:not(.section-bubbles),
+.products-section > *:not(.section-bubbles),
+.rituales-section > *:not(.section-bubbles) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.mixology-section .section-bubbles.red-style-bubbles,
+.products-section .section-bubbles.red-style-bubbles,
+.rituales-section .section-bubbles.red-style-bubbles {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  display: block !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+.mixology-section .section-bubbles.red-style-bubbles span,
+.products-section .section-bubbles.red-style-bubbles span,
+.rituales-section .section-bubbles.red-style-bubbles span {
+  position: absolute !important;
+  left: var(--x) !important;
+  bottom: -80px !important;
+  width: var(--s) !important;
+  height: var(--s) !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 36, 8, .82) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 36, 8, .70), transparent 18%),
+    rgba(255, 36, 8, .055) !important;
+  box-shadow:
+    0 0 24px rgba(255, 36, 8, .30),
+    inset 0 0 10px rgba(255, 36, 8, .16) !important;
+  opacity: 1 !important;
+  color: var(--red, #ff2408) !important;
+  filter: none !important;
+  animation: alwaysBubbleRise var(--dur, 11s) linear infinite !important;
+  animation-delay: var(--delay, 0s) !important;
+  transform-origin: center !important;
+}
+
+.mixology-section .section-bubbles.red-style-bubbles span::before,
+.products-section .section-bubbles.red-style-bubbles span::before,
+.rituales-section .section-bubbles.red-style-bubbles span::before {
+  content: "" !important;
+  position: absolute !important;
+  width: 35% !important;
+  height: 18% !important;
+  left: 15% !important;
+  top: 18% !important;
+  border-radius: 999px !important;
+  background: rgba(255, 36, 8, .88) !important;
+  transform: rotate(-42deg) !important;
+}
+
+/* V95: only red contact-style bubbles on white sections (Mixologia, Mis Rones, Rituales)
+   Hide the fixed/global white bubble layer while any light section is active,
+   so these sections show only their local red bubbles. */
+body.on-white-section > .always-bubbles,
+body.light-site-background > .always-bubbles{
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+}
+
+.mixology-section > .section-bubbles.red-style-bubbles,
+.products-section > .section-bubbles.red-style-bubbles,
+.rituales-section > .section-bubbles.red-style-bubbles{
+  display:block !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  color:#ff2408 !important;
+  border-color:#ff2408 !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+}
+
+.mixology-section > .section-bubbles.red-style-bubbles span,
+.products-section > .section-bubbles.red-style-bubbles span,
+.rituales-section > .section-bubbles.red-style-bubbles span{
+  display:block !important;
+  opacity:.42 !important;
+  visibility:visible !important;
+  color:#ff2408 !important;
+  border-color:rgba(255,36,8,.55) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+.mixology-section > .section-bubbles:not(.red-style-bubbles),
+.products-section > .section-bubbles:not(.red-style-bubbles),
+.rituales-section > .section-bubbles:not(.red-style-bubbles),
+.mixology-section .bubble-field:not(.red-style-bubbles),
+.products-section .bubble-field:not(.red-style-bubbles),
+.rituales-section .bubble-field:not(.red-style-bubbles),
+.mixology-section .decor-bubbles:not(.red-style-bubbles),
+.products-section .decor-bubbles:not(.red-style-bubbles),
+.rituales-section .decor-bubbles:not(.red-style-bubbles){
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+}
+
+.mixology-section > *:not(.section-bubbles),
+.products-section > *:not(.section-bubbles),
+.rituales-section > *:not(.section-bubbles){
+  position:relative !important;
+  z-index:1 !important;
+}
