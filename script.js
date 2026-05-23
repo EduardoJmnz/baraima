@@ -237,18 +237,20 @@ function updateProcessBlock() {
       // V139: match the exact Historia visual position as the start of the Proceso motion,
       // so the can does not jump when the scroll transition begins.
       const isMobileMotion = vw < 700;
-      const historyWidth = isMobileMotion ? Math.min(vw * 0.70, 330) : Math.min(Math.max(vw * 0.276, 290), 456);
-      const processWidth = isMobileMotion ? Math.min(vw * 0.68, 330) : Math.min(Math.max(vw * 0.36, 420), 610);
-      const historyRight = vw < 980 ? (vw < 620 ? vw * 0.04 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290);
-      const startLeft = isMobileMotion ? (vw - historyWidth) / 2 : vw - historyRight - historyWidth;
-      const endLeft = isMobileMotion ? -vw * 0.16 : Math.max(-80, vw * 0.07);
+      // V153 mobile: the can starts from the same visual position used in Historia
+      // (text left / can right), so the transition does not jump or fake-start.
+      const historyWidth = isMobileMotion ? Math.min(vw * 0.50, 250) : Math.min(Math.max(vw * 0.276, 290), 456);
+      const processWidth = isMobileMotion ? Math.min(vw * 0.60, 300) : Math.min(Math.max(vw * 0.36, 420), 610);
+      const historyRight = isMobileMotion ? -vw * 0.04 : (vw < 980 ? (vw < 620 ? vw * 0.04 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290));
+      const startLeft = isMobileMotion ? vw - historyRight - historyWidth : vw - historyRight - historyWidth;
+      const endLeft = isMobileMotion ? -vw * 0.10 : Math.max(-80, vw * 0.07);
       const historyRect = document.querySelector('.history-section')?.getBoundingClientRect();
       const historyProgress = clamp01((vh - (historyRect?.top || 0)) / (vh + (historyRect?.height || vh)));
       const desktopStartTop = vh * (52 + ((historyProgress - 0.5) * -18)) / 100;
-      const startTop = isMobileMotion ? vh * 0.68 : desktopStartTop;
+      const startTop = isMobileMotion ? vh * 0.54 : desktopStartTop;
       const endTop = isMobileMotion ? vh * 0.58 : vh * 0.49 + 75;
       const startRotate = 0;
-      const endRotate = isMobileMotion ? -8 : -11;
+      const endRotate = isMobileMotion ? -6 : -11;
 
       historyBottle.style.setProperty("--sharedBottleLeft", `${lerp(startLeft, endLeft, enterProgress)}px`);
       historyBottle.style.setProperty("--sharedBottleTop", `${lerp(startTop, endTop, enterProgress)}px`);
