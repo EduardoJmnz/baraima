@@ -649,3 +649,73 @@ function updateHistoriaProcesoBubbleThemeV87() {
 window.addEventListener("scroll", updateHistoriaProcesoBubbleThemeV87, { passive: true });
 window.addEventListener("resize", updateHistoriaProcesoBubbleThemeV87);
 updateHistoriaProcesoBubbleThemeV87();
+
+/* V96: Smooth reveal on scroll. Applies only to text nodes/elements and images, not bubbles or backgrounds. */
+(function initSmoothScrollReveal(){
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const revealSelectors = [
+    "main section h1",
+    "main section h2",
+    "main section h3",
+    "main section h4",
+    "main section p",
+    "main section a",
+    "main section button",
+    "main section img",
+    "main section .history-number",
+    "main section .section-kicker",
+    "main section .stores-title",
+    "main section .contact-title"
+  ].join(",");
+
+  const blockedSelectors = [
+    ".section-bubbles",
+    ".always-bubbles",
+    ".spark-field",
+    ".menu-overlay",
+    ".history-modal",
+    ".process-modal",
+    ".modal-wave",
+    ".process-next-wave",
+    ".scroll",
+    ".topbar"
+  ].join(",");
+
+  const elements = Array.from(document.querySelectorAll(revealSelectors)).filter((el) => {
+    if (!el || el.closest(blockedSelectors)) return false;
+    // Los productos debajo de cada cocktail deben verse desde el primer render,
+    // no depender del observer ni de volver desde recipe.html.
+    if (el.matches(".mixology-card-copy p")) {
+      el.classList.remove("scroll-reveal-item", "is-visible");
+      el.style.opacity = "1";
+      el.style.visibility = "visible";
+      el.style.transform = "none";
+      el.style.filter = "none";
+      return false;
+    }
+    if (el.classList.contains("scroll-reveal-item")) return false;
+    return true;
+  });
+
+  elements.forEach((el, index) => {
+    el.classList.add("scroll-reveal-item");
+    el.style.transitionDelay = `${Math.min((index % 5) * 70, 280)}ms`;
+  });
+
+  if (reduceMotion) {
+    elements.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      else entry.target.classList.remove("is-visible");
+    });
+  }, {
+    threshold:0.18,
+    rootMargin:"0px 0px -8% 0px"
+  });
+
+  elements.forEach((el) => observer.observe(el));
+})();
