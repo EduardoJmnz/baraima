@@ -9081,3 +9081,303 @@ body.recipe-page .recipe-block ul{
     transform: translateY(102px) rotate(0deg) !important;
   }
 }
+
+/* V106 REAL: subir la ola roja de Mis Rones para cubrir 1/3 inferior de la botella.
+   Solo modifica la altura/posición de la ola y mantiene el resto del bloque intacto. */
+.products-section .products-red-wave{
+  height: clamp(330px, 30vw, 430px) !important;
+  bottom: -2px !important;
+  z-index: 9 !important;
+}
+.products-section .products-red-wave svg,
+.products-section .products-red-wave__svg{
+  height: clamp(150px, 15vw, 210px) !important;
+}
+.products-section .products-red-wave__svg--front{
+  top: 0 !important;
+}
+.products-section .products-red-wave__svg--back{
+  top: clamp(18px, 1.7vw, 26px) !important;
+}
+.products-section .products-red-wave__body{
+  top: clamp(122px, 12vw, 172px) !important;
+}
+.products-section .products-bottle{
+  z-index: 6 !important;
+}
+@media (max-width: 860px){
+  .products-section .products-red-wave{
+    height: clamp(300px, 42vw, 390px) !important;
+  }
+}
+
+/* V107 REAL: Mis Rones wave higher over bottle.
+   Raises the red sea so it covers roughly the lower third of the bottle.
+   Scoped only to Mis Rones. */
+.products-section .products-red-wave{
+  height: clamp(430px, 39vw, 560px) !important;
+  bottom: -2px !important;
+  z-index: 14 !important;
+}
+.products-section .products-red-wave svg,
+.products-section .products-red-wave__svg{
+  height: clamp(180px, 17vw, 245px) !important;
+  left: -10vw !important;
+  width: 120vw !important;
+}
+.products-section .products-red-wave__svg--front{
+  top: 0 !important;
+  z-index: 3 !important;
+}
+.products-section .products-red-wave__svg--back{
+  top: clamp(34px, 3.2vw, 48px) !important;
+  z-index: 2 !important;
+}
+.products-section .products-red-wave__body{
+  top: clamp(148px, 14vw, 208px) !important;
+  z-index: 4 !important;
+}
+.products-section .products-bottle{
+  z-index: 7 !important;
+}
+.products-section .products-copy,
+.products-section .products-header{
+  z-index: 16 !important;
+}
+@media (max-width: 860px){
+  .products-section .products-red-wave{
+    height: clamp(390px, 58vw, 520px) !important;
+  }
+  .products-section .products-red-wave__body{
+    top: clamp(135px, 22vw, 190px) !important;
+  }
+}
+
+/* V108 REAL: Mis Rones liquid blend from 3.pdf.
+   Final scoped override: red wave rises in front of the bottle and the lower bottle softly fades into it. */
+.products-section{
+  overflow:hidden !important;
+}
+.products-section .products-content{
+  position:relative !important;
+  z-index:10 !important;
+}
+.products-section .products-bottle{
+  position:relative !important;
+  z-index:12 !important;
+  transform: translate(-62px, 116px) rotate(0deg) !important;
+}
+.products-section .products-bottle img{
+  position:relative !important;
+  z-index:1 !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 66%, rgba(0,0,0,.82) 74%, rgba(0,0,0,.38) 83%, rgba(0,0,0,0) 94%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 66%, rgba(0,0,0,.82) 74%, rgba(0,0,0,.38) 83%, rgba(0,0,0,0) 94%);
+}
+.products-section .products-red-wave{
+  height: clamp(500px, 45vw, 650px) !important;
+  bottom: -2px !important;
+  z-index:15 !important;
+  overflow:hidden !important;
+}
+.products-section .products-red-wave svg,
+.products-section .products-red-wave__svg{
+  left:-12vw !important;
+  width:124vw !important;
+  height: clamp(190px, 18vw, 260px) !important;
+}
+.products-section .products-red-wave__svg--front{
+  top:0 !important;
+  z-index:5 !important;
+  opacity:.96 !important;
+  animation: productsRedWaveFastFront 1.55s ease-in-out infinite alternate-reverse !important;
+}
+.products-section .products-red-wave__svg--back{
+  top:clamp(42px, 4vw, 60px) !important;
+  z-index:4 !important;
+  opacity:.76 !important;
+  animation: productsRedWaveFastBack 1.9s ease-in-out infinite alternate !important;
+}
+.products-section .products-red-wave__body{
+  top: clamp(154px, 14.4vw, 214px) !important;
+  z-index:6 !important;
+}
+.products-section .products-header,
+.products-section .products-copy{
+  position:relative !important;
+  z-index:22 !important;
+}
+.products-section + .stores-section,
+.products-section + section{
+  margin-top:0 !important;
+}
+@media (max-width: 980px){
+  .products-section .products-bottle{
+    transform: translate(-28px, 112px) rotate(0deg) !important;
+  }
+  .products-section .products-red-wave{
+    height: clamp(450px, 55vw, 590px) !important;
+  }
+}
+@media (max-width: 860px){
+  .products-section .products-bottle{
+    transform: translateY(120px) rotate(0deg) !important;
+  }
+  .products-section .products-red-wave{
+    height: clamp(430px, 70vw, 560px) !important;
+  }
+  .products-section .products-red-wave__body{
+    top: clamp(142px, 24vw, 205px) !important;
+  }
+}
+
+/* V109 REAL: Mis Rones text group alignment.
+   Move only the product text group 100px to the right and keep it 60px below the section subtitle. */
+.products-section .products-content{
+  margin-top:60px !important;
+}
+.products-section .products-copy{
+  transform:translate(90px, 0) !important;
+}
+@media (max-width:980px){
+  .products-section .products-content{
+    margin-top:42px !important;
+  }
+  .products-section .products-copy{
+    transform:translate(34px, 0) !important;
+  }
+}
+@media (max-width:860px){
+  .products-section .products-content{
+    margin-top:34px !important;
+  }
+  .products-section .products-copy{
+    transform:none !important;
+  }
+}
+
+/* V110: prueba visual Rituales en fondo rojo con bloques blancos */
+.rituales-section{
+  background: var(--nav-red, #FF0B00) !important;
+  color: var(--cream, #fff2da) !important;
+}
+.rituales-header h2{
+  color: var(--cream, #fff2da) !important;
+}
+.rituales-header p{
+  color: rgba(255,242,218,.78) !important;
+}
+.rituales-section > .section-bubbles.red-style-bubbles{
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+}
+.rituales-section > .section-bubbles.history-style-bubbles,
+.rituales-section > .section-bubbles:not(.red-style-bubbles){
+  display:block !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+.rituales-section .ritual-card,
+.rituales-section .ritual-card-small,
+.rituales-section .ritual-card-featured{
+  background: rgba(255, 242, 218, .96) !important;
+  border: 1px solid rgba(255, 242, 218, .55) !important;
+  color: var(--nav-red, #FF0B00) !important;
+  box-shadow: 0 20px 50px rgba(74, 0, 0, .18) !important;
+}
+.rituales-section .ritual-card-copy,
+.rituales-section .ritual-card-small .ritual-card-copy{
+  color: var(--nav-red, #FF0B00) !important;
+}
+.rituales-section .ritual-card-copy p,
+.rituales-section .ritual-card-copy span{
+  color: rgba(255, 11, 0, .72) !important;
+  opacity: 1 !important;
+}
+.rituales-section .ritual-card::after{
+  background: linear-gradient(180deg, rgba(255,242,218,.18) 8%, rgba(255,242,218,.92) 100%) !important;
+  opacity: 1 !important;
+}
+.rituales-section .ritual-card-small::after{
+  display:block !important;
+  background: linear-gradient(180deg, rgba(255,242,218,.12) 0%, rgba(255,242,218,.96) 100%) !important;
+}
+.rituales-section .rituales-cta{
+  background: var(--cream, #fff2da) !important;
+  color: var(--nav-red, #FF0B00) !important;
+  border-color: rgba(255,242,218,.72) !important;
+}
+
+/* V111: Navbar roja al entrar a la ola roja de Mis Rones y al bloque Rituales */
+body.nav-red-active .topbar .logo {
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+body.nav-red-active #menuButton.menu,
+body.nav-red-active .menu#menuButton {
+  background: var(--nav-red, #FF0B00) !important;
+  border-color: var(--nav-red, #FF0B00) !important;
+}
+
+body.nav-red-active #menuButton.menu span,
+body.nav-red-active .menu#menuButton span {
+  background: var(--cream, #F8EBCF) !important;
+}
+
+body.nav-red-active .scroll,
+body.nav-red-active .scroll p {
+  color: var(--nav-red, #FF0B00) !important;
+}
+
+body.nav-red-active .scroll span {
+  background: var(--nav-red, #FF0B00) !important;
+}
+
+
+/* V112 FIX: Rituales keeps navbar red, overriding the white-section UI rules. */
+body.nav-red-active > .topbar,
+body.nav-red-active.light-site-background > .topbar,
+body.nav-red-active.on-white-section > .topbar,
+body.nav-red-active.recipe-page > .topbar {
+  background: var(--nav-red, #FF0B00) !important;
+}
+
+body.nav-red-active .topbar .logo {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+body.nav-red-active #menuButton.menu,
+body.nav-red-active .menu#menuButton {
+  background: transparent !important;
+  border-color: var(--cream, #F8EBCF) !important;
+}
+
+body.nav-red-active #menuButton.menu span,
+body.nav-red-active .menu#menuButton span {
+  background: var(--cream, #F8EBCF) !important;
+}
+
+/* V114 REAL: logo blanco forzado cuando la navbar esta roja.
+   Este override va al final para ganar contra reglas de secciones claras/rituales. */
+body.nav-red-active > .topbar .logo,
+body.nav-red-active .topbar .logo,
+body.nav-red-active.light-site-background > .topbar .logo,
+body.nav-red-active.on-white-section > .topbar .logo,
+body.nav-red-active.recipe-page > .topbar .logo {
+  content: url('assets/logo-white.png') !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  display: block !important;
+}
+
+body.nav-red-active > .topbar,
+body.nav-red-active.light-site-background > .topbar,
+body.nav-red-active.on-white-section > .topbar,
+body.nav-red-active.recipe-page > .topbar {
+  background: var(--nav-red, #FF0B00) !important;
+}

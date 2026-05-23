@@ -275,6 +275,24 @@ function isPointInsideLightSection(x, y) {
   });
 }
 
+
+function isRedNavbarZoneActive() {
+  const redWave = document.querySelector('.products-red-wave');
+  const rituales = document.querySelector('#rituales, .rituales-section');
+  const navY = 64;
+  const waveActive = (() => {
+    if (!redWave) return false;
+    const rect = redWave.getBoundingClientRect();
+    return rect.top <= navY && rect.bottom >= navY;
+  })();
+  const ritualesActive = (() => {
+    if (!rituales) return false;
+    const rect = rituales.getBoundingClientRect();
+    return rect.top <= 140 && rect.bottom > 0;
+  })();
+  return waveActive || ritualesActive;
+}
+
 function updateWhiteSectionUi() {
   if (!lightSectionsForUi.length) return;
   const vw = window.innerWidth || 1;
@@ -310,7 +328,11 @@ function updateWhiteSectionUi() {
   document.body.classList.toggle("mixology-logo-hidden", hideMixologyLogo);
 
   if (topbarLogo) {
-    const targetSrc = (onLight || lightSiteVisible || document.body.classList.contains("recipe-page")) ? "assets/logo-red.png" : "assets/logo-white.png";
+    const redNavActive = isRedNavbarZoneActive();
+    document.body.classList.toggle("nav-red-active", redNavActive);
+    const targetSrc = redNavActive
+      ? "assets/logo-white.png"
+      : ((onLight || lightSiteVisible || document.body.classList.contains("recipe-page")) ? "assets/logo-red.png" : "assets/logo-white.png");
     if (!topbarLogo.getAttribute("src")?.endsWith(targetSrc)) {
       topbarLogo.setAttribute("src", targetSrc);
     }
@@ -729,3 +751,61 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   el.style.transform = 'none';
   el.style.filter = 'none';
 });
+
+/* V111: Cambia la navegacion a rojo cuando la UI entra en la ola roja de Mis Rones o en Rituales. */
+(function initDynamicRedNavbar(){
+  const redWave = document.querySelector('.products-red-wave');
+  const rituales = document.querySelector('#rituales, .rituales-section');
+  const logo = document.querySelector('.topbar .logo');
+  const redLogo = 'assets/logo-red.png';
+  const whiteLogo = 'assets/logo-white.png';
+
+  function rectCoversNavZone(el) {
+    if (!el) return false;
+    const rect = el.getBoundingClientRect();
+    const y = 64;
+    return rect.top <= y && rect.bottom >= y;
+  }
+
+  function sectionStarted(el) {
+    if (!el) return false;
+    const rect = el.getBoundingClientRect();
+    return rect.top <= 140 && rect.bottom > 0;
+  }
+
+  function updateRedNavbar() {
+    const active = isRedNavbarZoneActive();
+    document.body.classList.toggle('nav-red-active', active);
+
+    if (!logo) return;
+    if (active) {
+      if (!logo.getAttribute('src')?.endsWith(whiteLogo)) logo.setAttribute('src', whiteLogo);
+      return;
+    }
+
+    if (typeof updateWhiteSectionUi === 'function') {
+      updateWhiteSectionUi();
+    } else if (!document.body.classList.contains('on-white-section') && !document.body.classList.contains('light-site-background')) {
+      if (!logo.getAttribute('src')?.endsWith(whiteLogo)) logo.setAttribute('src', whiteLogo);
+    }
+  }
+
+  window.addEventListener('scroll', updateRedNavbar, { passive: true });
+  window.addEventListener('resize', updateRedNavbar);
+  updateRedNavbar();
+})();
+
+/* V114 REAL: asegurar src del logo blanco en navbar roja, despues de todos los handlers previos. */
+(function forceWhiteLogoOnRedNav(){
+  const logo = document.querySelector('.topbar .logo');
+  if (!logo) return;
+  function syncLogo(){
+    const active = document.body.classList.contains('nav-red-active') || (typeof isRedNavbarZoneActive === 'function' && isRedNavbarZoneActive());
+    if (active && !logo.getAttribute('src')?.endsWith('assets/logo-white.png')) {
+      logo.setAttribute('src', 'assets/logo-white.png');
+    }
+  }
+  window.addEventListener('scroll', syncLogo, { passive:true });
+  window.addEventListener('resize', syncLogo);
+  syncLogo();
+})();
