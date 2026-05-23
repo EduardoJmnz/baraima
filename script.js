@@ -236,13 +236,13 @@ function updateProcessBlock() {
       // La misma lata de Historia viaja hacia Proceso: empieza a la derecha y termina grande a la izquierda como en PROCESS.pdf.
       // V139: match the exact Historia visual position as the start of the Proceso motion,
       // so the can does not jump when the scroll transition begins.
-      const historyWidth = vw < 700 ? Math.min(vw * 0.54, 300) : Math.min(Math.max(vw * 0.276, 290), 456);
-      const processWidth = vw < 700 ? Math.min(vw * 0.70, 360) : Math.min(Math.max(vw * 0.36, 420), 610);
-      const historyRight = vw < 980 ? (vw < 620 ? -vw * 0.02 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290);
+      const historyWidth = vw < 700 ? Math.min(vw * 0.60, 330) : Math.min(Math.max(vw * 0.276, 290), 456);
+      const processWidth = vw < 700 ? Math.min(vw * 0.66, 330) : Math.min(Math.max(vw * 0.36, 420), 610);
+      const historyRight = vw < 980 ? (vw < 620 ? vw * 0.04 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290);
       const startLeft = vw - historyRight - historyWidth;
-      const endLeft = vw < 700 ? -vw * 0.10 : Math.max(-80, vw * 0.07);
+      const endLeft = vw < 700 ? -vw * 0.12 : Math.max(-80, vw * 0.07);
       const startTop = vh * (52 + ((clamp01((vh - document.querySelector('.history-section')?.getBoundingClientRect().top || 0) / (vh + (document.querySelector('.history-section')?.getBoundingClientRect().height || vh))) - 0.5) * -18)) / 100;
-      const endTop = vh * 0.49 + 75;
+      const endTop = vw < 700 ? vh * 0.52 + 40 : vh * 0.49 + 75;
       const startRotate = 0;
       const endRotate = -11;
 
@@ -832,4 +832,41 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   window.addEventListener('scroll', syncLogo, { passive:true });
   window.addEventListener('resize', syncLogo);
   syncLogo();
+})();
+
+
+/* V145: active state for cleaned menu. Default regular, current section bold. */
+(function initMenuCurrentSection(){
+  const links = Array.from(document.querySelectorAll('.menu-nav a[href^="#"]'));
+  if (!links.length) return;
+  const pairs = links.map((link) => {
+    const id = link.getAttribute('href').slice(1);
+    const section = document.getElementById(id);
+    return { link, section };
+  }).filter((item) => item.section);
+
+  function getCurrent(){
+    const probeY = Math.min(window.innerHeight * 0.42, 360);
+    let current = pairs[0];
+    for (const item of pairs) {
+      const rect = item.section.getBoundingClientRect();
+      if (rect.top <= probeY && rect.bottom > probeY) {
+        current = item;
+        break;
+      }
+      if (rect.top <= probeY) current = item;
+    }
+    return current;
+  }
+
+  function sync(){
+    const current = getCurrent();
+    links.forEach((link) => link.classList.remove('is-current'));
+    if (current && current.link) current.link.classList.add('is-current');
+  }
+
+  window.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
+  document.addEventListener('DOMContentLoaded', sync);
+  sync();
 })();

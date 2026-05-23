@@ -10705,3 +10705,273 @@ body.process-wave-covering .process-next-wave,
     linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(20,0,0,.16) 34%, rgba(255,11,0,.86) 100%),
     radial-gradient(circle at 50% 100%, rgba(255,242,218,.18), rgba(255,11,0,0) 62%) !important;
 }
+
+
+/* V145: menu cleanup - remove crowded feel, regular default and bold active/hover */
+.menu-nav a {
+  font-weight: 400 !important;
+  opacity: .82 !important;
+  letter-spacing: -.025em !important;
+}
+.menu-nav a:hover,
+.menu-nav a.is-current {
+  font-weight: 800 !important;
+  opacity: 1 !important;
+  letter-spacing: -.035em !important;
+}
+.menu-overlay.is-open .menu-nav a:nth-child(7) { transition-delay: .35s !important; }
+.menu-overlay.is-open .menu-nav a:nth-child(8) { transition-delay: .40s !important; }
+.menu-nav {
+  gap: clamp(16px, 2vw, 30px) !important;
+}
+
+/* V147: mobile QA fixes from GitHub preview
+   - Ajusta lata Historia/Proceso en móvil.
+   - Elimina scroll horizontal.
+   - Corrige Mixología, ola blanca, recetas y cards de producto en móvil. */
+html,
+body{
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:hidden !important;
+}
+body{ position:relative !important; }
+main,
+section,
+.site-footer{
+  max-width:100vw !important;
+  overflow-x:hidden !important;
+}
+img, svg{ max-width:100%; }
+
+@media (max-width: 700px){
+  .topbar{
+    width:100% !important;
+    max-width:100vw !important;
+    left:0 !important;
+    right:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Historia: lata mejor acomodada y sin provocar overflow lateral. */
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    right:4vw !important;
+    top:55vh !important;
+    width:min(60vw, 330px) !important;
+    transform:translate3d(0, -50%, 0) rotate(0deg) !important;
+  }
+
+  /* Proceso: texto a la derecha para dejar respirar la lata. */
+  .process-section{
+    display:grid !important;
+    grid-template-columns:minmax(0, 42%) minmax(0, 58%) !important;
+    align-items:center !important;
+    padding-inline:18px !important;
+  }
+  .process-section .process-copy{
+    grid-column:2 !important;
+    justify-self:end !important;
+    width:min(58vw, 260px) !important;
+    max-width:260px !important;
+    margin:0 !important;
+    padding:0 4vw 0 0 !important;
+    transform:translateX(18px) !important;
+    text-align:right !important;
+    z-index:2147481400 !important;
+  }
+  .process-section .process-copy h2{
+    text-align:right !important;
+    font-size:clamp(26px, 9.2vw, 46px) !important;
+    line-height:.9 !important;
+  }
+  .process-section .process-cta{
+    margin-left:auto !important;
+    margin-right:0 !important;
+  }
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    left:-12vw !important;
+    top:calc(52vh + 40px) !important;
+    width:min(66vw, 330px) !important;
+  }
+
+  /* Ola blanca móvil: más baja, continua y sin cortes extraños. */
+  .process-next-wave,
+  body.process-wave-covering .process-next-wave{
+    left:0 !important;
+    right:0 !important;
+    width:100vw !important;
+    overflow:hidden !important;
+  }
+  .process-next-wave svg{
+    left:-8vw !important;
+    width:116vw !important;
+    top:-92px !important;
+    height:118px !important;
+  }
+  .process-next-wave__body{
+    top:18px !important;
+    min-height:120vh !important;
+  }
+
+  /* Mixología: título/subtítulo completos en móvil y cards centradas. */
+  .mixology-section{
+    min-height:auto !important;
+    padding:72px 18px 84px !important;
+    align-content:start !important;
+  }
+  .mixology-header{
+    transform:none !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 auto 22px !important;
+    text-align:center !important;
+  }
+  .mixology-logo{
+    max-width:min(138px, 42vw) !important;
+  }
+  .mixology-header h2{
+    white-space:normal !important;
+    overflow:visible !important;
+    font-size:clamp(38px, 14vw, 64px) !important;
+    line-height:.9 !important;
+    letter-spacing:-.055em !important;
+    text-align:center !important;
+  }
+  .mixology-header .section-subtitle{
+    display:block !important;
+    width:100% !important;
+    max-width:310px !important;
+    margin:10px auto 0 !important;
+    white-space:normal !important;
+    overflow:visible !important;
+    font-size:clamp(17px, 5.5vw, 24px) !important;
+    line-height:.98 !important;
+    text-align:center !important;
+  }
+  .mixology-cards{
+    width:100% !important;
+    max-width:360px !important;
+    margin:0 auto !important;
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    justify-items:center !important;
+    gap:18px !important;
+    transform:none !important;
+  }
+  .mixology-card{
+    width:100% !important;
+    max-width:330px !important;
+    margin:0 auto !important;
+  }
+  .mixology-card-copy{
+    text-align:center !important;
+  }
+
+  /* Cards de producto: imagen arriba, texto abajo, sin encimar títulos. */
+  .products-section{
+    padding:72px 18px 0 !important;
+  }
+  .products-section .products-inner{
+    width:100% !important;
+    max-width:390px !important;
+    margin:0 auto !important;
+  }
+  .products-section .rum-card-grid{
+    width:100% !important;
+    max-width:356px !important;
+    margin:0 auto !important;
+    grid-template-columns:1fr !important;
+    justify-content:center !important;
+    justify-items:center !important;
+    gap:20px !important;
+    transform:none !important;
+  }
+  .products-section .rum-product-card{
+    width:100% !important;
+    max-width:356px !important;
+    height:auto !important;
+    min-height:0 !important;
+    grid-template-columns:1fr !important;
+    grid-template-rows:178px auto !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    text-align:center !important;
+  }
+  .products-section .rum-product-card__image,
+  .products-section .rum-product-card--anejo .rum-product-card__image{
+    grid-row:1 !important;
+    height:178px !important;
+    width:100% !important;
+    padding:14px 0 0 !important;
+    transform:none !important;
+    align-items:flex-end !important;
+    justify-content:center !important;
+  }
+  .products-section .rum-product-card__image img{
+    max-height:168px !important;
+    max-width:82% !important;
+    transform:none !important;
+    object-fit:contain !important;
+  }
+  .products-section .rum-product-card--anejo .rum-product-card__image img{
+    max-height:168px !important;
+    max-width:82% !important;
+    transform:none !important;
+  }
+  .products-section .rum-product-card__image--can img{
+    max-height:142px !important;
+    max-width:72% !important;
+    transform:none !important;
+  }
+  .products-section .rum-product-card__copy{
+    grid-row:2 !important;
+    padding:12px 26px 26px !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+    text-align:center !important;
+    align-self:start !important;
+  }
+  .products-section .rum-product-card__eyebrow{
+    margin-bottom:8px !important;
+  }
+  .products-section .rum-product-card h3,
+  .products-section .rum-product-card--cubaraima h3{
+    font-size:24px !important;
+    line-height:.95 !important;
+    max-width:100% !important;
+    text-align:center !important;
+    margin:0 auto !important;
+    overflow:visible !important;
+  }
+  .products-section .rum-product-card__rule{
+    display:block !important;
+    width:42px !important;
+    margin:12px auto 14px !important;
+    transform:none !important;
+  }
+  .products-section .rum-product-card__tagline{
+    max-width:250px !important;
+    margin:0 auto 16px !important;
+    text-align:center !important;
+  }
+  .products-section .rum-product-card__icons{
+    justify-content:center !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+}
+
+@media (max-width: 390px){
+  .process-section .process-copy{
+    width:62vw !important;
+    transform:translateX(8px) !important;
+  }
+  .process-section .process-copy h2{
+    font-size:clamp(24px, 8.4vw, 38px) !important;
+  }
+  .mixology-header h2{
+    font-size:clamp(34px, 13vw, 54px) !important;
+  }
+}
