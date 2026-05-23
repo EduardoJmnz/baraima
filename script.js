@@ -236,15 +236,19 @@ function updateProcessBlock() {
       // La misma lata de Historia viaja hacia Proceso: empieza a la derecha y termina grande a la izquierda como en PROCESS.pdf.
       // V139: match the exact Historia visual position as the start of the Proceso motion,
       // so the can does not jump when the scroll transition begins.
-      const historyWidth = vw < 700 ? Math.min(vw * 0.60, 330) : Math.min(Math.max(vw * 0.276, 290), 456);
-      const processWidth = vw < 700 ? Math.min(vw * 0.66, 330) : Math.min(Math.max(vw * 0.36, 420), 610);
+      const isMobileMotion = vw < 700;
+      const historyWidth = isMobileMotion ? Math.min(vw * 0.70, 330) : Math.min(Math.max(vw * 0.276, 290), 456);
+      const processWidth = isMobileMotion ? Math.min(vw * 0.68, 330) : Math.min(Math.max(vw * 0.36, 420), 610);
       const historyRight = vw < 980 ? (vw < 620 ? vw * 0.04 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290);
-      const startLeft = vw - historyRight - historyWidth;
-      const endLeft = vw < 700 ? -vw * 0.12 : Math.max(-80, vw * 0.07);
-      const startTop = vh * (52 + ((clamp01((vh - document.querySelector('.history-section')?.getBoundingClientRect().top || 0) / (vh + (document.querySelector('.history-section')?.getBoundingClientRect().height || vh))) - 0.5) * -18)) / 100;
-      const endTop = vw < 700 ? vh * 0.52 + 40 : vh * 0.49 + 75;
+      const startLeft = isMobileMotion ? (vw - historyWidth) / 2 : vw - historyRight - historyWidth;
+      const endLeft = isMobileMotion ? -vw * 0.16 : Math.max(-80, vw * 0.07);
+      const historyRect = document.querySelector('.history-section')?.getBoundingClientRect();
+      const historyProgress = clamp01((vh - (historyRect?.top || 0)) / (vh + (historyRect?.height || vh)));
+      const desktopStartTop = vh * (52 + ((historyProgress - 0.5) * -18)) / 100;
+      const startTop = isMobileMotion ? vh * 0.68 : desktopStartTop;
+      const endTop = isMobileMotion ? vh * 0.58 : vh * 0.49 + 75;
       const startRotate = 0;
-      const endRotate = -11;
+      const endRotate = isMobileMotion ? -8 : -11;
 
       historyBottle.style.setProperty("--sharedBottleLeft", `${lerp(startLeft, endLeft, enterProgress)}px`);
       historyBottle.style.setProperty("--sharedBottleTop", `${lerp(startTop, endTop, enterProgress)}px`);
@@ -531,23 +535,38 @@ const storesModalOpen = document.getElementById("storesModalOpen");
 const storesModal = document.getElementById("storesModal");
 const storesModalClose = document.getElementById("storesModalClose");
 
+let storesClosing = false;
+let storesFocusTimer = null;
+
 function openStoresModal() {
   if (!storesModal) return;
-  storesModal.classList.remove("is-closing");
+  storesClosing = false;
+  window.clearTimeout(storesFocusTimer);
+  storesModal.classList.remove("is-open", "is-closing");
+  storesModal.scrollTop = 0;
+  storesModal.querySelector(".stores-modal-panel")?.scrollTo?.(0, 0);
+  void storesModal.offsetHeight;
   storesModal.classList.add("is-open");
   storesModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("stores-modal-active");
-  window.setTimeout(() => storesModal.querySelector("input")?.focus(), 320);
+  storesFocusTimer = window.setTimeout(() => storesModal.querySelector("input")?.focus(), 420);
 }
 
 function closeStoresModal() {
-  if (!storesModal || !storesModal.classList.contains("is-open")) return;
+  if (!storesModal || storesClosing || !storesModal.classList.contains("is-open")) return;
+  storesClosing = true;
+  window.clearTimeout(storesFocusTimer);
   storesModal.classList.add("is-closing");
+  storesModal.classList.remove("is-open");
+  storesModal.style.overflowY = "hidden";
   window.setTimeout(() => {
     storesModal.classList.remove("is-open", "is-closing");
     storesModal.setAttribute("aria-hidden", "true");
+    storesModal.scrollTop = 0;
+    storesModal.style.overflowY = "";
     document.body.classList.remove("stores-modal-active");
-  }, 620);
+    storesClosing = false;
+  }, 720);
 }
 
 storesModalOpen?.addEventListener("click", openStoresModal);
@@ -869,4 +888,25 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   window.addEventListener('resize', sync);
   document.addEventListener('DOMContentLoaded', sync);
   sync();
+})();
+
+/* V149: close Stores modal when the user reaches the end of its scroll,
+   mirroring Historia's scroll-to-close behavior. */
+(function(){
+  const modal = document.getElementById('storesModal');
+  if (!modal) return;
+  let closingByScroll = false;
+  function triggerCloseFromBottom(){
+    if (!modal.classList.contains('is-open') || closingByScroll) return;
+    const maxScroll = modal.scrollHeight - modal.clientHeight;
+    if (maxScroll <= 12) return;
+    const distanceToBottom = maxScroll - modal.scrollTop;
+    if (distanceToBottom <= 10) {
+      closingByScroll = true;
+      if (typeof closeStoresModal === 'function') closeStoresModal();
+      window.setTimeout(() => { closingByScroll = false; }, 760);
+    }
+  }
+  modal.addEventListener('scroll', triggerCloseFromBottom, { passive:true });
+  modal.addEventListener('touchend', () => window.setTimeout(triggerCloseFromBottom, 80), { passive:true });
 })();
