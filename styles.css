@@ -11871,3 +11871,235 @@ body.mixology-active .process-next-wave__body{
     width:min(76vw, 300px) !important;
   }
 }
+
+/* V156: mobile Historia/Proceso based on correction.pdf + clean mobile Store wave */
+@media (max-width:700px){
+  html, body{
+    overflow-x:hidden !important;
+    max-width:100% !important;
+  }
+
+  /* Historia: Figma correction - big text left, large can cropped from right */
+  .history-section{
+    min-height:100svh !important;
+    height:100svh !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:#ff1b08 !important;
+    position:relative !important;
+  }
+  .history-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 72% 34%, rgba(255,255,255,.08), transparent 34%), linear-gradient(180deg, #ff210b 0%, #ff1605 100%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .history-section .section-bubbles{ z-index:1 !important; opacity:.72 !important; }
+  .history-section .history-copy{
+    position:absolute !important;
+    left:34px !important;
+    top:28.5svh !important;
+    width:61vw !important;
+    max-width:61vw !important;
+    margin:0 !important;
+    z-index:4 !important;
+    transform:none !important;
+    text-align:left !important;
+  }
+  .history-number{
+    font-size:clamp(92px, 31vw, 142px) !important;
+    line-height:.72 !important;
+    margin:0 0 26px !important;
+    color:#fff1c8 !important;
+    letter-spacing:-.055em !important;
+  }
+  .history-copy h2{
+    display:block !important;
+    max-width:60vw !important;
+    font-size:clamp(35px, 10.9vw, 52px) !important;
+    line-height:1.09 !important;
+    letter-spacing:-.035em !important;
+    margin:0 !important;
+    color:#fff !important;
+    text-align:left !important;
+  }
+  .history-copy h2 span{ display:block !important; }
+  .history-copy strong,
+  .history-copy em{ color:#fff !important; font-style:normal !important; }
+  .history-cta{
+    width:min(284px, 58vw) !important;
+    height:58px !important;
+    margin-top:32px !important;
+    border:3px solid rgba(255,255,255,.92) !important;
+    border-radius:14px !important;
+    color:#fff !important;
+    background:transparent !important;
+    font-size:12px !important;
+    letter-spacing:.08em !important;
+    transform:none !important;
+    box-shadow:none !important;
+  }
+
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    left:auto !important;
+    right:-42vw !important;
+    top:42.5svh !important;
+    width:min(83vw, 360px) !important;
+    height:auto !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    z-index:3 !important;
+    filter:drop-shadow(0 20px 18px rgba(70,0,0,.28)) !important;
+    transition:opacity .42s ease, visibility .42s ease !important;
+  }
+  #historyBottle .history-bottle{ width:100% !important; height:auto !important; }
+
+  /* Proceso mobile: preserve the liked spacing, but compose can left + text right like correction.pdf */
+  .process-section{
+    min-height:100svh !important;
+    height:100svh !important;
+    margin-top:0 !important;
+    padding:0 !important;
+    background:#ff1b08 !important;
+    overflow:hidden !important;
+    position:relative !important;
+  }
+  .process-section .section-bubbles{ opacity:.7 !important; }
+  .process-section .process-copy{
+    position:absolute !important;
+    right:26px !important;
+    top:25svh !important;
+    width:50vw !important;
+    max-width:50vw !important;
+    z-index:5 !important;
+    margin:0 !important;
+    padding:0 !important;
+    text-align:right !important;
+    transform:translateX(0) !important;
+  }
+  .process-section .process-copy h2{
+    font-size:clamp(28px, 8.8vw, 44px) !important;
+    line-height:1.08 !important;
+    letter-spacing:-.035em !important;
+    text-align:right !important;
+    color:#fff !important;
+  }
+  .process-section .process-copy h2 strong{ color:#fff !important; }
+  .process-section .process-cta{
+    width:min(260px, 48vw) !important;
+    height:58px !important;
+    margin:34px 0 0 auto !important;
+    border:3px solid rgba(255,255,255,.92) !important;
+    border-radius:14px !important;
+    transform:none !important;
+    background:transparent !important;
+    color:#fff !important;
+    box-shadow:none !important;
+    font-size:11px !important;
+    letter-spacing:.075em !important;
+  }
+
+  /* Moving can target on mobile: cropped from the left, lower and stable. */
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:var(--sharedBottleLeft, -26vw) !important;
+    right:auto !important;
+    top:var(--sharedBottleTop, 49svh) !important;
+    width:var(--sharedBottleWidth, min(78vw, 340px)) !important;
+    transform:translate3d(0,-50%,0) rotate(var(--sharedBottleRotate, -13deg)) !important;
+    z-index:4 !important;
+    opacity:1 !important;
+    visibility:visible !important;
+  }
+
+  /* White wave remains owned by proceso/mixologia; do not alter desktop behavior. */
+  .process-next-wave{
+    display:block !important;
+    width:100vw !important;
+    left:0 !important;
+    right:auto !important;
+    bottom:-1px !important;
+    height:124svh !important;
+    overflow:visible !important;
+    z-index:6 !important;
+  }
+  .process-next-wave svg{
+    left:-42vw !important;
+    width:184vw !important;
+    height:132px !important;
+    top:-82px !important;
+    max-width:none !important;
+  }
+  .process-next-wave__body{
+    top:48px !important;
+    min-height:calc(140svh + 180px) !important;
+    background:var(--cream) !important;
+  }
+
+  /* Mobile red wave to Stores: simple, full-width, non-deformed connector. */
+  .products-section{
+    overflow:hidden !important;
+    padding-bottom:0 !important;
+    margin-bottom:0 !important;
+  }
+  .products-section .products-red-wave{
+    display:block !important;
+    position:relative !important;
+    left:50% !important;
+    width:100vw !important;
+    height:150px !important;
+    margin-top:42px !important;
+    margin-bottom:-2px !important;
+    transform:translateX(-50%) !important;
+    overflow:hidden !important;
+    background:transparent !important;
+    z-index:8 !important;
+  }
+  .products-section .products-red-wave__svg,
+  .products-section .products-red-wave svg{
+    position:absolute !important;
+    left:-8vw !important;
+    top:0 !important;
+    width:116vw !important;
+    height:112px !important;
+    max-width:none !important;
+    display:block !important;
+    fill:#ff1205 !important;
+  }
+  .products-section .products-red-wave__svg--back{ top:8px !important; opacity:.5 !important; animation:productsRedWaveFastBack 2.4s ease-in-out infinite alternate !important; }
+  .products-section .products-red-wave__svg--front{ top:18px !important; opacity:1 !important; animation:productsRedWaveFastFront 1.9s ease-in-out infinite alternate-reverse !important; }
+  .products-section .products-red-wave path{ fill:#ff1205 !important; }
+  .products-section .products-red-wave__body{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:92px !important;
+    bottom:-4px !important;
+    min-height:90px !important;
+    background:#ff1205 !important;
+  }
+  .products-section + .stores-section{ margin-top:-2px !important; }
+}
+
+@media (max-width:390px){
+  .history-section .history-copy{ left:28px !important; top:28svh !important; width:64vw !important; max-width:64vw !important; }
+  .history-copy h2{ font-size:clamp(32px, 10.5vw, 46px) !important; max-width:62vw !important; }
+  .history-number{ font-size:clamp(86px, 30vw, 124px) !important; }
+  .history-cta{ width:min(278px, 62vw) !important; }
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    right:-48vw !important;
+    top:42svh !important;
+    width:min(89vw, 340px) !important;
+  }
+  .process-section .process-copy{
+    right:22px !important;
+    width:51vw !important;
+    max-width:51vw !important;
+  }
+  .process-section .process-copy h2{ font-size:clamp(26px, 8.6vw, 38px) !important; }
+}

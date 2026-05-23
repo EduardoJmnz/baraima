@@ -239,18 +239,18 @@ function updateProcessBlock() {
       const isMobileMotion = vw < 700;
       // V153 mobile: the can starts from the same visual position used in Historia
       // (text left / can right), so the transition does not jump or fake-start.
-      const historyWidth = isMobileMotion ? Math.min(vw * 0.72, 330) : Math.min(Math.max(vw * 0.276, 290), 456);
-      const processWidth = isMobileMotion ? Math.min(vw * 0.62, 300) : Math.min(Math.max(vw * 0.36, 420), 610);
-      const historyRight = isMobileMotion ? -vw * 0.31 : (vw < 980 ? (vw < 620 ? vw * 0.04 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290));
+      const historyWidth = isMobileMotion ? Math.min(vw * 0.83, 360) : Math.min(Math.max(vw * 0.276, 290), 456);
+      const processWidth = isMobileMotion ? Math.min(vw * 0.78, 340) : Math.min(Math.max(vw * 0.36, 420), 610);
+      const historyRight = isMobileMotion ? -vw * 0.42 : (vw < 980 ? (vw < 620 ? vw * 0.04 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290));
       const startLeft = vw - historyRight - historyWidth;
-      const endLeft = isMobileMotion ? -vw * 0.12 : Math.max(-80, vw * 0.07);
+      const endLeft = isMobileMotion ? -vw * 0.28 : Math.max(-80, vw * 0.07);
       const historyRect = document.querySelector('.history-section')?.getBoundingClientRect();
       const historyProgress = clamp01((vh - (historyRect?.top || 0)) / (vh + (historyRect?.height || vh)));
       const desktopStartTop = vh * (52 + ((historyProgress - 0.5) * -18)) / 100;
-      const startTop = isMobileMotion ? vh * 0.52 : desktopStartTop;
-      const endTop = isMobileMotion ? vh * 0.58 : vh * 0.49 + 75;
-      const startRotate = isMobileMotion ? -10 : 0;
-      const endRotate = isMobileMotion ? -6 : -11;
+      const startTop = isMobileMotion ? vh * 0.425 : desktopStartTop;
+      const endTop = isMobileMotion ? vh * 0.50 : vh * 0.49 + 75;
+      const startRotate = isMobileMotion ? -13 : 0;
+      const endRotate = isMobileMotion ? -13 : -11;
 
       historyBottle.style.setProperty("--sharedBottleLeft", `${lerp(startLeft, endLeft, enterProgress)}px`);
       historyBottle.style.setProperty("--sharedBottleTop", `${lerp(startTop, endTop, enterProgress)}px`);
