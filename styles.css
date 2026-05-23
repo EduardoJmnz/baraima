@@ -11682,3 +11682,121 @@ body.mixology-active .process-next-wave__body{
     font-size:clamp(21px, 7.8vw, 34px) !important;
   }
 }
+
+/* V154: mobile Historia/Proceso UX refinement */
+@media (max-width:700px){
+  html, body{
+    overflow-x:hidden !important;
+    max-width:100% !important;
+  }
+
+  /* Historia mobile: stack copy first and place the can below it. This avoids the cramped
+     two-column composition and gives the can a clean, intentional start point. */
+  .history-section{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+    min-height:92svh !important;
+    padding:88px 22px 22px !important;
+    gap:18px !important;
+    overflow:hidden !important;
+  }
+  .history-section .history-copy{
+    width:min(86vw, 360px) !important;
+    max-width:min(86vw, 360px) !important;
+    margin:0 !important;
+    transform:none !important;
+    text-align:left !important;
+    position:relative !important;
+    z-index:3 !important;
+  }
+  .history-number{
+    font-size:clamp(72px, 28vw, 128px) !important;
+    line-height:.72 !important;
+    text-align:left !important;
+  }
+  .history-copy h2{
+    max-width:82vw !important;
+    font-size:clamp(31px, 10.5vw, 52px) !important;
+    line-height:.86 !important;
+    text-align:left !important;
+  }
+  .history-cta{
+    margin-top:18px !important;
+    transform:scale(.84) !important;
+    transform-origin:left center !important;
+  }
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    left:50% !important;
+    right:auto !important;
+    top:72vh !important;
+    width:min(46vw, 228px) !important;
+    transform:translate3d(-50%, -50%, 0) rotate(0deg) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+  }
+
+  /* Bring Proceso closer to Historia and keep its text comfortably to the right. */
+  .process-section{
+    margin-top:-1px !important;
+    min-height:94svh !important;
+    padding:54px 18px 92px !important;
+    display:grid !important;
+    grid-template-columns:minmax(0, 40%) minmax(0, 60%) !important;
+    align-items:center !important;
+    overflow:hidden !important;
+  }
+  .process-section .process-copy{
+    grid-column:2 !important;
+    width:min(55vw, 245px) !important;
+    max-width:245px !important;
+    justify-self:end !important;
+    margin:0 !important;
+    padding:0 !important;
+    transform:translateX(10px) !important;
+    text-align:right !important;
+    position:relative !important;
+    z-index:4 !important;
+  }
+  .process-section .process-copy h2{
+    font-size:clamp(23px, 8vw, 40px) !important;
+    line-height:.88 !important;
+    text-align:right !important;
+  }
+  .process-section .process-cta{
+    transform:scale(.82) !important;
+    transform-origin:right center !important;
+    margin-left:auto !important;
+  }
+
+  /* Moving can: exact same visual start as Historia, then smooth into Proceso. */
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:var(--sharedBottleLeft, 50vw) !important;
+    right:auto !important;
+    top:var(--sharedBottleTop, 72vh) !important;
+    width:var(--sharedBottleWidth, min(46vw, 228px)) !important;
+    transform:translate3d(-50%, -50%, 0) rotate(var(--sharedBottleRotate, 0deg)) !important;
+  }
+}
+
+@media (max-width:390px){
+  .history-section{ padding-left:20px !important; padding-right:20px !important; min-height:92svh !important; }
+  .history-copy h2{ max-width:84vw !important; font-size:clamp(28px, 10vw, 43px) !important; }
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    top:73vh !important;
+    width:min(50vw, 205px) !important;
+  }
+  .process-section{
+    grid-template-columns:minmax(0, 38%) minmax(0, 62%) !important;
+    padding-top:48px !important;
+  }
+  .process-section .process-copy{
+    width:58vw !important;
+    transform:translateX(8px) !important;
+  }
+  .process-section .process-copy h2{ font-size:clamp(21px, 7.7vw, 35px) !important; }
+}
