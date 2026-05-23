@@ -1,0 +1,4775 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #ff2408;
+  --cream: #fff1cf;
+  --gold: #f4c467;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--red);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+.hero {
+  position: relative;
+  min-height: 140vh;
+  background: var(--red);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Bubbles / gas atmosphere */
+.bubble-field {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+.bubble-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 32% 40%, rgba(255,241,207,.12), transparent 18%),
+    radial-gradient(circle at 62% 62%, rgba(244,196,103,.10), transparent 22%);
+  filter: blur(18px);
+}
+
+.bubble-field span {
+  position: absolute;
+  left: var(--x);
+  bottom: -8vh;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  border: 2px solid rgba(255,241,207,.88);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.8), transparent 18%),
+    rgba(255,241,207,.06);
+  box-shadow:
+    0 0 22px rgba(255,241,207,.42),
+    inset 0 0 8px rgba(255,255,255,.16);
+  animation: bubbleRise var(--d) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.bubble-field span:nth-child(3n) {
+  border-color: rgba(244,196,103,.5);
+}
+
+.bubble-field span:nth-child(4n) {
+  filter: blur(.4px);
+}
+
+.spark-field {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .6;
+  background-image:
+    radial-gradient(circle, rgba(255,241,207,.6) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(244,196,103,.55) 0 1px, transparent 1.5px);
+  background-size: 110px 140px, 180px 210px;
+  background-position: 0 0, 45px 80px;
+  animation: dustFloat 18s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(.55);
+    opacity: 0;
+  }
+  12% {
+    opacity: .75;
+  }
+  50% {
+    transform: translate3d(18px, -58vh, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-18px, -118vh, 0) scale(1.22);
+    opacity: 0;
+  }
+}
+
+@keyframes dustFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-210px);
+  }
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 48px;
+  pointer-events: none;
+}
+
+
+.logo {
+  width: clamp(150px, 16vw, 240px);
+  height: auto;
+  object-fit: contain;
+}
+
+
+.menu {
+  position: absolute;
+  right: 48px;
+  top: 28px;
+  width: 68px;
+  height: 68px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--cream);
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.menu span {
+  display: block;
+  width: 34px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--red);
+}
+
+.hero-copy {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  z-index: 10;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-copy p {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 86px);
+  font-weight: 300;
+  opacity: 0.72;
+}
+
+.hero-copy h1 {
+  margin: 12px 0 0;
+  font-size: clamp(58px, 9.8vw, 132px);
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+  font-weight: 900;
+}
+
+.bottle-wrap {
+  position: fixed;
+  z-index: 8;
+  left: 38%;
+  top: 55%;
+  width: min(38vw, 520px);
+  transform-style: preserve-3d;
+  perspective: 900px;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.bottle {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  display: block;
+  transform-origin: 50% 55%;
+  filter: drop-shadow(0 34px 40px rgba(0,0,0,0.22));
+  will-change: transform, filter;
+}
+
+.bottle-glow {
+  position: absolute;
+  z-index: 1;
+  inset: 20% 8% 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,241,207,.45), rgba(255,241,207,.08) 45%, transparent 72%);
+  filter: blur(35px);
+  transform: translateZ(-80px);
+}
+
+.glass-highlight {
+  position: absolute;
+  z-index: 4;
+  top: 10%;
+  left: 22%;
+  width: 16%;
+  height: 72%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.48), transparent);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  filter: blur(10px);
+  transform: rotate(6deg);
+  pointer-events: none;
+}
+
+.scroll {
+  position: fixed;
+  z-index: 20;
+  right: 44px;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.scroll span {
+  width: 1px;
+  height: 68px;
+  background: rgba(255,241,207,.72);
+}
+
+.scroll p {
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: .08em;
+}
+
+.next-section {
+  min-height: 100vh;
+  background: #f7ead0;
+  color: #1b1714;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+  z-index: 30;
+}
+
+.next-section h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(76px, 12vw, 180px);
+  letter-spacing: -0.08em;
+  margin: 0;
+}
+
+.next-section p {
+  font-size: 20px;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    justify-content: flex-start;
+    padding: 24px;
+  }
+
+  
+.logo {
+  width: clamp(150px, 16vw, 240px);
+  height: auto;
+  object-fit: contain;
+}
+
+
+  .menu {
+    right: 24px;
+    top: 20px;
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+  }
+
+  .menu span {
+    width: 28px;
+    height: 4px;
+  }
+
+  .bottle-wrap {
+    width: min(70vw, 360px);
+    left: 38%;
+    top: 56%;
+  }
+
+  .hero-copy {
+    padding: 0 24px;
+  }
+
+  .scroll {
+    right: 18px;
+    bottom: 28px;
+  }
+
+  .bubble-field span:nth-child(n+9) {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    min-height: 125vh;
+  }
+
+  .bottle-wrap {
+    width: 75vw;
+    left: 36%;
+    top: 58%;
+  }
+
+  .hero-copy p {
+    font-size: 40px;
+  }
+
+  .hero-copy h1 {
+    font-size: 58px;
+  }
+}
+
+/* Fullscreen menu based on MENU.pdf */
+body.menu-open {
+  overflow: hidden;
+}
+
+.menu {
+  transition: transform .45s cubic-bezier(.19,1,.22,1), background .45s cubic-bezier(.19,1,.22,1);
+}
+
+.menu:hover {
+  transform: scale(.96);
+}
+
+.menu.is-open {
+  background: var(--red);
+  border: 1px solid rgba(255,241,207,.55);
+}
+
+.menu.is-open span {
+  background: var(--cream);
+}
+
+.menu.is-open span:nth-child(1) {
+  transform: translateY(13px) rotate(45deg);
+}
+
+.menu.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu.is-open span:nth-child(3) {
+  transform: translateY(-13px) rotate(-45deg);
+}
+
+.menu span {
+  transition: transform .45s cubic-bezier(.19,1,.22,1), opacity .3s ease, background .3s ease;
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: var(--red);
+  color: var(--cream);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .55s cubic-bezier(.19,1,.22,1), visibility .55s;
+}
+
+.menu-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-panel {
+  width: 100%;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 120px 24px 42px;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 22px);
+}
+
+.menu-nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: clamp(34px, 5.8vw, 82px);
+  line-height: .78;
+  letter-spacing: -.075em;
+  font-weight: 900;
+  transform: translateY(36px);
+  opacity: 0;
+  transition:
+    transform .75s cubic-bezier(.19,1,.22,1),
+    opacity .75s cubic-bezier(.19,1,.22,1),
+    letter-spacing .45s cubic-bezier(.19,1,.22,1);
+}
+
+.menu-overlay.is-open .menu-nav a {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.menu-overlay.is-open .menu-nav a:nth-child(1) { transition-delay: .05s; }
+.menu-overlay.is-open .menu-nav a:nth-child(2) { transition-delay: .10s; }
+.menu-overlay.is-open .menu-nav a:nth-child(3) { transition-delay: .15s; }
+.menu-overlay.is-open .menu-nav a:nth-child(4) { transition-delay: .20s; }
+.menu-overlay.is-open .menu-nav a:nth-child(5) { transition-delay: .25s; }
+.menu-overlay.is-open .menu-nav a:nth-child(6) { transition-delay: .30s; }
+.menu-overlay.is-open .menu-nav a:nth-child(7) { transition-delay: .35s; }
+
+.menu-nav a:hover {
+  letter-spacing: -.035em;
+  opacity: .72;
+}
+
+.menu-footer {
+  position: absolute;
+  left: 44px;
+  right: 44px;
+  bottom: 34px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+  letter-spacing: .16em;
+  opacity: .72;
+}
+
+@media (max-width: 700px) {
+  .menu-panel {
+    padding-top: 110px;
+  }
+
+  .menu-nav {
+    gap: 10px;
+  }
+
+  .menu-nav a {
+    font-size: clamp(34px, 12vw, 58px);
+    line-height: .82;
+  }
+
+  .menu-footer {
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* V3 updates */
+.bottle-wrap,
+.bottle,
+.bottle-glow,
+.glass-highlight {
+  display: none !important;
+}
+
+/* Cleaner hero without bottle */
+.hero-copy {
+  transform: none;
+}
+
+.hero-copy p {
+  font-size: clamp(48px, 8vw, 104px);
+}
+
+.hero-copy h1 {
+  font-size: clamp(68px, 11vw, 150px);
+}
+
+/* Reduce fullscreen menu type 50% */
+.menu-nav a {
+  font-size: clamp(17px, 2.9vw, 41px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.035em !important;
+}
+
+.menu-nav {
+  gap: clamp(14px, 1.8vw, 26px) !important;
+}
+
+/* Close button inside menu */
+.menu-close {
+  position: fixed;
+  top: 28px;
+  right: 48px;
+  width: 68px;
+  height: 68px;
+  border: 0;
+  border-radius: 0;
+  background: var(--cream);
+  display: grid;
+  place-items: center;
+  z-index: 70;
+  padding: 0;
+  cursor: pointer;
+}
+
+.menu-close span {
+  position: absolute;
+  width: 34px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--red);
+}
+
+.menu-close span:first-child {
+  transform: rotate(45deg);
+}
+
+.menu-close span:last-child {
+  transform: rotate(-45deg);
+}
+
+/* Hide hamburger while overlay is open; close button takes over */
+.menu.is-open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Animated scroll line inspired by the reference */
+.scroll span {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,241,207,.25) !important;
+}
+
+.scroll span::after {
+  content: "";
+  position: absolute;
+  top: -55%;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: var(--cream);
+  animation: scrollLine 1.55s cubic-bezier(.76,0,.24,1) infinite;
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: translateY(0);
+  }
+  60%, 100% {
+    transform: translateY(285%);
+  }
+}
+
+@media (max-width: 700px) {
+  .menu-nav a {
+    font-size: clamp(22px, 8vw, 42px) !important;
+  }
+
+  .menu-close {
+    top: 20px;
+    right: 24px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .menu-close span {
+    width: 28px;
+    height: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-copy p {
+    font-size: 42px;
+  }
+
+  .hero-copy h1 {
+    font-size: 62px;
+  }
+}
+
+/* V6 FIXED: white wave menu with red links */
+.menu-overlay {
+  background: transparent !important;
+  color: var(--red) !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.menu-overlay.is-open,
+.menu-overlay.is-closing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-overlay::before,
+.menu-overlay::after {
+  content: "";
+  position: absolute;
+  left: -16%;
+  right: -16%;
+  bottom: -10%;
+  height: 135%;
+  pointer-events: none;
+}
+
+.menu-overlay::before {
+  background: var(--cream);
+  z-index: -1;
+  transform: translateY(112%);
+  clip-path: polygon(0% 18%, 8% 14%, 16% 18%, 24% 14%, 32% 18%, 40% 14%, 48% 18%, 56% 14%, 64% 18%, 72% 14%, 80% 18%, 88% 14%, 100% 18%, 100% 100%, 0% 100%);
+}
+
+.menu-overlay::after {
+  background: rgba(255,241,207,.68);
+  z-index: -2;
+  transform: translateY(118%);
+  clip-path: polygon(0% 14%, 10% 20%, 20% 15%, 30% 21%, 40% 16%, 50% 22%, 60% 15%, 70% 20%, 80% 14%, 90% 21%, 100% 16%, 100% 100%, 0% 100%);
+}
+
+.menu-overlay.is-open::before {
+  animation: waveUpMain .95s cubic-bezier(.76,0,.24,1) forwards, waveMoveA 3s ease-in-out .95s infinite alternate;
+}
+
+.menu-overlay.is-open::after {
+  animation: waveUpBack 1.08s cubic-bezier(.76,0,.24,1) forwards, waveMoveB 3.5s ease-in-out 1.08s infinite alternate;
+}
+
+.menu-overlay.is-closing::before {
+  animation: waveDownMain .62s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.menu-overlay.is-closing::after {
+  animation: waveDownBack .72s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+@keyframes waveUpMain {
+  0% { transform: translateY(112%); }
+  60% { transform: translateY(7%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes waveUpBack {
+  0% { transform: translateY(118%); }
+  65% { transform: translateY(10%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes waveDownMain {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(112%); }
+}
+
+@keyframes waveDownBack {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(118%); }
+}
+
+@keyframes waveMoveA {
+  from { clip-path: polygon(0% 18%, 8% 14%, 16% 18%, 24% 14%, 32% 18%, 40% 14%, 48% 18%, 56% 14%, 64% 18%, 72% 14%, 80% 18%, 88% 14%, 100% 18%, 100% 100%, 0% 100%); }
+  to { clip-path: polygon(0% 14%, 8% 19%, 16% 14%, 24% 19%, 32% 14%, 40% 19%, 48% 14%, 56% 19%, 64% 14%, 72% 19%, 80% 14%, 88% 19%, 100% 14%, 100% 100%, 0% 100%); }
+}
+
+@keyframes waveMoveB {
+  from { clip-path: polygon(0% 14%, 10% 20%, 20% 15%, 30% 21%, 40% 16%, 50% 22%, 60% 15%, 70% 20%, 80% 14%, 90% 21%, 100% 16%, 100% 100%, 0% 100%); }
+  to { clip-path: polygon(0% 21%, 10% 15%, 20% 22%, 30% 14%, 40% 21%, 50% 15%, 60% 22%, 70% 14%, 80% 21%, 90% 15%, 100% 22%, 100% 100%, 0% 100%); }
+}
+
+.menu-panel,
+.menu-nav a,
+.menu-footer {
+  color: var(--red) !important;
+}
+
+.menu-nav a {
+  font-size: clamp(17px, 2.9vw, 41px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.035em !important;
+}
+
+.menu-nav {
+  gap: clamp(14px, 1.8vw, 26px) !important;
+}
+
+.menu-close {
+  background: var(--red) !important;
+  z-index: 80 !important;
+}
+
+.menu-close span {
+  background: var(--cream) !important;
+}
+
+.menu.is-open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .menu-nav a {
+    font-size: clamp(22px, 8vw, 42px) !important;
+  }
+}
+
+/* V10: Revoltosa-like real SVG wave menu transition */
+.menu-overlay {
+  background: transparent !important;
+  color: var(--red) !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.menu-overlay.is-open,
+.menu-overlay.is-closing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Disable previous pseudo-wave attempts */
+.menu-overlay::before,
+.menu-overlay::after {
+  display: none !important;
+  content: none !important;
+}
+
+.menu-wave {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.wave-svg {
+  position: absolute;
+  left: -5vw;
+  top: -118px;
+  width: 110vw;
+  height: 130px;
+  display: block;
+  animation: waveHorizontal 4.6s ease-in-out infinite alternate;
+}
+
+.wave-svg path {
+  fill: var(--cream);
+}
+
+.wave-body {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  background: var(--cream);
+}
+
+.menu-overlay.is-open .menu-wave {
+  animation: menuWaveRise .95s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.menu-overlay.is-closing .menu-wave {
+  animation: menuWaveDown .65s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+@keyframes menuWaveRise {
+  0% {
+    transform: translateY(100%);
+  }
+  58% {
+    transform: translateY(7%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes menuWaveDown {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes waveHorizontal {
+  0% {
+    transform: translateX(-2vw) scaleX(1.02);
+  }
+  100% {
+    transform: translateX(2vw) scaleX(1.02);
+  }
+}
+
+.menu-panel {
+  position: relative;
+  z-index: 2 !important;
+  color: var(--red) !important;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .45s cubic-bezier(.19,1,.22,1),
+    transform .55s cubic-bezier(.19,1,.22,1);
+}
+
+.menu-overlay.is-open .menu-panel {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .26s;
+}
+
+.menu-overlay.is-closing .menu-panel {
+  opacity: 0;
+  transform: translateY(18px);
+  transition-delay: 0s;
+}
+
+.menu-nav a,
+.menu-footer {
+  color: var(--red) !important;
+}
+
+.menu-nav a {
+  font-size: clamp(17px, 2.9vw, 41px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.035em !important;
+}
+
+.menu-nav {
+  gap: clamp(14px, 1.8vw, 26px) !important;
+}
+
+.menu-close {
+  background: var(--red) !important;
+  z-index: 80 !important;
+}
+
+.menu-close span {
+  background: var(--cream) !important;
+}
+
+.menu.is-open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .wave-svg {
+    top: -86px;
+    height: 96px;
+  }
+
+  .menu-nav a {
+    font-size: clamp(22px, 8vw, 42px) !important;
+  }
+}
+
+/* V13 UX fixes */
+
+/* Fixed UI: logo/menu and scroll always stay in place */
+.topbar {
+  position: fixed !important;
+  z-index: 90 !important;
+}
+
+.scroll {
+  position: fixed !important;
+  z-index: 80 !important;
+}
+
+/* More refined global bubbles across red sections */
+.global-bubble-field {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .78;
+  mix-blend-mode: screen;
+}
+
+.global-bubble-field span {
+  position: absolute;
+  left: var(--x);
+  bottom: -8vh;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,241,207,.68);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.72), transparent 18%),
+    rgba(255,241,207,.04);
+  box-shadow:
+    0 0 16px rgba(255,241,207,.28),
+    inset 0 0 6px rgba(255,255,255,.12);
+  animation: bubbleRise var(--d) linear infinite;
+  animation-delay: var(--delay);
+}
+
+/* Keep text and bottle above bubbles */
+.hero-copy,
+.history-copy,
+.history-bottle-wrap {
+  position: relative;
+  z-index: 12;
+}
+
+/* Cleaner history section */
+.history-section {
+  position: relative;
+  min-height: 100svh;
+  background: var(--red);
+  color: var(--cream);
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.8fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 80px);
+  padding: clamp(110px, 10vw, 150px) clamp(28px, 7vw, 110px) 90px;
+}
+
+.history-copy {
+  max-width: 620px;
+}
+
+.history-number {
+  font-size: clamp(86px, 10.5vw, 158px);
+  line-height: .8;
+  letter-spacing: -.085em;
+  font-weight: 900;
+  margin-bottom: clamp(22px, 3vw, 36px);
+}
+
+.history-copy h2 {
+  margin: 0;
+  font-size: clamp(28px, 3.65vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+
+.history-copy h2 span {
+  display: block;
+}
+
+.history-copy strong {
+  font-weight: 900;
+  font-style: normal;
+}
+
+.history-copy em {
+  font-weight: 300;
+  font-style: normal;
+}
+
+.history-cta {
+  display: inline-grid;
+  place-items: center;
+  min-width: clamp(210px, 22vw, 290px);
+  min-height: clamp(58px, 6vw, 78px);
+  margin-top: clamp(34px, 5vw, 58px);
+  padding: 0 30px;
+  border: 2.5px solid var(--cream);
+  border-radius: 18px;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 400;
+  letter-spacing: -.01em;
+  transition: background .35s ease, color .35s ease, transform .35s cubic-bezier(.19,1,.22,1);
+}
+
+.history-cta:hover {
+  background: var(--cream);
+  color: var(--red);
+  transform: translateY(-3px);
+}
+
+.history-bottle-wrap {
+  position: absolute;
+  right: clamp(-140px, -8vw, -70px);
+  top: 52%;
+  width: clamp(310px, 31vw, 500px);
+  transform: translateY(-50%) rotate(14deg);
+  will-change: transform;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.history-bottle {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 28px 34px rgba(0,0,0,.22));
+}
+
+@media (max-width: 980px) {
+  .history-section {
+    grid-template-columns: 1fr;
+    align-items: center;
+    padding: 110px 26px 86px;
+  }
+
+  .history-copy {
+    max-width: 66vw;
+  }
+
+  .history-number {
+    font-size: clamp(78px, 21vw, 132px);
+    margin-bottom: 24px;
+  }
+
+  .history-copy h2 {
+    font-size: clamp(27px, 6vw, 42px);
+  }
+
+  .history-bottle-wrap {
+    width: min(52vw, 360px);
+    right: -17vw;
+    top: 57%;
+  }
+}
+
+@media (max-width: 620px) {
+  .global-bubble-field span:nth-child(n+7) {
+    display: none;
+  }
+
+  .history-copy {
+    max-width: 82vw;
+  }
+
+  .history-number {
+    font-size: 86px;
+  }
+
+  .history-copy h2 {
+    font-size: 27px;
+    line-height: 1.15;
+  }
+
+  .history-cta {
+    min-width: 210px;
+    min-height: 58px;
+    border-radius: 14px;
+    padding: 0 22px;
+  }
+
+  .history-bottle-wrap {
+    width: 68vw;
+    right: -35vw;
+    top: 61%;
+    opacity: .94;
+  }
+}
+
+/* V14 fixes: fixed brand logo and better history bottle placement */
+.logo {
+  position: relative;
+  z-index: 95;
+}
+
+.topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 95 !important;
+}
+
+.history-bottle-wrap {
+  right: clamp(-80px, -3.5vw, -36px) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  top: 52% !important;
+}
+
+@media (max-width: 980px) {
+  .history-bottle-wrap {
+    width: min(50vw, 340px) !important;
+    right: -10vw !important;
+    top: 58% !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .history-bottle-wrap {
+    width: 64vw !important;
+    right: -26vw !important;
+    top: 62% !important;
+  }
+}
+
+/* V15: logo always top layer + history modal */
+.topbar,
+.logo {
+  z-index: 999 !important;
+}
+
+.menu {
+  z-index: 1000 !important;
+}
+
+.menu-overlay,
+.history-modal {
+  z-index: 900 !important;
+}
+
+.history-bottle-wrap,
+.history-copy,
+.hero-copy {
+  z-index: 20 !important;
+}
+
+.history-cta {
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* History modal with the same wave reveal language as menu */
+.history-modal {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  color: var(--red);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.history-modal.is-open,
+.history-modal.is-closing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-wave {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.modal-wave-svg {
+  position: absolute;
+  left: -5vw;
+  top: -118px;
+  width: 110vw;
+  height: 130px;
+  display: block;
+  animation: modalWaveHorizontal 4.6s ease-in-out infinite alternate;
+}
+
+.modal-wave-svg path {
+  fill: var(--cream);
+}
+
+.modal-wave-body {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  background: var(--cream);
+}
+
+.history-modal.is-open .modal-wave {
+  animation: modalWaveRise .95s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.history-modal.is-closing .modal-wave {
+  animation: modalWaveDown .65s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+@keyframes modalWaveRise {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0%); }
+}
+
+@keyframes modalWaveDown {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes modalWaveHorizontal {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+.history-modal-close {
+  position: fixed;
+  top: 28px;
+  right: 48px;
+  width: 68px;
+  height: 68px;
+  border: 0;
+  background: var(--red);
+  display: grid;
+  place-items: center;
+  z-index: 1001;
+  padding: 0;
+  cursor: pointer;
+}
+
+.history-modal-close span {
+  position: absolute;
+  width: 34px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--cream);
+}
+
+.history-modal-close span:first-child {
+  transform: rotate(45deg);
+}
+
+.history-modal-close span:last-child {
+  transform: rotate(-45deg);
+}
+
+.history-modal-content {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 130px 28px 70px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity .55s cubic-bezier(.19,1,.22,1),
+    transform .65s cubic-bezier(.19,1,.22,1);
+}
+
+.history-modal.is-open .history-modal-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .28s;
+}
+
+.history-modal.is-closing .history-modal-content {
+  opacity: 0;
+  transform: translateY(18px);
+  transition-delay: 0s;
+}
+
+.modal-kicker {
+  margin: 0 0 24px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.history-modal-content h2 {
+  margin: 0 0 34px;
+  font-size: clamp(42px, 6vw, 86px);
+  line-height: .9;
+  letter-spacing: -.065em;
+  font-weight: 900;
+  max-width: 850px;
+}
+
+.modal-text {
+  max-width: 700px;
+  display: grid;
+  gap: 20px;
+}
+
+.modal-text p {
+  margin: 0;
+  font-size: clamp(17px, 1.55vw, 22px);
+  line-height: 1.55;
+}
+
+@media (max-width: 700px) {
+  .history-modal-close {
+    top: 20px;
+    right: 24px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .history-modal-close span {
+    width: 28px;
+    height: 4px;
+  }
+
+  .modal-wave-svg {
+    top: -86px;
+    height: 96px;
+  }
+
+  .history-modal-content h2 {
+    font-size: clamp(38px, 13vw, 58px);
+  }
+}
+
+/* V16 hard fixes */
+.topbar {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  z-index: 2147483000 !important;
+  pointer-events: none;
+  transform: none !important;
+}
+
+.logo {
+  position: relative !important;
+  z-index: 2147483001 !important;
+  pointer-events: auto;
+}
+
+.menu {
+  z-index: 2147483002 !important;
+  pointer-events: auto;
+}
+
+.scroll {
+  z-index: 2147482000 !important;
+}
+
+/* Keep overlays below logo/header, but still above page content */
+.menu-overlay,
+.history-modal {
+  z-index: 2147481000 !important;
+}
+
+/* Move bottle 100px left */
+.history-bottle-wrap {
+  right: calc(clamp(-80px, -3.5vw, -36px) + 100px) !important;
+}
+
+/* Make button styling reliable */
+.history-cta {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* History modal reliable visibility */
+.history-modal {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  color: var(--red);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.history-modal.is-open,
+.history-modal.is-closing {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.modal-wave {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.modal-wave-svg {
+  position: absolute;
+  left: -5vw;
+  top: -118px;
+  width: 110vw;
+  height: 130px;
+  display: block;
+  animation: modalWaveHorizontal 4.6s ease-in-out infinite alternate;
+}
+
+.modal-wave-svg path {
+  fill: var(--cream);
+}
+
+.modal-wave-body {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  background: var(--cream);
+}
+
+.history-modal.is-open .modal-wave {
+  animation: modalWaveRise .95s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.history-modal.is-closing .modal-wave {
+  animation: modalWaveDown .65s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+@keyframes modalWaveRise {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0%); }
+}
+
+@keyframes modalWaveDown {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes modalWaveHorizontal {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+.history-modal-close {
+  position: fixed;
+  top: 28px;
+  right: 48px;
+  width: 68px;
+  height: 68px;
+  border: 0;
+  background: var(--red);
+  display: grid;
+  place-items: center;
+  z-index: 2147483003 !important;
+  padding: 0;
+  cursor: pointer;
+}
+
+.history-modal-close span {
+  position: absolute;
+  width: 34px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--cream);
+}
+
+.history-modal-close span:first-child { transform: rotate(45deg); }
+.history-modal-close span:last-child { transform: rotate(-45deg); }
+
+.history-modal-content {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 130px 28px 70px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .55s cubic-bezier(.19,1,.22,1), transform .65s cubic-bezier(.19,1,.22,1);
+}
+
+.history-modal.is-open .history-modal-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .28s;
+}
+
+.history-modal.is-closing .history-modal-content {
+  opacity: 0;
+  transform: translateY(18px);
+  transition-delay: 0s;
+}
+
+.modal-kicker {
+  margin: 0 0 24px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.history-modal-content h2 {
+  margin: 0 0 34px;
+  font-size: clamp(42px, 6vw, 86px);
+  line-height: .9;
+  letter-spacing: -.065em;
+  font-weight: 900;
+  max-width: 850px;
+}
+
+.modal-text {
+  max-width: 700px;
+  display: grid;
+  gap: 20px;
+}
+
+.modal-text p {
+  margin: 0;
+  font-size: clamp(17px, 1.55vw, 22px);
+  line-height: 1.55;
+}
+
+@media (max-width: 980px) {
+  .history-bottle-wrap {
+    right: calc(-10vw + 100px) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .history-modal-close {
+    top: 20px;
+    right: 24px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .history-modal-close span {
+    width: 28px;
+    height: 4px;
+  }
+
+  .modal-wave-svg {
+    top: -86px;
+    height: 96px;
+  }
+
+  .history-modal-content h2 {
+    font-size: clamp(38px, 13vw, 58px);
+  }
+}
+
+@media (max-width: 620px) {
+  .history-bottle-wrap {
+    right: calc(-26vw + 70px) !important;
+  }
+}
+
+/* V17 final fixes */
+
+/* Logo/header must be the absolute top visible UI at all times */
+body > .global-bubble-field {
+  z-index: 1 !important;
+}
+
+.topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 2147483640 !important;
+  pointer-events: none !important;
+  isolation: isolate;
+}
+
+.topbar .logo,
+.logo {
+  position: relative !important;
+  z-index: 2147483641 !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  mix-blend-mode: normal !important;
+  transform: none !important;
+}
+
+.menu {
+  z-index: 2147483642 !important;
+  pointer-events: auto !important;
+}
+
+/* All overlays stay below the fixed brand/logo */
+.menu-overlay,
+.history-modal {
+  z-index: 2147482000 !important;
+}
+
+/* Move history bottle another ~100px left */
+.history-bottle-wrap {
+  right: calc(clamp(-80px, -3.5vw, -36px) + 200px) !important;
+}
+
+@media (max-width: 980px) {
+  .history-bottle-wrap {
+    right: calc(-10vw + 180px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .history-bottle-wrap {
+    right: calc(-26vw + 120px) !important;
+  }
+}
+
+/* History modal must scroll internally */
+.history-modal {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.history-modal-content {
+  min-height: auto !important;
+  display: block !important;
+  padding-top: 150px !important;
+  padding-bottom: 100px !important;
+}
+
+.history-modal.is-open {
+  pointer-events: auto !important;
+}
+
+/* Keep close button above modal, below global logo/menu layer */
+.history-modal-close {
+  z-index: 2147483000 !important;
+}
+
+/* V18: History does not cover global fixed UI */
+.history-section {
+  background: transparent !important;
+  isolation: auto !important;
+  z-index: auto !important;
+}
+
+/* Red site background remains global, not per section */
+body,
+main {
+  background: var(--red) !important;
+}
+
+/* Force fixed UI above every section */
+.topbar,
+.scroll {
+  position: fixed !important;
+  pointer-events: none !important;
+}
+
+.topbar {
+  z-index: 999999999 !important;
+}
+
+.scroll {
+  z-index: 999999998 !important;
+}
+
+.logo,
+.menu {
+  pointer-events: auto !important;
+  z-index: 1000000000 !important;
+}
+
+/* Keep content below fixed UI */
+.hero,
+.history-section,
+.next-section,
+.history-copy,
+.history-bottle-wrap {
+  z-index: 1 !important;
+}
+
+/* Bottle a little more balanced and still parallax */
+.history-bottle-wrap {
+  right: clamp(40px, 8vw, 130px) !important;
+}
+
+/* History modal: scrollable content plus closing wave section */
+.history-modal {
+  overflow-y: auto !important;
+  background: transparent !important;
+  scroll-behavior: smooth;
+}
+
+.history-modal-content {
+  min-height: 100svh !important;
+  align-content: start !important;
+  padding-top: 150px !important;
+  padding-bottom: 160px !important;
+}
+
+/* Exit wave that appears at end of modal */
+.history-modal-exit {
+  position: relative;
+  min-height: 55svh;
+  display: grid;
+  place-items: center;
+  padding: 80px 24px;
+  z-index: 2;
+  color: var(--red);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.history-modal-exit.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.history-modal-exit button {
+  appearance: none;
+  border: 2px solid var(--red);
+  border-radius: 18px;
+  background: transparent;
+  color: var(--red);
+  min-width: 240px;
+  min-height: 64px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.history-modal-exit button:hover {
+  background: var(--red);
+  color: var(--cream);
+}
+
+/* Closing wave movement when user reaches end */
+.history-modal.end-ready .modal-wave {
+  animation: modalWaveSettleDown .85s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+@keyframes modalWaveSettleDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+@media (max-width: 980px) {
+  .history-bottle-wrap {
+    right: -2vw !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .history-bottle-wrap {
+    right: -22vw !important;
+  }
+}
+
+/* V19: modal fixes - cream stays solid, closes by scroll only */
+.history-modal {
+  background: var(--cream) !important;
+  color: var(--red) !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.history-modal-close,
+#historyModalClose {
+  display: none !important;
+}
+
+.modal-wave {
+  z-index: 0 !important;
+}
+
+.history-modal-content,
+.history-modal-exit {
+  position: relative;
+  z-index: 3 !important;
+}
+
+/* Make the readable modal content occupy enough scroll space */
+.history-modal-content {
+  max-width: 920px !important;
+  min-height: 100svh !important;
+  margin: 0 auto !important;
+  padding: 150px 28px 120px !important;
+  display: block !important;
+}
+
+.history-modal-exit {
+  min-height: 70svh !important;
+  color: var(--red) !important;
+}
+
+.history-modal-exit button {
+  display: none !important;
+}
+
+.modal-exit-wave {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  transform: translateY(100%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.modal-exit-wave-svg {
+  position: absolute;
+  left: -5vw;
+  top: -118px;
+  width: 110vw;
+  height: 130px;
+  display: block;
+  animation: modalExitWaveHorizontal 4.6s ease-in-out infinite alternate;
+}
+
+.modal-exit-wave-svg path {
+  fill: var(--red);
+}
+
+.modal-exit-wave-body {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  background: var(--red);
+}
+
+.history-modal.auto-closing .modal-exit-wave {
+  animation: modalExitWaveUp .85s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+@keyframes modalExitWaveUp {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0%); }
+}
+
+@keyframes modalExitWaveHorizontal {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+@media (max-width: 700px) {
+  .modal-exit-wave-svg {
+    top: -86px;
+    height: 96px;
+  }
+
+  .history-modal-content {
+    padding-top: 125px !important;
+  }
+}
+
+/* V20: restore/open wave animation for history modal */
+.history-modal {
+  background: transparent !important;
+}
+
+.history-modal.is-open,
+.history-modal.is-closing,
+.history-modal.auto-closing {
+  background: transparent !important;
+}
+
+/* the cream background comes from the wave layer, not from the modal itself */
+.history-modal .modal-wave {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 0 !important;
+  transform: translateY(100%);
+}
+
+.history-modal .modal-wave-svg path {
+  fill: var(--cream) !important;
+}
+
+.history-modal .modal-wave-body {
+  background: var(--cream) !important;
+}
+
+/* force the entrance wave every time it opens */
+.history-modal.is-open:not(.auto-closing) .modal-wave {
+  animation: historyOpenWaveRise .95s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+@keyframes historyOpenWaveRise {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0%); }
+}
+
+/* keep text above the cream wave */
+.history-modal-content,
+.history-modal-exit {
+  z-index: 3 !important;
+}
+
+/* red wave remains the closing wave */
+.history-modal.auto-closing .modal-exit-wave {
+  animation: modalExitWaveUp .85s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+/* V25 HARD FIX */
+
+/* BUBBLES: independent fixed visual layer, always visible on red page sections */
+.always-bubbles {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 500 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.always-bubbles span {
+  position: absolute !important;
+  left: var(--x) !important;
+  bottom: -80px !important;
+  width: var(--s) !important;
+  height: var(--s) !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 241, 207, .85) !important;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.85), transparent 18%),
+    rgba(255,241,207,.08) !important;
+  box-shadow:
+    0 0 24px rgba(255,241,207,.45),
+    inset 0 0 10px rgba(255,255,255,.22) !important;
+  animation: alwaysBubbleRise var(--dur) linear infinite !important;
+  animation-delay: var(--delay) !important;
+}
+
+@keyframes alwaysBubbleRise {
+  0% { transform: translate3d(0, 0, 0) scale(.7); opacity: 0; }
+  10% { opacity: .85; }
+  55% { transform: translate3d(24px, -58vh, 0) scale(1); opacity: .85; }
+  100% { transform: translate3d(-20px, -120vh, 0) scale(1.2); opacity: 0; }
+}
+
+/* Main content and fixed UI should sit above bubbles */
+.hero-copy,
+.history-copy,
+.history-bottle-wrap {
+  z-index: 800 !important;
+}
+
+.topbar { z-index: 2147483600 !important; }
+.logo { z-index: 2147483601 !important; }
+.menu { z-index: 2147483602 !important; }
+.scroll { z-index: 2147483599 !important; }
+
+/* Do not show bubbles inside modals */
+body.history-modal-active .always-bubbles,
+body.menu-open .always-bubbles {
+  opacity: 0 !important;
+}
+
+/* MODAL: reliable cream reading surface */
+.history-modal {
+  z-index: 2147482000 !important;
+  background: transparent !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+}
+
+/* Fixed cream surface hidden until after the entrance wave, so the wave is visible */
+.history-modal::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.history-modal.is-open.wave-done::before,
+.history-modal.red-closing::before {
+  opacity: 1 !important;
+}
+
+/* Opening cream wave */
+.history-modal .modal-wave {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  transform: translateY(100%);
+  pointer-events: none !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.history-modal .modal-wave-svg {
+  position: absolute !important;
+  left: -5vw !important;
+  top: -118px !important;
+  width: 110vw !important;
+  height: 130px !important;
+  display: block !important;
+  animation: modalWaveHorizontalClean 4.6s ease-in-out infinite alternate;
+}
+
+.history-modal .modal-wave-svg path {
+  fill: var(--cream) !important;
+}
+
+.history-modal .modal-wave-body {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  background: var(--cream) !important;
+}
+
+.history-modal.is-open:not(.red-closing) .modal-wave {
+  animation: modalCreamOpenClean .95s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+@keyframes modalCreamOpenClean {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes modalWaveHorizontalClean {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+/* Content above cream */
+.history-modal-content,
+.history-modal-end {
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+.history-modal-content {
+  min-height: auto !important;
+  padding-top: 150px !important;
+  padding-bottom: 120px !important;
+}
+
+.history-modal-end {
+  min-height: 85vh !important;
+}
+
+/* Closing red wave. It appears ONLY while red-closing class exists */
+.modal-exit-wave {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 50 !important;
+  transform: translateY(100%) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.modal-exit-wave-svg {
+  position: absolute !important;
+  left: -5vw !important;
+  top: -118px !important;
+  width: 110vw !important;
+  height: 130px !important;
+  display: block !important;
+  animation: modalWaveHorizontalClean 4.6s ease-in-out infinite alternate;
+}
+
+.modal-exit-wave-svg path {
+  fill: var(--red) !important;
+}
+
+.modal-exit-wave-body {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  background: var(--red) !important;
+}
+
+.history-modal.red-closing .modal-exit-wave {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: modalRedCloseClean .9s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+@keyframes modalRedCloseClean {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0); }
+}
+
+.history-modal-close,
+#historyModalClose,
+.history-modal-exit,
+#historyModalExit,
+#historyModalContinue {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .history-modal .modal-wave-svg,
+  .modal-exit-wave-svg {
+    top: -86px !important;
+    height: 96px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .always-bubbles span:nth-child(n+10) {
+    display: none !important;
+  }
+}
+
+/* V26: cierre estable del modal historia con ola roja global */
+.history-red-close-wave {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483600 !important;
+  pointer-events: none !important;
+  transform: translateY(100%) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  will-change: transform !important;
+}
+
+.history-red-close-wave.is-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: historyGlobalRedWaveUp .95s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+.history-red-close-wave svg {
+  position: absolute !important;
+  left: -5vw !important;
+  top: -118px !important;
+  width: 110vw !important;
+  height: 130px !important;
+  display: block !important;
+  animation: historyGlobalWaveDrift 4.6s ease-in-out infinite alternate !important;
+}
+
+.history-red-close-wave path {
+  fill: var(--red) !important;
+}
+
+.history-red-close-wave__body {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  background: var(--red) !important;
+}
+
+.history-modal.red-closing {
+  overflow: hidden !important;
+}
+
+.history-modal.red-closing .history-modal-content,
+.history-modal.red-closing .history-modal-end {
+  pointer-events: none !important;
+}
+
+@keyframes historyGlobalRedWaveUp {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes historyGlobalWaveDrift {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+@media (max-width: 700px) {
+  .history-red-close-wave svg {
+    top: -86px !important;
+    height: 96px !important;
+  }
+}
+
+/* V27: bloque Proceso segun maqueta PROCESS.pdf */
+.process-section {
+  position: relative;
+  min-height: 100svh;
+  background: var(--red);
+  color: var(--cream);
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(330px, .9fr) minmax(360px, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 86px);
+  padding: clamp(110px, 9vw, 150px) clamp(28px, 7vw, 105px) 120px;
+  z-index: 1 !important;
+}
+
+.process-brand {
+  position: absolute;
+  top: clamp(36px, 6vw, 70px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 810;
+  pointer-events: none;
+}
+
+.process-brand img {
+  width: clamp(118px, 12vw, 178px);
+  height: auto;
+  display: block;
+}
+
+.process-bottle-wrap {
+  position: absolute;
+  left: clamp(-190px, -9vw, -82px);
+  top: 52%;
+  width: clamp(420px, 42vw, 650px);
+  transform: translate3d(var(--processBottleX, 30px), calc(-50% + var(--processBottleY, 0px)), 0) rotate(var(--processBottleRotate, -12deg));
+  transform-origin: 48% 52%;
+  z-index: 805;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.process-bottle {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 34px 40px rgba(0,0,0,.24));
+}
+
+.process-copy {
+  position: relative;
+  z-index: 820;
+  grid-column: 2;
+  max-width: 620px;
+  justify-self: start;
+  margin-top: 8vh;
+}
+
+.process-copy h2 {
+  margin: 0;
+  font-size: clamp(34px, 4.65vw, 72px);
+  line-height: 1.09;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.process-copy h2 span {
+  display: block;
+}
+
+.process-copy strong {
+  font-weight: 900;
+}
+
+.process-cta {
+  display: inline-grid;
+  place-items: center;
+  min-width: clamp(265px, 26vw, 375px);
+  min-height: clamp(70px, 7.1vw, 94px);
+  margin-top: clamp(42px, 6vw, 76px);
+  padding: 0 34px;
+  border: 3px solid var(--cream);
+  border-radius: 20px;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: clamp(16px, 1.45vw, 23px);
+  letter-spacing: -.02em;
+  background: transparent;
+  transition: transform .35s cubic-bezier(.19,1,.22,1), background .35s ease, color .35s ease;
+}
+
+.process-cta:hover {
+  transform: translateY(-3px);
+  background: var(--cream);
+  color: var(--red);
+}
+
+.process-next-wave {
+  position: absolute;
+  inset: auto 0 0;
+  height: 42vh;
+  z-index: 760;
+  pointer-events: none;
+  transform: translateY(var(--processWaveY, 100%));
+  will-change: transform;
+}
+
+.process-next-wave svg {
+  position: absolute;
+  left: -5vw;
+  top: -128px;
+  width: 110vw;
+  height: 150px;
+  display: block;
+  animation: processWaveDrift 4.8s ease-in-out infinite alternate;
+}
+
+.process-next-wave path {
+  fill: #fff;
+}
+
+.process-next-wave__body {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  background: #fff;
+}
+
+.white-section {
+  min-height: 100svh;
+  background: #fff;
+  color: var(--red);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 96px 24px;
+  position: relative;
+  z-index: 2 !important;
+}
+
+.white-section h2 {
+  margin: 0;
+  font-size: clamp(76px, 12vw, 180px);
+  line-height: .86;
+  letter-spacing: -.08em;
+  text-transform: uppercase;
+}
+
+.white-section p {
+  margin: 22px 0 0;
+  font-size: 20px;
+}
+
+@keyframes processWaveDrift {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+/* El bloque Proceso reemplaza el placeholder anterior */
+.next-section {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  .process-section {
+    grid-template-columns: 1fr;
+    padding: 120px 26px 110px;
+  }
+
+  .process-bottle-wrap {
+    left: -24vw;
+    top: 55%;
+    width: min(68vw, 440px);
+  }
+
+  .process-copy {
+    grid-column: 1;
+    max-width: 62vw;
+    margin-left: auto;
+    margin-top: 10vh;
+  }
+
+  .process-copy h2 {
+    font-size: clamp(32px, 7vw, 52px);
+  }
+}
+
+@media (max-width: 620px) {
+  .process-brand {
+    top: 32px;
+  }
+
+  .process-section {
+    padding: 120px 22px 100px;
+  }
+
+  .process-bottle-wrap {
+    left: -45vw;
+    top: 57%;
+    width: 92vw;
+    opacity: .96;
+  }
+
+  .process-copy {
+    max-width: 70vw;
+    margin-left: auto;
+  }
+
+  .process-copy h2 {
+    font-size: 30px;
+    line-height: 1.12;
+  }
+
+  .process-cta {
+    min-width: 220px;
+    min-height: 60px;
+    border-radius: 15px;
+    border-width: 2px;
+    padding: 0 22px;
+    font-size: 14px;
+  }
+
+  .process-next-wave svg {
+    top: -88px;
+    height: 104px;
+  }
+}
+
+body.on-white-section .always-bubbles {
+  opacity: 0 !important;
+}
+
+
+/* V28: Proceso usa el mismo fondo animado global, sin logo duplicado */
+.process-section {
+  background: transparent !important;
+  z-index: 1 !important;
+}
+
+.process-brand,
+.process-bottle-wrap,
+.process-bottle {
+  display: none !important;
+}
+
+/* La ola blanca queda arriba de toda la seccion para cubrir texto, boton y botella */
+.process-next-wave {
+  z-index: 2147481500 !important;
+}
+
+.process-copy {
+  z-index: 820 !important;
+}
+
+body.process-parallax-active .history-bottle-wrap {
+  position: fixed !important;
+  right: auto !important;
+  left: var(--sharedBottleLeft, -115px) !important;
+  top: var(--sharedBottleTop, 52vh) !important;
+  width: var(--sharedBottleWidth, clamp(420px, 42vw, 650px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -12deg)) !important;
+  transform-origin: 48% 52% !important;
+  z-index: 805 !important;
+  will-change: left, top, width, transform !important;
+}
+
+body.process-wave-covering .history-bottle-wrap,
+body.process-wave-covering .process-copy {
+  pointer-events: none !important;
+}
+
+body.on-white-section .always-bubbles {
+  opacity: 0 !important;
+}
+
+/* V29: ajustes Proceso + modal de proceso */
+.process-copy h2 {
+  font-size: clamp(28px, 3.75vw, 56px) !important;
+  line-height: 1.13 !important;
+  letter-spacing: -.045em !important;
+}
+
+.process-cta {
+  appearance: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* mueve la botella compartida 100px a la derecha en el bloque Proceso */
+body.process-parallax-active .history-bottle-wrap {
+  left: calc(var(--sharedBottleLeft, -115px) + 100px) !important;
+}
+
+.process-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482500;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: transparent;
+  color: var(--red);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.process-modal.is-open,
+.process-modal.auto-closing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.process-modal-wave,
+.process-modal-exit-wave {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.process-modal.is-open:not(.auto-closing) .process-modal-wave {
+  animation: processModalWaveRise .95s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.process-modal.auto-closing .process-modal-exit-wave {
+  animation: processModalExitWaveUp .9s cubic-bezier(.76,0,.24,1) forwards;
+}
+
+.process-modal-wave-svg,
+.process-modal-exit-wave-svg {
+  position: absolute;
+  left: -5vw;
+  top: -118px;
+  width: 110vw;
+  height: 130px;
+  display: block;
+  animation: processModalWaveDrift 4.6s ease-in-out infinite alternate;
+}
+
+.process-modal-wave-svg path,
+.process-modal-wave-body {
+  fill: var(--cream);
+  background: var(--cream);
+}
+
+.process-modal-exit-wave-svg path,
+.process-modal-exit-wave-body {
+  fill: var(--red);
+  background: var(--red);
+}
+
+.process-modal-wave-body,
+.process-modal-exit-wave-body {
+  position: absolute;
+  inset: 0;
+  top: 0;
+}
+
+.process-modal-content {
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+  min-height: 138vh;
+  margin: 0 auto;
+  padding: clamp(110px, 12vw, 170px) clamp(24px, 7vw, 90px) 34vh;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.process-modal.is-open .process-modal-content {
+  animation: processModalContentIn .65s cubic-bezier(.19,1,.22,1) .45s forwards;
+}
+
+.process-modal.auto-closing .process-modal-content {
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.process-modal-content h2 {
+  margin: 0 0 clamp(28px, 5vw, 56px);
+  max-width: 840px;
+  font-size: clamp(42px, 7vw, 92px);
+  line-height: .9;
+  letter-spacing: -.075em;
+  text-transform: uppercase;
+}
+
+.process-modal .modal-text {
+  max-width: 720px;
+}
+
+.process-modal .modal-text p {
+  color: var(--red);
+}
+
+.modal-scroll-hint {
+  margin-top: 72px !important;
+  opacity: .7;
+  text-transform: uppercase;
+  font-size: 14px !important;
+  letter-spacing: .08em !important;
+}
+
+.process-modal-end {
+  position: relative;
+  z-index: 2;
+  height: 40vh;
+}
+
+@keyframes processModalWaveRise {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(7%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes processModalExitWaveUp {
+  0% { transform: translateY(100%); }
+  58% { transform: translateY(6%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes processModalWaveDrift {
+  0% { transform: translateX(-2vw) scaleX(1.02); }
+  100% { transform: translateX(2vw) scaleX(1.02); }
+}
+
+@keyframes processModalContentIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body.process-modal-active {
+  overflow: hidden;
+}
+
+@media (max-width: 620px) {
+  .process-copy h2 {
+    font-size: 24px !important;
+    line-height: 1.16 !important;
+  }
+
+  body.process-parallax-active .history-bottle-wrap {
+    left: calc(var(--sharedBottleLeft, -45vw) + 54px) !important;
+  }
+
+  .process-modal-wave-svg,
+  .process-modal-exit-wave-svg {
+    top: -86px;
+    height: 96px;
+  }
+
+  .process-modal-content h2 {
+    font-size: clamp(38px, 13vw, 62px);
+  }
+}
+
+
+/* V30 stable: mas recorrido antes de que aparezca la ola blanca en Proceso */
+.process-section {
+  min-height: 150svh !important;
+  padding-bottom: clamp(260px, 28vh, 420px) !important;
+}
+
+.process-copy {
+  align-self: start !important;
+  margin-top: clamp(18vh, 22vh, 240px) !important;
+}
+
+@media (max-width: 900px) {
+  .process-section {
+    min-height: 145svh !important;
+    padding-bottom: clamp(240px, 30vh, 380px) !important;
+  }
+
+  .process-copy {
+    margin-top: 20vh !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .process-section {
+    min-height: 150svh !important;
+    padding-bottom: 300px !important;
+  }
+}
+
+
+/* V31: Proceso CTA igual al de Historia + sin texto de scroll en modal */
+.process-cta {
+  display: inline-grid !important;
+  place-items: center !important;
+  min-width: clamp(210px, 22vw, 290px) !important;
+  min-height: clamp(58px, 6vw, 78px) !important;
+  margin-top: clamp(34px, 5vw, 58px) !important;
+  padding: 0 30px !important;
+  border: 2.5px solid var(--cream) !important;
+  border-radius: 18px !important;
+  color: var(--cream) !important;
+  text-decoration: none !important;
+  font-size: clamp(14px, 1.2vw, 18px) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.01em !important;
+  background: transparent !important;
+}
+
+.process-cta:hover {
+  background: var(--cream) !important;
+  color: var(--red) !important;
+  transform: translateY(-3px) !important;
+}
+
+.process-modal .modal-scroll-hint {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .process-cta {
+    min-width: 220px !important;
+    min-height: 60px !important;
+    border-radius: 15px !important;
+    border-width: 2px !important;
+    padding: 0 22px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* V32: Proceso fijo al centro; solo la ola blanca sube con el scroll */
+.process-section {
+  min-height: 170svh !important;
+  display: block !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  overflow: clip !important;
+}
+
+.process-copy {
+  position: sticky !important;
+  top: 50svh !important;
+  transform: translateY(-50%) !important;
+  z-index: 820 !important;
+  max-width: min(620px, 48vw) !important;
+  margin: 0 7vw 0 auto !important;
+  padding-top: 0 !important;
+  align-self: auto !important;
+}
+
+.process-next-wave {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 120svh !important;
+  z-index: 2147481500 !important;
+  transform: translateY(var(--processWaveY, 100%)) !important;
+}
+
+.process-next-wave svg {
+  top: -126px !important;
+  height: 150px !important;
+}
+
+.process-next-wave__body {
+  min-height: 125svh !important;
+}
+
+body.process-wave-covering .process-copy,
+body.process-wave-covering .history-bottle-wrap {
+  pointer-events: none !important;
+}
+
+@media (max-width: 980px) {
+  .process-copy {
+    max-width: min(62vw, 520px) !important;
+    margin-right: 26px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .process-section {
+    min-height: 165svh !important;
+  }
+
+  .process-copy {
+    max-width: 70vw !important;
+    margin-right: 22px !important;
+  }
+
+  .process-next-wave svg {
+    top: -88px !important;
+    height: 104px !important;
+  }
+}
+
+/* V33: Proceso entra desde abajo, se fija al centro y despues lo cubre la ola blanca */
+.process-section {
+  min-height: 210svh !important;
+  display: block !important;
+  padding-top: 68svh !important;
+  padding-bottom: 88svh !important;
+  overflow: clip !important;
+}
+
+.process-copy {
+  position: sticky !important;
+  top: 50svh !important;
+  transform: translateY(-50%) !important;
+  z-index: 820 !important;
+  max-width: min(620px, 48vw) !important;
+  margin: 0 7vw 0 auto !important;
+  padding: 0 !important;
+  align-self: auto !important;
+}
+
+.process-next-wave {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 125svh !important;
+  z-index: 2147481500 !important;
+  transform: translateY(var(--processWaveY, 100%)) !important;
+}
+
+.process-next-wave__body {
+  min-height: 130svh !important;
+}
+
+@media (max-width: 980px) {
+  .process-section {
+    min-height: 205svh !important;
+    padding-top: 70svh !important;
+    padding-bottom: 86svh !important;
+  }
+
+  .process-copy {
+    max-width: min(62vw, 520px) !important;
+    margin-right: 26px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .process-section {
+    min-height: 205svh !important;
+    padding-top: 72svh !important;
+    padding-bottom: 88svh !important;
+  }
+
+  .process-copy {
+    max-width: 70vw !important;
+    margin-right: 22px !important;
+  }
+}
+
+/* V34: Proceso sube al entrar, queda fijo y la ola blanca lo cubre antes de que se despegue */
+.process-section {
+  min-height: 235svh !important;
+  padding-top: 72svh !important;
+  padding-bottom: 120svh !important;
+  overflow: clip !important;
+}
+
+.process-copy {
+  position: sticky !important;
+  top: 50svh !important;
+  transform: translateY(-50%) !important;
+  z-index: 820 !important;
+  margin: 0 7vw 0 auto !important;
+  pointer-events: auto !important;
+}
+
+.process-next-wave {
+  z-index: 2147481500 !important;
+  pointer-events: none !important;
+  height: 135svh !important;
+  transform: translateY(var(--processWaveY, 100%)) !important;
+}
+
+.process-next-wave__body {
+  min-height: 140svh !important;
+}
+
+body.process-wave-covering .process-copy,
+body.process-wave-covering .history-bottle-wrap {
+  pointer-events: none !important;
+}
+
+/* V34: asegurar que el menu siempre pueda abrirse encima de Historia/Proceso */
+.topbar {
+  position: fixed !important;
+  z-index: 2147483644 !important;
+  pointer-events: none !important;
+}
+
+#menuButton,
+.menu {
+  position: relative !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.logo {
+  position: relative !important;
+  z-index: 2147483646 !important;
+  pointer-events: auto !important;
+}
+
+.menu-overlay {
+  z-index: 2147483645 !important;
+}
+
+.menu-overlay.is-open,
+.menu-overlay.is-closing {
+  pointer-events: auto !important;
+}
+
+@media (max-width: 980px) {
+  .process-section {
+    min-height: 232svh !important;
+    padding-top: 74svh !important;
+    padding-bottom: 118svh !important;
+  }
+
+  .process-copy {
+    margin-right: 26px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .process-section {
+    min-height: 230svh !important;
+    padding-top: 76svh !important;
+    padding-bottom: 118svh !important;
+  }
+
+  .process-copy {
+    margin-right: 22px !important;
+  }
+}
+
+
+/* V35: Correccion final menu + Proceso lock correcto
+   - El boton de menu regresa a su lugar original dentro del topbar.
+   - El contenido de Proceso sube con el scroll, se queda fijo al llegar a su posicion,
+     y la ola blanca lo cubre por encima antes de soltarlo. */
+.topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding: 32px 48px !important;
+  pointer-events: none !important;
+  z-index: 2147483600 !important;
+}
+
+.topbar .logo {
+  position: relative !important;
+  z-index: 2147483601 !important;
+  pointer-events: auto !important;
+}
+
+#menuButton.menu,
+.menu#menuButton {
+  position: absolute !important;
+  top: 28px !important;
+  right: 48px !important;
+  left: auto !important;
+  bottom: auto !important;
+  width: 68px !important;
+  height: 68px !important;
+  transform: none !important;
+  z-index: 2147483602 !important;
+  pointer-events: auto !important;
+}
+
+.menu-overlay {
+  z-index: 2147483500 !important;
+}
+
+/* Mantiene la posicion final del texto/boton cuando ya entro al bloque Proceso */
+body.process-copy-locked .process-copy {
+  position: fixed !important;
+  top: 50svh !important;
+  right: 7vw !important;
+  left: auto !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+  width: min(620px, 48vw) !important;
+  max-width: min(620px, 48vw) !important;
+  z-index: 820 !important;
+}
+
+/* La ola siempre va por encima de texto, boton y botella */
+.process-next-wave {
+  z-index: 2147481500 !important;
+}
+
+body.process-wave-covering .process-copy,
+body.process-wave-covering .history-bottle-wrap {
+  pointer-events: none !important;
+}
+
+@media (max-width: 980px) {
+  #menuButton.menu,
+  .menu#menuButton {
+    right: 28px !important;
+    top: 24px !important;
+  }
+
+  body.process-copy-locked .process-copy {
+    right: 26px !important;
+    width: min(520px, 62vw) !important;
+    max-width: min(520px, 62vw) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .topbar {
+    padding: 24px 24px !important;
+  }
+
+  #menuButton.menu,
+  .menu#menuButton {
+    right: 24px !important;
+    top: 22px !important;
+    width: 58px !important;
+    height: 58px !important;
+    border-radius: 16px !important;
+  }
+
+  body.process-copy-locked .process-copy {
+    right: 22px !important;
+    width: 70vw !important;
+    max-width: 70vw !important;
+  }
+}
+
+
+/* V36: estabilizar Proceso + nuevo bloque Mixologia */
+/* Evita el micro-brinco: el texto se mantiene sticky, no cambia a fixed por JS. */
+body.process-copy-locked .process-copy,
+.process-copy {
+  position: sticky !important;
+  top: 50svh !important;
+  right: auto !important;
+  left: auto !important;
+  transform: translateY(-50%) translateZ(0) !important;
+  will-change: auto !important;
+  backface-visibility: hidden !important;
+}
+
+.process-section {
+  overflow: hidden !important;
+}
+
+/* Mixologia segun maqueta: fondo claro, logo rojo, cards y CTA. */
+.mixology-section {
+  position: relative;
+  min-height: 100svh;
+  background: var(--cream);
+  color: var(--red);
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(34px, 5vw, 58px) clamp(28px, 7vw, 94px) clamp(48px, 6vw, 74px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  z-index: 2 !important;
+}
+
+.mixology-header {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: clamp(22px, 3vw, 42px);
+}
+
+.mixology-logo {
+  width: clamp(96px, 10vw, 150px);
+  height: auto;
+  display: block;
+}
+
+.mixology-header h2 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 45px);
+  line-height: 1;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+}
+
+.mixology-cards {
+  position: relative;
+  z-index: 5;
+  width: min(100%, 1180px);
+  margin: clamp(32px, 5vw, 64px) auto clamp(28px, 4vw, 44px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(34px, 5vw, 72px);
+  align-items: end;
+}
+
+.mixology-card {
+  background: #fff;
+  box-shadow: 0 22px 34px rgba(120, 30, 10, .08);
+  transform: translateZ(0);
+}
+
+.mixology-card-image {
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.mixology-card-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.mixology-card-copy {
+  padding: clamp(16px, 2vw, 22px) clamp(14px, 1.8vw, 20px) clamp(14px, 1.8vw, 18px);
+  min-height: 76px;
+}
+
+.mixology-card-copy h3 {
+  margin: 0 0 8px;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: .98;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+  color: #111;
+  font-weight: 900;
+}
+
+.mixology-card-copy p {
+  margin: 0;
+  font-size: clamp(10px, .9vw, 13px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  color: #2b2b2b;
+}
+
+.mixology-cta {
+  position: relative;
+  z-index: 5;
+  justify-self: center;
+  display: inline-grid;
+  place-items: center;
+  min-width: clamp(160px, 15vw, 210px);
+  min-height: clamp(52px, 5vw, 68px);
+  padding: 0 28px;
+  border: 2px solid var(--red);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--red);
+  font-family: inherit;
+  font-size: clamp(13px, 1vw, 16px);
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.19,1,.22,1), background .3s ease, color .3s ease;
+}
+
+.mixology-cta:hover {
+  transform: translateY(-3px);
+  background: var(--red);
+  color: var(--cream);
+}
+
+.mixology-scroll {
+  position: absolute;
+  right: clamp(18px, 3vw, 38px);
+  bottom: clamp(28px, 5vw, 62px);
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  color: var(--red);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.mixology-scroll span {
+  width: 2px;
+  height: 42px;
+  background: var(--red);
+  opacity: .7;
+}
+
+.mixology-scroll p {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -.02em;
+}
+
+body.on-white-section .always-bubbles {
+  opacity: 1 !important;
+  mix-blend-mode: multiply;
+}
+
+body.on-white-section .always-bubbles span {
+  border-color: var(--red) !important;
+  box-shadow: inset 6px 7px 0 rgba(255,0,0,.95), 0 0 0 1px rgba(255,0,0,.12) !important;
+  opacity: .78;
+}
+
+@media (max-width: 980px) {
+  .mixology-section {
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+
+  .mixology-cards {
+    gap: 26px;
+  }
+
+  .mixology-card-copy h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .mixology-section {
+    min-height: auto;
+    padding-top: 110px;
+    padding-bottom: 92px;
+  }
+
+  .mixology-cards {
+    grid-template-columns: 1fr;
+    width: min(100%, 360px);
+    gap: 28px;
+  }
+
+  .mixology-header h2 {
+    font-size: 28px;
+  }
+
+  .mixology-scroll {
+    right: 14px;
+    bottom: 28px;
+  }
+}
+
+/* V37: Mixologia usa el blanco real de la transicion + UI global roja en bloques blancos */
+:root {
+  --white-ui-red: #FF0B00;
+}
+
+body {
+  background: #fff !important;
+}
+
+.mixology-section {
+  background: transparent !important;
+  color: var(--white-ui-red) !important;
+}
+
+.mixology-header h2,
+.mixology-cta,
+.mixology-scroll {
+  color: var(--white-ui-red) !important;
+}
+
+.mixology-cta {
+  border-color: var(--white-ui-red) !important;
+}
+
+.mixology-cta:hover {
+  background: var(--white-ui-red) !important;
+  color: #fff !important;
+}
+
+.mixology-scroll span {
+  background: var(--white-ui-red) !important;
+}
+
+/* Cuando el viewport entra a un bloque blanco, la UI fija cambia a rojo. */
+body.on-white-section .topbar .logo {
+  filter: none !important;
+}
+
+body.on-white-section #menuButton.menu,
+body.on-white-section .menu#menuButton {
+  background: var(--white-ui-red) !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.on-white-section .menu#menuButton span {
+  background: #fff !important;
+}
+
+body.on-white-section .scroll,
+body.on-white-section .scroll p {
+  color: var(--white-ui-red) !important;
+}
+
+body.on-white-section .scroll span {
+  background: var(--white-ui-red) !important;
+}
+
+body.on-white-section .always-bubbles span {
+  border-color: var(--white-ui-red) !important;
+  box-shadow: inset 6px 7px 0 rgba(255, 11, 0, .92), 0 0 0 1px rgba(255, 11, 0, .12) !important;
+}
+
+/* V38: Mixologia vuelve a tener fondo propio y la ola toma el mismo color del bloque */
+body {
+  background: var(--red) !important;
+}
+
+.mixology-section {
+  background: var(--cream) !important;
+  color: var(--red) !important;
+  margin-top: 0 !important;
+  padding-top: clamp(34px, 5vw, 58px) !important;
+}
+
+.mixology-header h2,
+.mixology-cta,
+.mixology-scroll {
+  color: var(--red) !important;
+}
+
+.mixology-cta {
+  border-color: var(--red) !important;
+}
+
+.mixology-cta:hover {
+  background: var(--red) !important;
+  color: var(--cream) !important;
+}
+
+.mixology-scroll span {
+  background: var(--red) !important;
+}
+
+.process-next-wave {
+  height: 50vh !important;
+  bottom: -1px !important;
+  transform: translate3d(0, var(--processWaveY, 100%), 0) !important;
+}
+
+.process-next-wave svg {
+  top: -126px !important;
+  height: 150px !important;
+}
+
+.process-next-wave path {
+  fill: var(--cream) !important;
+}
+
+.process-next-wave__body {
+  background: var(--cream) !important;
+  top: 0 !important;
+}
+
+/* Elimina cualquier gap visual entre la ola y el inicio de Mixologia */
+.process-section + .mixology-section {
+  margin-top: 0 !important;
+}
+
+/* UI roja al entrar al bloque claro/crema */
+body.on-white-section .scroll,
+body.on-white-section .scroll p {
+  color: #FF0B00 !important;
+}
+
+body.on-white-section .scroll span,
+body.on-white-section #menuButton.menu,
+body.on-white-section .menu#menuButton {
+  background: #FF0B00 !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.on-white-section .menu#menuButton span {
+  background: #fff !important;
+}
+
+/* V39: fixed UI is always above every section/wave and switches to red on light blocks */
+:root {
+  --ui-light-red: #FF0B00;
+}
+
+.topbar {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  z-index: 2147483644 !important;
+  pointer-events: none !important;
+  isolation: isolate !important;
+}
+
+.topbar .logo {
+  position: relative !important;
+  z-index: 2147483646 !important;
+  pointer-events: auto !important;
+}
+
+#menuButton.menu,
+.menu#menuButton {
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.scroll {
+  position: fixed !important;
+  z-index: 2147483643 !important;
+  pointer-events: none !important;
+}
+
+.menu-overlay {
+  z-index: 2147483645 !important;
+}
+
+.process-next-wave,
+.process-next-wave svg,
+.process-next-wave__body,
+.mixology-section,
+.history-section,
+.process-section,
+.history-bottle-wrap,
+.process-copy,
+.history-copy {
+  z-index: auto;
+}
+
+body.on-white-section .topbar .logo {
+  filter: none !important;
+}
+
+body.on-white-section #menuButton.menu,
+body.on-white-section .menu#menuButton {
+  background: var(--ui-light-red) !important;
+  border-color: var(--ui-light-red) !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.on-white-section .menu#menuButton span {
+  background: var(--cream) !important;
+}
+
+body.on-white-section .scroll,
+body.on-white-section .scroll p {
+  color: var(--ui-light-red) !important;
+}
+
+body.on-white-section .scroll span {
+  background: var(--ui-light-red) !important;
+}
+
+
+/* V40: Mixologia uses the site background + animated cream wave */
+body {
+  transition: background-color .35s ease !important;
+}
+
+body.light-site-background,
+body.on-white-section {
+  background: var(--cream) !important;
+}
+
+.mixology-section {
+  background: transparent !important;
+  z-index: 1 !important;
+}
+
+/* The entrance wave is part of the transition, not a static block background. */
+.process-next-wave {
+  overflow: visible !important;
+  background: transparent !important;
+  z-index: 2147481500 !important;
+}
+
+.process-next-wave svg {
+  left: -6vw !important;
+  width: 112vw !important;
+  animation: processWaveHorizontal 4.8s ease-in-out infinite alternate !important;
+  will-change: transform !important;
+}
+
+.process-next-wave path,
+.process-next-wave__body {
+  fill: var(--cream) !important;
+  background: var(--cream) !important;
+}
+
+@keyframes processWaveHorizontal {
+  0% { transform: translateX(-2.4vw) scaleX(1.02); }
+  100% { transform: translateX(2.4vw) scaleX(1.02); }
+}
+
+/* Keep global UI above the transparent Mixologia block and the animated wave. */
+.topbar,
+.topbar .logo,
+#menuButton.menu,
+.menu#menuButton,
+.scroll {
+  isolation: auto !important;
+}
+
+.topbar { z-index: 2147483644 !important; }
+.topbar .logo { z-index: 2147483646 !important; }
+#menuButton.menu,
+.menu#menuButton { z-index: 2147483647 !important; }
+.scroll { z-index: 2147483643 !important; }
+
+/* V41: Mixologia lives on the site background, not an extra section layer */
+html,
+body,
+main {
+  transition: background-color .35s ease !important;
+}
+
+body.light-site-background,
+body.on-white-section,
+body.light-site-background main,
+body.on-white-section main {
+  background: var(--cream) !important;
+}
+
+body:not(.light-site-background):not(.on-white-section) main {
+  background: var(--red) !important;
+}
+
+.mixology-section {
+  background: transparent !important;
+  z-index: 0 !important;
+  isolation: auto !important;
+}
+
+/* Keep the animated transition wave in the same bone color as Mixologia. */
+.process-next-wave {
+  z-index: 2147481000 !important;
+  pointer-events: none !important;
+}
+
+.process-next-wave svg {
+  animation: processWaveHorizontal 4.8s ease-in-out infinite alternate !important;
+  transform-origin: center bottom !important;
+}
+
+.process-next-wave path,
+.process-next-wave__body {
+  fill: var(--cream) !important;
+  background: var(--cream) !important;
+}
+
+/* Global UI must float above every content/wave layer after being promoted to body. */
+body > .topbar,
+body > .scroll {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  pointer-events: none !important;
+  isolation: isolate !important;
+}
+
+body > .topbar #menuButton,
+body > .topbar .menu {
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+}
+
+body > .topbar .logo {
+  z-index: 2147483647 !important;
+}
+
+body > .scroll {
+  z-index: 2147483646 !important;
+}
+
+body > .menu-overlay {
+  position: fixed !important;
+  z-index: 2147483645 !important;
+}
+
+body.on-white-section .topbar .logo,
+body.light-site-background .topbar .logo {
+  filter: none !important;
+}
+
+body.on-white-section #menuButton.menu,
+body.light-site-background #menuButton.menu {
+  background: var(--ui-light-red, #FF0B00) !important;
+  border-color: var(--ui-light-red, #FF0B00) !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.light-site-background #menuButton.menu span {
+  background: var(--cream) !important;
+}
+
+body.on-white-section .scroll,
+body.on-white-section .scroll p,
+body.light-site-background .scroll,
+body.light-site-background .scroll p {
+  color: var(--ui-light-red, #FF0B00) !important;
+}
+
+body.on-white-section .scroll span,
+body.light-site-background .scroll span {
+  background: var(--ui-light-red, #FF0B00) !important;
+}
+
+/* V42: Mixologia transition cleanup
+   - No duplicate logo/scroll inside Mixologia.
+   - Proceso keeps a red surface until the cream wave covers it, so no cream appears before the wave.
+   - Shared bottle disappears once the wave/mixology covers the process block.
+   - Global logo/menu/scroll remain above all layers. */
+.process-section {
+  background: var(--red) !important;
+  isolation: isolate !important;
+}
+
+.mixology-section {
+  background: transparent !important;
+  z-index: 1 !important;
+  isolation: auto !important;
+}
+
+.mixology-logo,
+.mixology-scroll {
+  display: none !important;
+}
+
+body.process-wave-covering .history-bottle-wrap,
+body.light-site-background .history-bottle-wrap,
+body.on-white-section .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body > .topbar,
+body > .scroll,
+body > .topbar .logo,
+body > .topbar #menuButton,
+body > .topbar .menu {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+}
+
+body > .topbar {
+  pointer-events: none !important;
+}
+
+body > .topbar #menuButton,
+body > .topbar .menu,
+body > .topbar .logo {
+  pointer-events: auto !important;
+}
+
+body > .scroll {
+  z-index: 2147483646 !important;
+  pointer-events: none !important;
+}
+
+.process-next-wave {
+  z-index: 2147481000 !important;
+  pointer-events: none !important;
+}
+
+
+/* V43: Mixologia final transition fix
+   - La botella permanece visible durante Proceso y la cubre la ola naturalmente.
+   - Mixologia mantiene fondo hueso para que no aparezca una franja roja entre ola y seccion.
+   - El fondo global solo cambia a hueso con light-site-background, no solo por on-white-section.
+   - Header de Mixologia: titulo + subtitulo 22px.
+   - Se eliminan duplicados internos de logo/scroll y la UI global queda encima. */
+body.on-white-section:not(.light-site-background),
+body.on-white-section:not(.light-site-background) main {
+  background: var(--red) !important;
+}
+
+body.light-site-background,
+body.light-site-background main {
+  background: var(--cream) !important;
+}
+
+.mixology-section {
+  background: var(--cream) !important;
+  color: var(--ui-light-red, #FF0B00) !important;
+  z-index: 1 !important;
+  isolation: isolate !important;
+  margin-top: 0 !important;
+  padding-top: clamp(76px, 7vw, 98px) !important;
+}
+
+.mixology-logo,
+.mixology-scroll {
+  display: none !important;
+}
+
+.mixology-header {
+  gap: 10px !important;
+}
+
+.mixology-header h2 {
+  color: var(--ui-light-red, #FF0B00) !important;
+  font-size: clamp(44px, 5.4vw, 78px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.055em !important;
+  font-weight: 900 !important;
+  margin: 0 !important;
+}
+
+.mixology-header p {
+  color: var(--ui-light-red, #FF0B00) !important;
+  margin: 0 !important;
+  font-size: 22px !important;
+  line-height: 1.15 !important;
+  letter-spacing: -.025em !important;
+  text-align: center !important;
+  text-transform: none !important;
+}
+
+.process-next-wave {
+  bottom: -2px !important;
+  height: 58vh !important;
+  z-index: 2147481000 !important;
+  overflow: visible !important;
+}
+
+.process-next-wave svg {
+  top: -126px !important;
+  height: 150px !important;
+  animation: processWaveHorizontal 4.8s ease-in-out infinite alternate !important;
+}
+
+.process-next-wave path,
+.process-next-wave__body {
+  fill: var(--cream) !important;
+  background: var(--cream) !important;
+}
+
+/* No ocultar la botella al iniciar la ola; debe ser cubierta por la ola. */
+body.process-wave-covering .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ya en Mixologia si se apaga la botella compartida. */
+body.light-site-background .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body > .topbar,
+body > .scroll {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+}
+
+body > .topbar {
+  pointer-events: none !important;
+}
+
+body > .topbar .logo,
+body > .topbar #menuButton,
+body > .topbar .menu {
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+}
+
+body > .scroll {
+  z-index: 2147483646 !important;
+  pointer-events: none !important;
+}
+
+body.on-white-section #menuButton.menu,
+body.light-site-background #menuButton.menu {
+  background: var(--ui-light-red, #FF0B00) !important;
+  border-color: var(--ui-light-red, #FF0B00) !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.light-site-background #menuButton.menu span {
+  background: var(--cream) !important;
+}
+
+body.on-white-section .scroll,
+body.on-white-section .scroll p,
+body.light-site-background .scroll,
+body.light-site-background .scroll p {
+  color: var(--ui-light-red, #FF0B00) !important;
+}
+
+body.on-white-section .scroll span,
+body.light-site-background .scroll span {
+  background: var(--ui-light-red, #FF0B00) !important;
+}
+
+@media (max-width: 720px) {
+  .mixology-header h2 {
+    font-size: 42px !important;
+  }
+  .mixology-header p {
+    font-size: 22px !important;
+  }
+}
+
+/* V44: bottle layer, mixology interactions, recipe navigation */
+/* Botella compartida: siempre arriba en Historia/Proceso, por debajo de la UI global; se apaga al entrar realmente a Mixologia. */
+.history-section,
+.process-section {
+  overflow: visible !important;
+}
+
+.history-bottle-wrap {
+  z-index: 2147481200 !important;
+}
+
+body.process-parallax-active .history-bottle-wrap,
+body:not(.light-site-background) .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2147481200 !important;
+}
+
+body.light-site-background .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* La ola cubre toda la parte inferior para eliminar la franja roja antes de Mixologia. */
+.process-next-wave {
+  height: 115vh !important;
+  bottom: -1px !important;
+  z-index: 2147481000 !important;
+}
+
+.process-next-wave__body {
+  bottom: -8vh !important;
+}
+
+.process-section + .mixology-section,
+.mixology-section {
+  margin-top: -1px !important;
+}
+
+/* Cards clicables + seleccion hover. */
+.mixology-card {
+  position: relative;
+  display: block;
+  text-decoration: none !important;
+  color: inherit !important;
+  cursor: pointer;
+  border-radius: 0;
+  overflow: hidden;
+  transition: transform .32s cubic-bezier(.2,.8,.2,1), box-shadow .32s ease, filter .32s ease;
+}
+
+.mixology-card::after {
+  content: "VER RECETA";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 11, 0, .82);
+  color: var(--cream);
+  font-size: clamp(16px, 1.7vw, 23px);
+  font-weight: 900;
+  letter-spacing: -.035em;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity .28s ease, transform .28s ease;
+  pointer-events: none;
+}
+
+.mixology-card:hover,
+.mixology-card:focus-visible {
+  transform: translateY(-14px) scale(1.025);
+  box-shadow: 0 32px 44px rgba(120, 30, 10, .18);
+  outline: none;
+}
+
+.mixology-card:hover::after,
+.mixology-card:focus-visible::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mixology-card:hover .mixology-card-image img,
+.mixology-card:focus-visible .mixology-card-image img {
+  transform: scale(1.08) rotate(-1deg);
+}
+
+.mixology-card-image img {
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+
+/* Pagina receta */
+body.recipe-page,
+body.recipe-page main {
+  background: var(--cream) !important;
+  color: #111;
+  min-height: 100svh;
+}
+
+.recipe-layout {
+  min-height: 100svh;
+  padding: clamp(84px, 7vw, 116px) clamp(28px, 6vw, 86px) clamp(44px, 5vw, 70px);
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(330px, .92fr);
+  gap: clamp(44px, 6vw, 90px);
+  align-items: center;
+}
+
+.recipe-visual {
+  background: #ff4b0b;
+  min-height: min(72vh, 720px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.recipe-visual img {
+  width: min(92%, 610px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(22px 24px 0 rgba(0,0,0,.28));
+}
+
+.recipe-content h1 {
+  margin: 0 0 clamp(30px, 4vw, 54px);
+  font-size: clamp(44px, 5.6vw, 82px);
+  line-height: .9;
+  letter-spacing: -.07em;
+  text-transform: uppercase;
+  font-weight: 950;
+}
+
+.recipe-block {
+  margin: 0 0 clamp(28px, 3vw, 40px);
+}
+
+.recipe-block h2 {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+  color: #111;
+  font-weight: 950;
+}
+
+.recipe-block p,
+.recipe-block li {
+  font-size: clamp(15px, 1.18vw, 18px);
+  line-height: 1.35;
+  color: #777066;
+  text-transform: uppercase;
+}
+
+.recipe-block ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.recipe-back {
+  display: inline-grid;
+  place-items: center;
+  min-height: 54px;
+  padding: 0 24px;
+  border: 2px solid var(--ui-light-red, #FF0B00);
+  border-radius: 16px;
+  color: var(--ui-light-red, #FF0B00);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  transition: background .22s ease, color .22s ease, transform .22s ease;
+}
+
+.recipe-back:hover {
+  background: var(--ui-light-red, #FF0B00);
+  color: var(--cream);
+  transform: translateY(-2px);
+}
+
+body.recipe-page .always-bubbles {
+  opacity: .35 !important;
+}
+
+body.recipe-page .topbar .logo {
+  content: url('assets/logo-red.png');
+}
+
+body.recipe-page #menuButton.menu {
+  background: var(--ui-light-red, #FF0B00) !important;
+  border-color: var(--ui-light-red, #FF0B00) !important;
+}
+
+body.recipe-page #menuButton.menu span {
+  background: var(--cream) !important;
+}
+
+@media (max-width: 860px) {
+  .recipe-layout {
+    grid-template-columns: 1fr;
+    padding-top: 110px;
+  }
+  .recipe-visual {
+    min-height: 48vh;
+  }
+}
+
+/* V45: bottle clipping fix + mixology spacing/hover text */
+/* La botella compartida vive en body via JS para no ser recortada por secciones/olas. */
+body > .history-bottle-wrap {
+  position: fixed !important;
+  right: clamp(-140px, -8vw, -70px) !important;
+  top: 52vh !important;
+  width: clamp(310px, 31vw, 500px) !important;
+  transform: translate3d(0, -50%, 0) rotate(14deg) !important;
+  z-index: 2147481200 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  will-change: left, top, width, transform, opacity !important;
+}
+
+body.history-bottle-visible:not(.light-site-background) > .history-bottle-wrap,
+body.process-parallax-active:not(.light-site-background) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+body.process-parallax-active > .history-bottle-wrap {
+  right: auto !important;
+  left: calc(var(--sharedBottleLeft, -115px) + 100px) !important;
+  top: var(--sharedBottleTop, 52vh) !important;
+  width: var(--sharedBottleWidth, clamp(420px, 42vw, 650px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -12deg)) !important;
+}
+
+body.light-site-background > .history-bottle-wrap,
+body.mixology-active > .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* La ola queda debajo de la botella en Historia/Proceso, pero la seccion Mixologia ya la oculta al entrar. */
+.process-next-wave {
+  z-index: 2147481000 !important;
+}
+
+/* Mixologia mas arriba: menos aire entre ola y contenido. */
+.mixology-section {
+  padding-top: clamp(28px, 3.2vw, 46px) !important;
+  min-height: 100svh !important;
+}
+
+.mixology-header {
+  transform: translateY(-10px) !important;
+  margin-bottom: clamp(24px, 3vw, 38px) !important;
+}
+
+.mixology-cards {
+  margin-top: 0 !important;
+}
+
+.mixology-card::after {
+  content: "VER" !important;
+}
+
+/* V46: bottle visibility scope fix
+   La botella compartida solo se muestra en Historia y Proceso.
+   Se fuerza por encima de reglas viejas que la prendian en todo el sitio. */
+body > .history-bottle-wrap,
+body:not(.light-site-background) > .history-bottle-wrap,
+body.process-wave-covering > .history-bottle-wrap,
+body.on-white-section > .history-bottle-wrap,
+body.mixology-active > .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.history-bottle-visible:not(.mixology-active) > .history-bottle-wrap,
+body.process-parallax-active:not(.mixology-active) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  z-index: 2147481200 !important;
+}
+
+body.process-parallax-active:not(.mixology-active) > .history-bottle-wrap {
+  right: auto !important;
+  left: calc(var(--sharedBottleLeft, -115px) + 100px) !important;
+  top: var(--sharedBottleTop, 52vh) !important;
+  width: var(--sharedBottleWidth, clamp(420px, 42vw, 650px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -12deg)) !important;
+}
+
+/* V47: scope real de la botella Historia/Proceso + capa de ola
+   - En Historia la botella sube con la seccion y queda 200px separada del borde derecho.
+   - En Proceso se conserva la misma botella compartida.
+   - Al cerrar Proceso, la ola crema pasa por encima de la botella y la oculta antes de Mixologia. */
+body > .history-bottle-wrap {
+  position: fixed !important;
+  right: 200px !important;
+  left: auto !important;
+  top: var(--historyBottleTop, 52vh) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 14deg)) !important;
+  z-index: 2147481200 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  will-change: top, transform, opacity, visibility !important;
+}
+
+body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: 200px !important;
+  left: auto !important;
+  top: var(--historyBottleTop, 52vh) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 14deg)) !important;
+}
+
+body.process-parallax-active:not(.mixology-active) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: auto !important;
+  left: calc(var(--sharedBottleLeft, -115px) + 100px) !important;
+  top: var(--sharedBottleTop, 52vh) !important;
+  width: var(--sharedBottleWidth, clamp(420px, 42vw, 650px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -12deg)) !important;
+}
+
+/* La ola debe ocultar la botella, no la botella esconderse de golpe. */
+body.process-wave-covering > .history-bottle-wrap {
+  z-index: 2147480900 !important;
+}
+
+.process-next-wave {
+  z-index: 2147481000 !important;
+}
+
+body.mixology-active > .history-bottle-wrap,
+body.light-site-background > .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 980px) {
+  body > .history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > .history-bottle-wrap {
+    right: 70px !important;
+    width: min(50vw, 340px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  body > .history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > .history-bottle-wrap {
+    right: -18vw !important;
+    width: 64vw !important;
+  }
+}
+
+
+/* V48: bottle-only fix based on the stable behavior
+   - The shared bottle exists only in Historia/Proceso.
+   - It starts when Historia actually enters, not from the first screen.
+   - In Proceso it keeps 200px spacing from the right edge on desktop.
+   - The cream wave covers it before Mixologia; Mixologia never shows the bottle. */
+body > .history-bottle-wrap {
+  position: fixed !important;
+  left: auto !important;
+  right: 200px !important;
+  top: var(--historyBottleTop, 52vh) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 14deg)) !important;
+  z-index: 2147481200 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  will-change: left, top, width, transform, opacity !important;
+}
+
+body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active):not(.light-site-background) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  left: auto !important;
+  right: 200px !important;
+  top: var(--historyBottleTop, 52vh) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 14deg)) !important;
+  z-index: 2147481200 !important;
+}
+
+body.process-parallax-active:not(.mixology-active):not(.light-site-background) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: auto !important;
+  left: var(--sharedBottleLeft, calc(100vw - 760px)) !important;
+  top: var(--sharedBottleTop, 52vh) !important;
+  width: var(--sharedBottleWidth, clamp(360px, 33vw, 560px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -10deg)) !important;
+  z-index: 2147481200 !important;
+}
+
+body.process-wave-covering > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2147480900 !important;
+}
+
+.process-next-wave {
+  z-index: 2147481000 !important;
+}
+
+body.mixology-active > .history-bottle-wrap,
+body.light-site-background > .history-bottle-wrap,
+body.recipe-page > .history-bottle-wrap,
+body:not(.history-bottle-visible):not(.process-parallax-active) > .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 980px) {
+  body > .history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active):not(.light-site-background) > .history-bottle-wrap {
+    right: 70px !important;
+    width: min(50vw, 340px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  body > .history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active):not(.light-site-background) > .history-bottle-wrap {
+    right: -18vw !important;
+    width: 64vw !important;
+  }
+}
+
+
+/* V49: bottle appears only from Historia scroll point, carries into Proceso, then is covered by cream wave before Mixologia. */
+body > .history-bottle-wrap {
+  position: fixed !important;
+  left: auto !important;
+  right: 200px !important;
+  top: var(--historyBottleTop, 52vh) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 14deg)) !important;
+  z-index: 2147481200 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  will-change: left, top, width, transform, opacity !important;
+  transition: opacity .18s linear, visibility 0s linear .18s !important;
+}
+
+body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity .18s linear !important;
+  left: auto !important;
+  right: 200px !important;
+  top: var(--historyBottleTop, 52vh) !important;
+  width: clamp(300px, 29vw, 470px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 14deg)) !important;
+  z-index: 2147481200 !important;
+}
+
+body.process-parallax-active:not(.mixology-active) > .history-bottle-wrap,
+body.process-wave-covering:not(.mixology-active) > .history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity .18s linear !important;
+  right: auto !important;
+  left: var(--sharedBottleLeft, calc(100vw - 760px)) !important;
+  top: var(--sharedBottleTop, 52vh) !important;
+  width: var(--sharedBottleWidth, clamp(360px, 33vw, 560px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -10deg)) !important;
+  z-index: 2147481200 !important;
+}
+
+/* While the cream wave rises, it must be above the bottle so the bottle disappears by being covered, not by popping out. */
+body.process-wave-covering:not(.mixology-active) > .history-bottle-wrap {
+  z-index: 2147480900 !important;
+}
+.process-next-wave {
+  z-index: 2147481500 !important;
+}
+
+body.mixology-active > .history-bottle-wrap,
+body.recipe-page > .history-bottle-wrap,
+body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > .history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 980px) {
+  body > .history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > .history-bottle-wrap {
+    right: 70px !important;
+    width: min(50vw, 340px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  body > .history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > .history-bottle-wrap {
+    right: -18vw !important;
+    width: 64vw !important;
+  }
+}
+
+/* V50: botella removida temporalmente para continuar sin bugs de capa/parallax */
+#historyBottle,
+.history-bottle-wrap,
+.process-bottle-wrap,
+.bottle-wrap,
+.bottle,
+.bottle-glow {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* V51: Mixologia refinements + recipe logo cleanup */
+/* Hide the section logo in Mixologia so the centered content starts cleaner. */
+.mixology-section .mixology-logo {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Bring Mixologia content closer to the incoming wave. */
+.mixology-section {
+  padding-top: clamp(18px, 2.8vw, 42px) !important;
+}
+
+.mixology-header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Hide the fixed/global logo once Mixologia becomes the centered content area. */
+body.mixology-logo-hidden .topbar .logo,
+body.recipe-page .topbar .logo {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Keep menu and scroll above everything even when the global logo hides. */
+body.mixology-logo-hidden #menuButton.menu,
+body.mixology-logo-hidden .scroll,
+body.recipe-page #menuButton.menu,
+body.recipe-page .scroll {
+  z-index: 2147483647 !important;
+}
+
+/* V52: global navigation bar + Mixologia spacing refinement */
+:root {
+  --nav-height: 92px;
+  --nav-red: #FF0B00;
+  --nav-cream: #F8EBCF;
+}
+
+body > .topbar,
+.topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: var(--nav-height) !important;
+  width: 100% !important;
+  padding: 0 clamp(28px, 3.6vw, 50px) !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  background: var(--nav-red) !important;
+  z-index: 2147483647 !important;
+  pointer-events: none !important;
+  box-sizing: border-box !important;
+  transition: background-color .28s ease !important;
+}
+
+body > .topbar .logo,
+.topbar .logo {
+  grid-column: 2 !important;
+  justify-self: center !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: clamp(118px, 12vw, 176px) !important;
+  height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  z-index: 2147483647 !important;
+  transition: opacity .2s ease !important;
+}
+
+body > .topbar #menuButton.menu,
+body > .topbar .menu,
+.topbar #menuButton.menu,
+.topbar .menu {
+  grid-column: 3 !important;
+  justify-self: end !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  width: clamp(56px, 5vw, 68px) !important;
+  height: clamp(56px, 5vw, 68px) !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+}
+
+/* On cream/light areas, invert the nav bar: cream bar + red logo/menu. */
+body.on-white-section > .topbar,
+body.light-site-background > .topbar,
+body.recipe-page > .topbar {
+  background: var(--nav-cream) !important;
+}
+
+body.on-white-section .topbar .logo,
+body.light-site-background .topbar .logo,
+body.recipe-page .topbar .logo {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+body.mixology-logo-hidden .topbar .logo {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+body.on-white-section #menuButton.menu,
+body.light-site-background #menuButton.menu,
+body.recipe-page #menuButton.menu {
+  background: var(--nav-red) !important;
+  border-color: var(--nav-red) !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.light-site-background #menuButton.menu span,
+body.recipe-page #menuButton.menu span {
+  background: var(--nav-cream) !important;
+}
+
+/* Keep the vertical scroll indicator above all content but clear of the nav. */
+body > .scroll,
+.scroll {
+  position: fixed !important;
+  z-index: 2147483646 !important;
+}
+
+/* Mixologia starts close to the fixed nav: about 15px between nav/logo area and title. */
+.mixology-section {
+  padding-top: calc(var(--nav-height) + 15px) !important;
+  min-height: 100svh !important;
+}
+
+.mixology-header {
+  transform: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: clamp(22px, 2.8vw, 34px) !important;
+  gap: 6px !important;
+}
+
+.mixology-header h2 {
+  margin: 0 !important;
+}
+
+.mixology-header p {
+  margin-top: 0 !important;
+  font-size: 22px !important;
+}
+
+@media (max-width: 720px) {
+  :root { --nav-height: 78px; }
+  body > .topbar,
+  .topbar {
+    padding: 0 18px !important;
+  }
+  body > .topbar .logo,
+  .topbar .logo {
+    width: 118px !important;
+  }
+  .mixology-section {
+    padding-top: calc(var(--nav-height) + 15px) !important;
+  }
+}
+
+/* V53: bubbles above nav + exact cream navbar on light sections */
+:root {
+  --nav-cream: var(--cream);
+}
+
+body > .always-bubbles,
+.always-bubbles {
+  z-index: 2147483647 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  display: block !important;
+  mix-blend-mode: normal;
+}
+
+body.on-white-section > .always-bubbles,
+body.light-site-background > .always-bubbles,
+body.on-white-section .always-bubbles,
+body.light-site-background .always-bubbles {
+  z-index: 2147483647 !important;
+  opacity: 1 !important;
+  display: block !important;
+  mix-blend-mode: multiply !important;
+}
+
+body.menu-open > .always-bubbles,
+body.menu-open .always-bubbles,
+body.history-modal-active > .always-bubbles,
+body.history-modal-active .always-bubbles {
+  opacity: 1 !important;
+  display: block !important;
+}
+
+body > .topbar,
+.topbar {
+  z-index: 2147483638 !important;
+}
+
+body > .topbar .logo,
+.topbar .logo,
+body > .topbar #menuButton.menu,
+body > .topbar .menu,
+.topbar #menuButton.menu,
+.topbar .menu,
+body > .scroll,
+.scroll {
+  z-index: 2147483639 !important;
+}
+
+body.on-white-section > .topbar,
+body.light-site-background > .topbar,
+body.recipe-page > .topbar {
+  background: var(--cream) !important;
+}
+
+body.on-white-section #menuButton.menu span,
+body.light-site-background #menuButton.menu span,
+body.recipe-page #menuButton.menu span {
+  background: var(--cream) !important;
+}
+
+
+/* V54: menu button 25% smaller + recipe navbar logo */
+body > .topbar #menuButton.menu,
+body > .topbar .menu,
+.topbar #menuButton.menu,
+.topbar .menu {
+  width: clamp(42px, 3.75vw, 51px) !important;
+  height: clamp(42px, 3.75vw, 51px) !important;
+  border-radius: 14px !important;
+  gap: 6px !important;
+}
+
+body > .topbar #menuButton.menu span,
+body > .topbar .menu span,
+.topbar #menuButton.menu span,
+.topbar .menu span {
+  width: clamp(25px, 2.5vw, 26px) !important;
+  height: 4px !important;
+}
+
+body.recipe-page > .topbar .logo,
+body.recipe-page .topbar .logo {
+  content: url('assets/logo-red.png') !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+@media (max-width: 720px) {
+  body > .topbar #menuButton.menu,
+  body > .topbar .menu,
+  .topbar #menuButton.menu,
+  .topbar .menu {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 12px !important;
+  }
+  body > .topbar #menuButton.menu span,
+  body > .topbar .menu span,
+  .topbar #menuButton.menu span,
+  .topbar .menu span {
+    width: 23px !important;
+    height: 3px !important;
+  }
+}
+
+/* V55: modal navbar uses cream surface + close modals with the same descending wave language as menu */
+body.history-modal-active > .topbar,
+body.process-modal-active > .topbar {
+  background: var(--cream) !important;
+  z-index: 2147483640 !important;
+}
+
+body.history-modal-active .topbar .logo,
+body.process-modal-active .topbar .logo {
+  content: url('assets/logo-red.png') !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+body.history-modal-active .topbar .menu span,
+body.process-modal-active .topbar .menu span,
+body.history-modal-active .scroll span,
+body.process-modal-active .scroll span {
+  background: var(--red) !important;
+}
+
+body.history-modal-active .scroll,
+body.process-modal-active .scroll {
+  color: var(--red) !important;
+}
+
+.history-modal,
+.process-modal {
+  z-index: 2147482500 !important;
+}
+
+.history-modal .modal-wave,
+.process-modal .process-modal-wave {
+  z-index: 1 !important;
+  pointer-events: none !important;
+  transform: translateY(100%);
+}
+
+.history-modal.is-open .modal-wave {
+  animation: modalWaveRise .95s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+.history-modal.is-closing .modal-wave {
+  animation: modalWaveDown .65s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+.history-modal.is-closing .history-modal-content,
+.process-modal.auto-closing .process-modal-content {
+  opacity: 0 !important;
+  transform: translateY(18px) !important;
+  transition: opacity .25s ease, transform .25s ease !important;
+}
+
+/* Process modal now closes by dropping the same cream wave, not by raising a red wave. */
+.process-modal.is-open:not(.auto-closing) .process-modal-wave {
+  animation: processModalWaveRise .95s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+.process-modal.auto-closing .process-modal-wave {
+  animation: processModalWaveDown .65s cubic-bezier(.76,0,.24,1) forwards !important;
+}
+
+.process-modal-exit-wave,
+.process-modal.auto-closing .process-modal-exit-wave {
+  display: none !important;
+  animation: none !important;
+}
+
+.process-modal-wave-svg path,
+.process-modal-wave-body,
+.modal-wave-svg path,
+.modal-wave-body {
+  fill: var(--cream) !important;
+  background: var(--cream) !important;
+}
+
+@keyframes processModalWaveDown {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(100%); }
+}
+
+
+/* V56: logo click, recipe back text, and quote block */
+body > .topbar .logo,
+.topbar .logo {
+  cursor: pointer !important;
+}
+
+.quote-section {
+  min-height: 46vh;
+  height: 479px;
+  max-height: 58vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #f7a800;
+  color: var(--red);
+  padding: calc(var(--nav-height, 92px) + 18px) 6vw 7vh;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.quote-section h2 {
+  margin: 0;
+  font-family: var(--font-condensed);
+  font-size: clamp(43.5px, 7.65vw, 127.5px);
+  line-height: .92;
+  letter-spacing: -0.055em;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.quote-section h2 span,
+.quote-section h2 strong {
+  display: block;
+}
+
+.quote-section h2 strong {
+  font-weight: 900;
+}
+
+/* Keep the nav treatment consistent on warm/light content after Mixologia. */
+body.on-white-section .topbar,
+body.light-site-background .topbar,
+body.recipe-page .topbar {
+  background: var(--cream) !important;
+}
+
+body.on-white-section .topbar .logo,
+body.light-site-background .topbar .logo,
+body.recipe-page .topbar .logo {
+  content: url('assets/logo-red.png') !important;
+}
+
+.recipe-back {
+  min-width: 0 !important;
+}
+
+@media (max-width: 720px) {
+  .quote-section {
+    height: 380px;
+    min-height: 42vh;
+  }
+}
+
+
+/* V57: reduce quote text by 25% */
+.quote-section h2 {
+  font-size: clamp(43.5px, 7.65vw, 127.5px) !important;
+}

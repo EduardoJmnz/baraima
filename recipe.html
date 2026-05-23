@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baraima | Receta</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="recipe-page on-white-section light-site-background">
+  <div class="always-bubbles" aria-hidden="true">
+    <span style="--x:8%;--s:26px;--dur:11s;--delay:-2s;"></span>
+    <span style="--x:21%;--s:18px;--dur:8s;--delay:-5s;"></span>
+    <span style="--x:42%;--s:38px;--dur:15s;--delay:-8s;"></span>
+    <span style="--x:63%;--s:20px;--dur:10s;--delay:-3s;"></span>
+    <span style="--x:82%;--s:42px;--dur:18s;--delay:-12s;"></span>
+  </div>
+
+  <header class="topbar">
+    <img src="assets/logo-red.png" alt="Ron Baraima" class="logo" />
+    <button class="menu" id="menuButton" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <aside class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <div class="menu-wave" aria-hidden="true">
+      <svg class="wave-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,52 C160,82 270,20 430,50 C610,84 720,78 875,48 C1040,16 1160,82 1440,40 L1440,120 L0,120 Z"></path>
+      </svg>
+      <div class="wave-body"></div>
+    </div>
+    <div class="menu-panel">
+      <button class="menu-close" id="menuClose" aria-label="Cerrar menú"><span></span><span></span></button>
+      <nav class="menu-nav" aria-label="Menú principal">
+        <a href="index.html#hero">INICIO</a>
+        <a href="index.html#historia">HISTORIA</a>
+        <a href="index.html#proceso">PROCESO</a>
+        <a href="index.html#mixologia">MIXOLOGÍA</a>
+      </nav>
+      <div class="menu-footer">
+        <span>RON BARAIMA</span>
+        <span>EL RITUAL EMPIEZA AQUÍ</span>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <section class="recipe-layout" aria-label="Receta Baraima">
+      <div class="recipe-visual">
+        <img id="recipeImage" src="assets/mixologia-spritz.png" alt="Baraima Spritz" />
+      </div>
+
+      <article class="recipe-content">
+        <h1 id="recipeTitle">BARAIMA SPRITZ</h1>
+
+        <div class="recipe-block">
+          <h2>PREPARADO CON</h2>
+          <p id="recipeRum">BARAIMA BLANCO ®</p>
+        </div>
+
+        <div class="recipe-block">
+          <h2>MOOD</h2>
+          <p id="recipeMood">ATARDECER · ROOFTOP · VERANO</p>
+        </div>
+
+        <div class="recipe-block">
+          <h2>INGREDIENTES:</h2>
+          <ul id="recipeIngredients">
+            <li>60ML BARAIMA BLANCO ®</li>
+            <li>AGUA MINERAL</li>
+            <li>NARANJA</li>
+            <li>HIELO</li>
+          </ul>
+        </div>
+
+        <div class="recipe-block">
+          <h2>RITUAL:</h2>
+          <p id="recipeRitual">SERVIR LENTO SOBRE HIELO GRANDE.</p>
+        </div>
+
+        <a class="recipe-back" href="index.html#mixologia">REGRESAR</a>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    const recipes = {
+      spritz: {
+        title: "BARAIMA SPRITZ",
+        image: "assets/mixologia-spritz.png",
+        rum: "BARAIMA BLANCO ®",
+        mood: "ATARDECER · ROOFTOP · VERANO",
+        ingredients: ["60ML BARAIMA BLANCO ®", "AGUA MINERAL", "NARANJA", "HIELO"],
+        ritual: "SERVIR LENTO SOBRE HIELO GRANDE."
+      },
+      mojito: {
+        title: "MOJITO BARAIMA",
+        image: "assets/mixologia-mojito.png",
+        rum: "BARAIMA AÑEJO ®",
+        mood: "FRESCO · MENTA · TARDE LARGA",
+        ingredients: ["60ML BARAIMA AÑEJO ®", "LIMÓN", "MENTA", "SODA", "HIELO"],
+        ritual: "MACHACAR SUAVE, MEZCLAR Y SERVIR BIEN FRÍO."
+      },
+      colada: {
+        title: "BARAIMA COLADA",
+        image: "assets/mixologia-colada.png",
+        rum: "BARAIMA CUBARAIMA ®",
+        mood: "PLAYA · CREMOSO · CARIBE",
+        ingredients: ["60ML BARAIMA CUBARAIMA ®", "PIÑA", "CREMA DE COCO", "HIELO"],
+        ritual: "BATIR CON HIELO Y SERVIR CON PIÑA FRESCA."
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const data = recipes[params.get("recipe")] || recipes.spritz;
+
+    recipeTitle.textContent = data.title;
+    recipeImage.src = data.image;
+    recipeImage.alt = data.title;
+    recipeRum.textContent = data.rum;
+    recipeMood.textContent = data.mood;
+    recipeIngredients.innerHTML = data.ingredients.map((item) => `<li>${item}</li>`).join("");
+    recipeRitual.textContent = data.ritual;
+    document.title = `Baraima | ${data.title}`;
+  </script>
+</body>
+</html>
