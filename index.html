@@ -116,6 +116,10 @@
 
         <button class="history-cta" id="historyModalOpen" type="button">DESCUBRE MI HISTORIA</button>
       </div>
+
+      <div class="history-bottle-wrap cubaraima-shared-can" id="historyBottle" aria-hidden="true">
+        <img class="history-bottle" src="assets/cubaraima-can.png" alt="" />
+      </div>
 </section>
 
 
@@ -289,21 +293,59 @@
 
 </header>
 
-        <div class="products-content">
-          <div class="products-bottle" aria-hidden="true">
-            <img src="assets/baraima-bottle.png" alt="" />
-          </div>
-
-          <article class="products-copy" aria-live="polite">
-            <div class="products-tabs products-selector-menu" role="tablist" aria-label="Rones Baraima">
-              <button class="products-tab is-active" type="button" data-product="blanco">Baraima Blanco</button>
-              <button class="products-tab" type="button" data-product="anejo">Baraima Añejo</button>
-              <button class="products-tab" type="button" data-product="cubaraima">Baraima Cubaraima</button>
+        <div class="rum-card-grid" aria-label="Rones Baraima">
+          <article class="rum-product-card rum-product-card--blanco reveal-item">
+            <div class="rum-product-card__image">
+              <img src="assets/baraima-bottle.png" alt="Baraima Blanco" />
             </div>
-            <h3 id="productName">BLANCO</h3>
-            <p class="products-subtitle" id="productSubtitle">Fresco y cristalino.</p>
-            <p class="products-description" id="productDescription">Su perfil fresco y cristalino revela notas suaves de caña y cítricos ligeros, creando un ron versátil, elegante y fácil de disfrutar. Perfecto para mixología, sobremesas largas y momentos que merecen servirse sin prisa.</p>
-            <a class="products-cta" id="productCta" href="recipe.html?recipe=spritz">DESCUBRIR RITUAL</a>
+            <div class="rum-product-card__copy">
+              <span class="rum-product-card__eyebrow">BARAIMA</span>
+              <h3>BLANCO</h3>
+              <span class="rum-product-card__rule"></span>
+              <p class="rum-product-card__tagline">Frescura y pureza en su máxima expresión.</p>
+              <div class="rum-product-card__icons" aria-label="Características de Baraima Blanco">
+                <span title="Ligero y fresco">◒</span>
+                <span title="Notas cítricas">◌</span>
+                <span title="Final suave">≋</span>
+              </div>
+              <a href="recipe.html?recipe=spritz">CONOCER</a>
+            </div>
+          </article>
+
+          <article class="rum-product-card rum-product-card--anejo reveal-item">
+            <div class="rum-product-card__image">
+              <img src="assets/baraima-anejo-bottle.png" alt="Baraima Añejo" />
+            </div>
+            <div class="rum-product-card__copy">
+              <span class="rum-product-card__eyebrow">BARAIMA</span>
+              <h3>AÑEJO</h3>
+              <span class="rum-product-card__rule"></span>
+              <p class="rum-product-card__tagline">Tradición que se saborea.</p>
+              <div class="rum-product-card__icons" aria-label="Características de Baraima Añejo">
+                <span title="Barrica">▣</span>
+                <span title="Aroma cálido">≈</span>
+                <span title="Carácter suave">✦</span>
+              </div>
+              <a href="recipe.html?recipe=mojito">CONOCER</a>
+            </div>
+          </article>
+
+          <article class="rum-product-card rum-product-card--cubaraima reveal-item">
+            <div class="rum-product-card__image rum-product-card__image--can">
+              <img src="assets/cubaraima-can.png" alt="Cubaraima" />
+            </div>
+            <div class="rum-product-card__copy">
+              <span class="rum-product-card__eyebrow">BARAIMA</span>
+              <h3>CUBARAIMA</h3>
+              <span class="rum-product-card__rule"></span>
+              <p class="rum-product-card__tagline">Intensidad tropical lista para disfrutarse bien fría.</p>
+              <div class="rum-product-card__icons" aria-label="Características de Cubaraima">
+                <span title="Ron y cola">◉</span>
+                <span title="Fría">❄</span>
+                <span title="5.8%">%</span>
+              </div>
+              <a href="recipe.html?recipe=colada">CONOCER</a>
+            </div>
           </article>
         </div>
       </div>
@@ -401,7 +443,7 @@
             </div>
           </article>
 
-          <article class="ritual-card">
+          <article class="ritual-card ritual-card-featured">
             <div class="ritual-card-image ritual-img-2" aria-hidden="true"></div>
             <div class="ritual-card-copy">
               <span>Mixología</span>
@@ -411,32 +453,12 @@
             </div>
           </article>
 
-          <article class="ritual-card">
+          <article class="ritual-card ritual-card-featured">
             <div class="ritual-card-image ritual-img-3" aria-hidden="true"></div>
             <div class="ritual-card-copy">
               <span>Momentos</span>
               <h3>La hora ideal para servirlo sin prisa</h3>
               <p>El ritual no empieza en el vaso, empieza en el ambiente.</p>
-              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
-            </div>
-          </article>
-
-          <article class="ritual-card ritual-card-small">
-            <div class="ritual-card-image ritual-img-4" aria-hidden="true"></div>
-            <div class="ritual-card-copy">
-              <span>Guía</span>
-              <h3>Notas para elegir tu ron</h3>
-              <p>Blanco, añejo o Cubaraima: cada perfil tiene su propio momento.</p>
-              <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
-            </div>
-          </article>
-
-          <article class="ritual-card ritual-card-small">
-            <div class="ritual-card-image ritual-img-5" aria-hidden="true"></div>
-            <div class="ritual-card-copy">
-              <span>Noche</span>
-              <h3>Playlist para un ritual en casa</h3>
-              <p>Sonidos cálidos, copas listas y una historia para repetir.</p>
               <a href="#" class="no-link" aria-disabled="true">LEER ARTÍCULO</a>
             </div>
           </article>

@@ -75,7 +75,7 @@ function updateHistoryBottle() {
 
   // La botella pertenece a Historia: sube ligeramente con el bloque y no queda fija de forma eterna.
   const historyTop = 52 + (progress - 0.5) * -18;
-  const rotate = 14 + (progress - 0.5) * -8;
+  const rotate = 0;
 
   historyBottle.style.setProperty("--historyBottleTop", `${historyTop}vh`);
   historyBottle.style.setProperty("--historyBottleRotate", `${rotate}deg`);
@@ -214,34 +214,44 @@ function updateProcessBlock() {
   const rect = processSection.getBoundingClientRect();
   const vh = window.innerHeight || 1;
   const vw = window.innerWidth || 1;
-  const enterProgress = clamp01((vh - rect.top) / (vh * 1.05));
-  // En Proceso el contenido sube al entrar, se queda fijo y la ola blanca lo cubre antes de que se despegue.
-  const leaveProgress = clamp01((-rect.top - vh * 0.95) / (vh * 0.85));
-  const processVisible = rect.top < vh && rect.bottom > -vh * 0.35;
+  // V138: start the Historia -> Proceso motion only when Proceso is actually entering,
+  // avoiding the small false jump that happened as soon as the section touched the viewport.
+  const enterStart = vh * 0.82;
+  const enterProgress = clamp01((enterStart - rect.top) / (vh * 0.95));
+  // V140: restore the v137 disappearance timing so the can is hidden before it reaches the next block.
+  const leaveProgress = clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
+  const processVisible = rect.top < enterStart && rect.bottom > -vh * 0.35;
 
   if (historyBottle) {
-    document.body.classList.toggle("process-parallax-active", processVisible);
-    document.body.classList.toggle("process-wave-covering", leaveProgress > 0.03);
+    const mixologySection = document.querySelector(".mixology-section");
+    const mixologyTop = mixologySection ? mixologySection.getBoundingClientRect().top : Infinity;
+    const whiteWaveStarted = leaveProgress > 0.08 || mixologyTop < vh * 0.94;
+
+    document.body.classList.toggle("process-parallax-active", processVisible && !whiteWaveStarted);
+    document.body.classList.toggle("process-wave-covering", leaveProgress > 0.05 || mixologyTop < vh);
+    document.body.classList.toggle("process-can-hidden", whiteWaveStarted || document.body.classList.contains("light-site-background") || document.body.classList.contains("mixology-active"));
     // El sticky de CSS mantiene el texto estable; no alternamos fixed para evitar brincos visuales.
 
     if (processVisible) {
-      // La misma botella de Historia se reutiliza en Proceso: mantiene un margen real de 200px al borde derecho en desktop.
-      const edgeGap = vw < 700 ? -vw * 0.18 : (vw < 980 ? 70 : 200);
-      const startWidth = vw < 700 ? Math.min(vw * 0.64, 360) : Math.min(Math.max(vw * 0.29, 300), 470);
-      const endWidth = vw < 700 ? Math.min(vw * 0.72, 390) : Math.min(Math.max(vw * 0.33, 360), 560);
-      const startLeft = vw - edgeGap - startWidth;
-      const endLeft = vw - edgeGap - endWidth;
-      const startTop = vh * 0.52;
-      const endTop = vh * 0.52;
-      const startRotate = 14;
-      const endRotate = -10;
+      // La misma lata de Historia viaja hacia Proceso: empieza a la derecha y termina grande a la izquierda como en PROCESS.pdf.
+      // V139: match the exact Historia visual position as the start of the Proceso motion,
+      // so the can does not jump when the scroll transition begins.
+      const historyWidth = vw < 700 ? Math.min(vw * 0.54, 300) : Math.min(Math.max(vw * 0.276, 290), 456);
+      const processWidth = vw < 700 ? Math.min(vw * 0.70, 360) : Math.min(Math.max(vw * 0.36, 420), 610);
+      const historyRight = vw < 980 ? (vw < 620 ? -vw * 0.02 : vw * 0.08) : Math.min(Math.max(vw * 0.18, 150), 290);
+      const startLeft = vw - historyRight - historyWidth;
+      const endLeft = vw < 700 ? -vw * 0.10 : Math.max(-80, vw * 0.07);
+      const startTop = vh * (52 + ((clamp01((vh - document.querySelector('.history-section')?.getBoundingClientRect().top || 0) / (vh + (document.querySelector('.history-section')?.getBoundingClientRect().height || vh))) - 0.5) * -18)) / 100;
+      const endTop = vh * 0.49 + 75;
+      const startRotate = 0;
+      const endRotate = -11;
 
       historyBottle.style.setProperty("--sharedBottleLeft", `${lerp(startLeft, endLeft, enterProgress)}px`);
       historyBottle.style.setProperty("--sharedBottleTop", `${lerp(startTop, endTop, enterProgress)}px`);
-      historyBottle.style.setProperty("--sharedBottleWidth", `${lerp(startWidth, endWidth, enterProgress)}px`);
+      historyBottle.style.setProperty("--sharedBottleWidth", `${lerp(historyWidth, processWidth, enterProgress)}px`);
       historyBottle.style.setProperty("--sharedBottleRotate", `${lerp(startRotate, endRotate, enterProgress)}deg`);
     } else {
-      document.body.classList.remove("process-parallax-active", "process-wave-covering", "process-copy-locked");
+      document.body.classList.remove("process-parallax-active", "process-wave-covering", "process-copy-locked", "process-can-hidden");
     }
   }
 
@@ -421,19 +431,24 @@ const productsData = {
     title: "BLANCO",
     subtitle: "Fresco y cristalino.",
     description: "Su perfil fresco y cristalino revela notas suaves de caña y cítricos ligeros, creando un ron versátil, elegante y fácil de disfrutar. Perfecto para mixología, sobremesas largas y momentos que merecen servirse sin prisa.",
-    href: "recipe.html?recipe=spritz"
+    href: "recipe.html?recipe=spritz",
+    image: "assets/baraima-bottle.png"
   },
   anejo: {
     title: "AÑEJO",
     subtitle: "Suave e intenso.",
     description: "Un ron de carácter más profundo, pensado para momentos pausados. Sus notas cálidas acompañan recetas con personalidad y rituales donde el sabor se disfruta con calma.",
-    href: "recipe.html?recipe=mojito"
+    href: "recipe.html?recipe=mojito",
+    image: "assets/baraima-anejo-bottle.png",
+    variant: "anejo"
   },
   cubaraima: {
     title: "CUBARAIMA",
-    subtitle: "Tropical y cremoso.",
-    description: "Una expresión ideal para cocteles tropicales: redonda, amable y lista para mezclarse con frutas, hielo y sobremesas largas que saben a Caribe.",
-    href: "recipe.html?recipe=colada"
+    subtitle: "Tropical y listo.",
+    description: "Ron & cola caribeña en lata: fresco, práctico y perfecto para rituales más casuales. Una mezcla vibrante para disfrutar bien fría, con el carácter de Baraima en cada trago.",
+    href: "recipe.html?recipe=colada",
+    image: "assets/cubaraima-can.png",
+    variant: "can"
   }
 };
 
@@ -442,16 +457,25 @@ const productName = document.getElementById("productName");
 const productSubtitle = document.getElementById("productSubtitle");
 const productDescription = document.getElementById("productDescription");
 const productCta = document.getElementById("productCta");
+const productBottleImg = document.querySelector(".products-bottle img");
+const productBottleWrap = document.querySelector(".products-bottle");
 
 const productsContent = document.querySelector(".products-content");
 let currentProductKey = "blanco";
 let productAnimationLock = false;
+if (productBottleWrap) productBottleWrap.dataset.productVisual = "bottle";
 
 function updateProductContent(item) {
   if (productName) productName.textContent = item.title;
   if (productSubtitle) productSubtitle.textContent = item.subtitle;
   if (productDescription) productDescription.textContent = item.description;
   if (productCta) productCta.setAttribute("href", item.href);
+  if (productBottleImg && item.image) productBottleImg.setAttribute("src", item.image);
+  if (productBottleWrap) {
+    productBottleWrap.classList.toggle("is-can", item.variant === "can");
+    productBottleWrap.classList.toggle("is-anejo", item.variant === "anejo");
+    productBottleWrap.dataset.productVisual = item.variant || "bottle";
+  }
 }
 
 productTabs.forEach((tab) => {

@@ -9381,3 +9381,1327 @@ body.nav-red-active.on-white-section > .topbar,
 body.nav-red-active.recipe-page > .topbar {
   background: var(--nav-red, #FF0B00) !important;
 }
+
+/* V117: Cubaraima can product visual.
+   The can is intentionally 2/3 the visual height of the bottle products. */
+.products-section .products-bottle.is-can{
+  height: clamp(430px, 58vh, 650px) !important;
+  transform: translate(-34px, 70px) rotate(0deg) !important;
+  align-items: flex-end !important;
+}
+.products-section .products-bottle.is-can img{
+  max-height: 100% !important;
+  width: auto !important;
+  max-width: min(82%, 390px) !important;
+  object-fit: contain !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0,0,0,.82) 78%, rgba(0,0,0,.4) 88%, rgba(0,0,0,0) 96%) !important;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0,0,0,.82) 78%, rgba(0,0,0,.4) 88%, rgba(0,0,0,0) 96%) !important;
+}
+@media (max-width: 980px){
+  .products-section .products-bottle.is-can{
+    height: clamp(360px, 48vh, 520px) !important;
+    transform: translate(-16px, 68px) rotate(0deg) !important;
+  }
+}
+@media (max-width: 860px){
+  .products-section .products-bottle.is-can{
+    height: clamp(330px, 46vh, 480px) !important;
+    transform: translateY(72px) rotate(0deg) !important;
+  }
+}
+
+
+/* V120 REAL: Añejo visual size matches Cubaraima can.
+   Keeps the fade image, but prevents the angled bottle from occupying the full bottle layout. */
+.products-section .products-bottle.is-anejo{
+  height: clamp(430px, 58vh, 650px) !important;
+  transform: translate(-34px, 70px) rotate(0deg) !important;
+  align-items: flex-end !important;
+}
+.products-section .products-bottle.is-anejo img{
+  max-height: 100% !important;
+  width: auto !important;
+  max-width: min(82%, 390px) !important;
+  object-fit: contain !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+@media (max-width: 980px){
+  .products-section .products-bottle.is-anejo{
+    height: clamp(360px, 48vh, 520px) !important;
+    transform: translate(-16px, 68px) rotate(0deg) !important;
+  }
+}
+@media (max-width: 860px){
+  .products-section .products-bottle.is-anejo{
+    height: clamp(330px, 46vh, 480px) !important;
+    transform: translateY(72px) rotate(0deg) !important;
+  }
+}
+
+/* V121: Añejo image blend fix.
+   The angled Añejo render has a hard lower crop; this local cream fade hides the crop
+   without changing the red wave layer or the product sizing. */
+.products-section .products-bottle.is-anejo::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-2px;
+  width:min(90%, 430px);
+  height:34%;
+  transform:translateX(-50%);
+  pointer-events:none;
+  z-index:3;
+  background:linear-gradient(
+    to bottom,
+    rgba(248,235,207,0) 0%,
+    rgba(248,235,207,.48) 28%,
+    rgba(248,235,207,.88) 58%,
+    #F8EBCF 100%
+  );
+}
+.products-section .products-bottle.is-anejo img{
+  z-index:2 !important;
+}
+@media (max-width: 860px){
+  .products-section .products-bottle.is-anejo::after{
+    width:min(92%, 360px);
+    height:36%;
+  }
+}
+
+/* V122 REAL: Añejo follows PRODUCTS2.pdf reference.
+   Small visual on the right, above the red wave, with a cream fade that hides the crop. */
+.products-section .products-bottle.is-anejo{
+  height: clamp(300px, 40vh, 470px) !important;
+  transform: translate(42px, -6px) rotate(0deg) !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  z-index: 18 !important;
+}
+.products-section .products-bottle.is-anejo img{
+  max-height: 100% !important;
+  width: auto !important;
+  max-width: min(88%, 360px) !important;
+  object-fit: contain !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 60%, rgba(0,0,0,.9) 68%, rgba(0,0,0,.52) 78%, rgba(0,0,0,.12) 90%, rgba(0,0,0,0) 100%) !important;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 60%, rgba(0,0,0,.9) 68%, rgba(0,0,0,.52) 78%, rgba(0,0,0,.12) 90%, rgba(0,0,0,0) 100%) !important;
+  filter: drop-shadow(0 22px 28px rgba(80, 20, 10, .16)) !important;
+}
+.products-section .products-bottle.is-anejo::after{
+  content:"" !important;
+  position:absolute !important;
+  left:50% !important;
+  bottom:-1px !important;
+  width:min(95%, 390px) !important;
+  height:44% !important;
+  transform:translateX(-50%) !important;
+  pointer-events:none !important;
+  z-index:4 !important;
+  background:linear-gradient(
+    to bottom,
+    rgba(248,235,207,0) 0%,
+    rgba(248,235,207,.18) 20%,
+    rgba(248,235,207,.58) 48%,
+    rgba(248,235,207,.94) 78%,
+    #F8EBCF 100%
+  ) !important;
+}
+@media (max-width: 980px){
+  .products-section .products-bottle.is-anejo{
+    height: clamp(270px, 34vh, 400px) !important;
+    transform: translate(16px, 4px) rotate(0deg) !important;
+  }
+}
+@media (max-width: 860px){
+  .products-section .products-bottle.is-anejo{
+    height: clamp(250px, 36vh, 360px) !important;
+    transform: translateY(22px) rotate(0deg) !important;
+  }
+  .products-section .products-bottle.is-anejo::after{
+    width:min(92%, 320px) !important;
+    height:46% !important;
+  }
+}
+
+/* V123 REAL: Añejo uses the user-provided fade render.
+   Keep the product small like the Cubaraima can and let the baked cream fade blend with the Mis Rones bone background. */
+.products-section .products-bottle.is-anejo img{
+  max-height:100% !important;
+  width:auto !important;
+  max-width:min(88%, 390px) !important;
+  object-fit:contain !important;
+  -webkit-mask-image:none !important;
+  mask-image:none !important;
+  filter:drop-shadow(0 22px 28px rgba(80,20,10,.12)) !important;
+}
+.products-section .products-bottle.is-anejo::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* V126: Mis Rones product cards redesign.
+   Replaces the single product selector layout with three premium product cards. */
+.products-section{
+  min-height:auto !important;
+  padding:clamp(96px, 9vw, 138px) 6vw clamp(148px, 13vw, 210px) !important;
+  background:
+    radial-gradient(circle at 72% 18%, rgba(255,255,255,.56), transparent 34%),
+    radial-gradient(circle at 18% 70%, rgba(255,208,147,.24), transparent 32%),
+    linear-gradient(180deg, #f8ebcf 0%, #fff1d8 46%, #f8ebcf 100%) !important;
+}
+.products-section .products-inner{
+  width:min(1260px, 94vw) !important;
+  position:relative !important;
+  z-index:20 !important;
+}
+.products-section .products-header{
+  margin-bottom:clamp(36px, 4vw, 58px) !important;
+}
+.products-section .products-header h2{
+  color:#ff0b00 !important;
+  font-size:clamp(42px, 5.2vw, 78px) !important;
+  line-height:.9 !important;
+  letter-spacing:.015em !important;
+}
+.products-section .products-header .section-subtitle{
+  color:rgba(255,11,0,.7) !important;
+  margin:clamp(18px, 2vw, 26px) auto 0 !important;
+  max-width:620px !important;
+}
+.products-section .products-content,
+.products-section .products-bottle,
+.products-section .products-copy{
+  display:none !important;
+}
+.products-section .products-red-wave{
+  height:clamp(120px, 12vw, 170px) !important;
+  z-index:8 !important;
+  opacity:1 !important;
+}
+.products-section .products-red-wave svg,
+.products-section .products-red-wave__svg{
+  height:clamp(92px, 9vw, 130px) !important;
+}
+.products-section .products-red-wave__body{
+  top:clamp(82px, 8vw, 116px) !important;
+}
+.rum-card-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:clamp(18px, 2vw, 28px);
+  align-items:stretch;
+}
+.rum-product-card{
+  position:relative;
+  min-height:clamp(330px, 34vw, 430px);
+  display:grid;
+  grid-template-columns:42% 58%;
+  align-items:end;
+  overflow:hidden;
+  border-radius:30px;
+  background:linear-gradient(145deg, rgba(255,247,232,.92), rgba(255,239,207,.82));
+  border:1px solid rgba(255,11,0,.12);
+  box-shadow:0 22px 55px rgba(95,38,0,.14);
+  isolation:isolate;
+}
+.rum-product-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 22%, rgba(255,255,255,.62), transparent 28%),
+    radial-gradient(circle at 86% 88%, rgba(255,11,0,.06), transparent 34%);
+  z-index:-2;
+}
+.rum-product-card::after{
+  content:"✧";
+  position:absolute;
+  top:34px;
+  right:42px;
+  color:rgba(255,11,0,.22);
+  font-size:42px;
+  line-height:1;
+}
+.rum-product-card.is-featured{
+  border-color:rgba(255,11,0,.72);
+  box-shadow:0 26px 70px rgba(255,11,0,.12), 0 22px 55px rgba(95,38,0,.14);
+}
+.rum-product-card__image{
+  align-self:end;
+  height:100%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:22px 0 0 18px;
+  transform:translateY(12px);
+}
+.rum-product-card__image img{
+  max-height:clamp(300px, 31vw, 410px);
+  max-width:118%;
+  width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 16px rgba(77,38,0,.12));
+}
+.rum-product-card--anejo .rum-product-card__image img{
+  max-height:clamp(250px, 25vw, 340px);
+  transform:translate(4px, 8px);
+  filter:none;
+}
+.rum-product-card__image--can img{
+  max-height:clamp(220px, 22vw, 305px);
+  transform:translateY(-8px);
+}
+.rum-product-card__copy{
+  align-self:center;
+  padding:clamp(28px, 3vw, 42px) clamp(22px, 2.5vw, 34px) clamp(28px, 3vw, 42px) 8px;
+  color:#3b160d;
+}
+.rum-product-card__eyebrow{
+  display:block;
+  color:#ff0b00;
+  font:800 12px/1 var(--sans, Arial, sans-serif);
+  letter-spacing:.12em;
+  margin-bottom:12px;
+}
+.rum-product-card h3{
+  color:#3a160d;
+  font-family:var(--serif, Georgia, serif);
+  font-size:clamp(29px, 3.1vw, 44px);
+  line-height:.94;
+  margin:0;
+  letter-spacing:.035em;
+}
+.rum-product-card--anejo h3{
+  color:#ff0b00;
+}
+.rum-product-card__rule{
+  display:block;
+  width:52px;
+  height:3px;
+  border-radius:999px;
+  background:#ff0b00;
+  margin:18px 0 22px;
+}
+.rum-product-card__tagline{
+  color:rgba(58,22,13,.76);
+  font:600 clamp(14px, 1.15vw, 17px)/1.45 var(--sans, Arial, sans-serif);
+  margin:0 0 24px;
+  max-width:260px;
+}
+.rum-product-card__icons{
+  display:flex;
+  gap:12px;
+  margin-bottom:24px;
+}
+.rum-product-card__icons span{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,11,0,.08);
+  color:#ff0b00;
+  font-weight:800;
+  font-size:20px;
+}
+.rum-product-card a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:150px;
+  height:48px;
+  border-radius:999px;
+  border:2px solid #ff0b00;
+  color:#ff0b00;
+  background:transparent;
+  font:800 13px/1 var(--sans, Arial, sans-serif);
+  letter-spacing:.04em;
+  text-decoration:none;
+  transition:transform .25s ease, background .25s ease, color .25s ease;
+}
+.rum-product-card.is-featured a,
+.rum-product-card a:hover{
+  background:#ff0b00;
+  color:#fff2da;
+  transform:translateY(-2px);
+}
+@media (max-width:1040px){
+  .rum-card-grid{ grid-template-columns:1fr; }
+  .rum-product-card{
+    grid-template-columns:minmax(180px, 34%) 1fr;
+    min-height:320px;
+  }
+  .rum-product-card__image img{ max-height:320px; }
+  .rum-product-card--anejo .rum-product-card__image img,
+  .rum-product-card__image--can img{ max-height:285px; }
+}
+@media (max-width:640px){
+  .products-section{ padding-inline:18px !important; }
+  .rum-product-card{
+    grid-template-columns:1fr;
+    text-align:center;
+    min-height:auto;
+    padding-top:22px;
+  }
+  .rum-product-card::after{ right:24px; top:22px; }
+  .rum-product-card__image{
+    height:260px;
+    padding:0;
+    transform:none;
+  }
+  .rum-product-card__image img,
+  .rum-product-card--anejo .rum-product-card__image img,
+  .rum-product-card__image--can img{
+    max-height:260px;
+    transform:none;
+  }
+  .rum-product-card__copy{
+    padding:10px 26px 30px;
+  }
+  .rum-product-card__rule,
+  .rum-product-card__icons{
+    margin-left:auto;
+    margin-right:auto;
+    justify-content:center;
+  }
+  .rum-product-card__tagline{
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
+
+
+/* V128: Mis Rones product cards - compact rectangular 356x274 and hover state only */
+.products-section .rum-card-grid{
+  grid-template-columns:repeat(3, 356px) !important;
+  justify-content:center !important;
+  gap:24px !important;
+  align-items:stretch !important;
+}
+.products-section .rum-product-card{
+  width:356px !important;
+  height:274px !important;
+  min-height:274px !important;
+  grid-template-columns:43% 57% !important;
+  border-radius:22px !important;
+  border:1px solid rgba(255,11,0,.14) !important;
+  box-shadow:0 16px 38px rgba(95,38,0,.10) !important;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease !important;
+}
+.products-section .rum-product-card.is-featured{
+  border-color:rgba(255,11,0,.14) !important;
+  box-shadow:0 16px 38px rgba(95,38,0,.10) !important;
+}
+.products-section .rum-product-card:hover,
+.products-section .rum-product-card:focus-within{
+  border-color:rgba(255,11,0,.82) !important;
+  box-shadow:0 22px 52px rgba(255,11,0,.12), 0 16px 38px rgba(95,38,0,.12) !important;
+  transform:translateY(-4px) !important;
+}
+.products-section .rum-product-card::after{
+  top:22px !important;
+  right:28px !important;
+  font-size:30px !important;
+}
+.products-section .rum-product-card__image{
+  padding:14px 0 0 12px !important;
+  transform:translateY(10px) !important;
+}
+.products-section .rum-product-card__image img{
+  max-height:252px !important;
+  max-width:125% !important;
+  filter:drop-shadow(0 12px 12px rgba(77,38,0,.10)) !important;
+}
+.products-section .rum-product-card--anejo .rum-product-card__image img{
+  max-height:218px !important;
+  transform:translate(0, 8px) !important;
+  filter:none !important;
+}
+.products-section .rum-product-card__image--can img{
+  max-height:198px !important;
+  transform:translateY(2px) !important;
+}
+.products-section .rum-product-card__copy{
+  padding:24px 20px 22px 4px !important;
+  align-self:center !important;
+}
+.products-section .rum-product-card__eyebrow{
+  font-size:10px !important;
+  margin-bottom:7px !important;
+}
+.products-section .rum-product-card h3{
+  font-size:29px !important;
+  line-height:.94 !important;
+}
+.products-section .rum-product-card__rule{
+  width:34px !important;
+  height:2px !important;
+  margin:11px 0 13px !important;
+}
+.products-section .rum-product-card__tagline{
+  font-size:12px !important;
+  line-height:1.35 !important;
+  max-width:165px !important;
+  margin-bottom:14px !important;
+}
+.products-section .rum-product-card__icons{
+  gap:8px !important;
+  margin-bottom:14px !important;
+}
+.products-section .rum-product-card__icons span{
+  width:32px !important;
+  height:32px !important;
+  font-size:16px !important;
+}
+.products-section .rum-product-card a{
+  min-width:122px !important;
+  height:38px !important;
+  font-size:11px !important;
+}
+.products-section .rum-product-card a::after{
+  content:'→';
+  margin-left:14px;
+  font-size:15px;
+  line-height:1;
+}
+.products-section .rum-product-card a{
+  background:transparent !important;
+  color:#ff0b00 !important;
+}
+.products-section .rum-product-card:hover a,
+.products-section .rum-product-card:focus-within a,
+.products-section .rum-product-card a:hover{
+  background:#ff0b00 !important;
+  color:#fff2da !important;
+  transform:translateY(-2px) !important;
+}
+@media (max-width:1180px){
+  .products-section .rum-card-grid{
+    grid-template-columns:repeat(3, minmax(300px, 356px)) !important;
+    gap:18px !important;
+  }
+  .products-section .rum-product-card{
+    width:auto !important;
+  }
+}
+@media (max-width:1040px){
+  .products-section .rum-card-grid{
+    grid-template-columns:minmax(0, 356px) !important;
+  }
+  .products-section .rum-product-card{
+    width:100% !important;
+    height:274px !important;
+    grid-template-columns:43% 57% !important;
+  }
+}
+@media (max-width:640px){
+  .products-section .rum-card-grid{
+    grid-template-columns:minmax(0, 100%) !important;
+  }
+  .products-section .rum-product-card{
+    width:100% !important;
+    max-width:356px !important;
+    margin:0 auto !important;
+    height:auto !important;
+    min-height:420px !important;
+    grid-template-columns:1fr !important;
+  }
+  .products-section .rum-product-card__image{
+    height:205px !important;
+  }
+  .products-section .rum-product-card__copy{
+    padding:8px 24px 26px !important;
+  }
+}
+
+/* V129: Final Mis Rones refinements */
+.products-section .rum-product-card--anejo h3{
+  color:#3a160d !important;
+}
+.products-section .rum-product-card--anejo .rum-product-card__image img{
+  max-height:252px !important;
+  max-width:125% !important;
+  transform:translate(0, 10px) !important;
+  filter:drop-shadow(0 12px 12px rgba(77,38,0,.10)) !important;
+}
+/* Remove the beige seam between Mis Rones red wave and the next red block */
+.products-section{
+  padding-bottom:0 !important;
+  margin-bottom:0 !important;
+  overflow:hidden !important;
+}
+.products-section .products-red-wave{
+  position:relative !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  width:100vw !important;
+  margin-top:clamp(28px, 4vw, 48px) !important;
+  margin-bottom:-2px !important;
+  bottom:auto !important;
+  height:clamp(150px, 13vw, 190px) !important;
+  overflow:hidden !important;
+  background:#ff0b00 !important;
+}
+.products-section .products-red-wave svg,
+.products-section .products-red-wave__svg{
+  position:absolute !important;
+  left:0 !important;
+  top:0 !important;
+  width:100% !important;
+  height:clamp(92px, 9vw, 130px) !important;
+  display:block !important;
+}
+.products-section .products-red-wave__body{
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  top:clamp(82px, 8vw, 116px) !important;
+  bottom:-4px !important;
+  height:auto !important;
+  background:#ff0b00 !important;
+}
+.products-section + section,
+.products-section + .stores-section,
+.products-section + .rituales-section{
+  margin-top:-1px !important;
+  border-top:0 !important;
+}
+@media (max-width:640px){
+  .products-section .rum-product-card--anejo .rum-product-card__image img{
+    max-height:260px !important;
+    transform:none !important;
+  }
+}
+
+/* V130: Mis Rones card refinements
+   - Añejo bottle aligned higher with Blanco
+   - Card titles reduced so Cubaraima fits cleanly
+   - Card group nudged left for better visual centering
+*/
+.products-section .rum-card-grid{
+  transform:translateX(-24px) !important;
+}
+.products-section .rum-product-card h3{
+  font-size:24px !important;
+  line-height:.92 !important;
+  letter-spacing:.025em !important;
+  max-width:160px !important;
+  overflow:visible !important;
+}
+.products-section .rum-product-card--cubaraima h3{
+  font-size:22px !important;
+  line-height:.94 !important;
+  letter-spacing:.015em !important;
+  max-width:172px !important;
+}
+.products-section .rum-product-card--anejo .rum-product-card__image img{
+  max-height:252px !important;
+  transform:translate(0, -8px) !important;
+}
+.products-section .rum-product-card--anejo .rum-product-card__image{
+  align-items:flex-start !important;
+  padding-top:14px !important;
+  transform:none !important;
+}
+@media (max-width:1180px){
+  .products-section .rum-card-grid{
+    transform:none !important;
+  }
+}
+@media (max-width:640px){
+  .products-section .rum-product-card h3,
+  .products-section .rum-product-card--cubaraima h3{
+    font-size:26px !important;
+    max-width:none !important;
+  }
+  .products-section .rum-product-card--anejo .rum-product-card__image img{
+    transform:none !important;
+  }
+}
+
+/* V131: Center Mis Rones and restore red wave transition to Stores */
+.products-section {
+  padding-left: clamp(24px, 5vw, 72px) !important;
+  padding-right: clamp(24px, 5vw, 72px) !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  overflow: hidden !important;
+}
+.products-section .products-inner {
+  width: min(1116px, 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  transform: none !important;
+}
+.products-section .products-header,
+.products-section .rum-card-grid {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  transform: none !important;
+}
+.products-section .rum-card-grid {
+  width: min(1116px, 100%) !important;
+  justify-content: center !important;
+  justify-items: center !important;
+}
+
+/* The wave must be a real wavy red connector, not a flat red rectangle. */
+.products-section .products-red-wave {
+  display: block !important;
+  position: relative !important;
+  left: 50% !important;
+  bottom: auto !important;
+  width: 100vw !important;
+  height: clamp(138px, 12vw, 178px) !important;
+  margin-top: clamp(28px, 3.5vw, 44px) !important;
+  margin-bottom: -2px !important;
+  transform: translateX(-50%) !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  z-index: 8 !important;
+  pointer-events: none !important;
+}
+.products-section .products-red-wave__svg,
+.products-section .products-red-wave svg {
+  position: absolute !important;
+  left: -6vw !important;
+  top: 0 !important;
+  width: 112vw !important;
+  height: clamp(92px, 8.4vw, 128px) !important;
+  display: block !important;
+  overflow: visible !important;
+  fill: #ff0b00 !important;
+}
+.products-section .products-red-wave__svg--back {
+  opacity: .62 !important;
+  animation: productsRedWaveFastBack 2.1s ease-in-out infinite alternate !important;
+}
+.products-section .products-red-wave__svg--front {
+  top: clamp(6px, .8vw, 12px) !important;
+  opacity: 1 !important;
+  animation: productsRedWaveFastFront 1.6s ease-in-out infinite alternate-reverse !important;
+}
+.products-section .products-red-wave path {
+  fill: #ff0b00 !important;
+}
+.products-section .products-red-wave__body {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: clamp(78px, 7vw, 108px) !important;
+  bottom: -4px !important;
+  height: auto !important;
+  background: #ff0b00 !important;
+}
+.products-section + .stores-section {
+  margin-top: -2px !important;
+  border-top: 0 !important;
+}
+
+@media (max-width: 1180px) {
+  .products-section .products-inner,
+  .products-section .rum-card-grid {
+    width: 100% !important;
+  }
+}
+@media (max-width: 1040px) {
+  .products-section .rum-card-grid {
+    grid-template-columns: minmax(0, 356px) !important;
+  }
+}
+
+/* V132: Rituales con 3 cards editoriales iguales */
+.rituales-section .rituales-inner{
+  width:min(1180px, 100%) !important;
+}
+.rituales-section .rituales-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0, 332px)) !important;
+  justify-content:center !important;
+  align-items:stretch !important;
+  gap:clamp(22px, 3vw, 34px) !important;
+  grid-auto-rows:auto !important;
+}
+.rituales-section .ritual-card,
+.rituales-section .ritual-card-featured{
+  width:100% !important;
+  max-width:332px !important;
+  min-height:528px !important;
+  height:528px !important;
+  grid-row:auto !important;
+  border-radius:30px !important;
+}
+.rituales-section .ritual-card-copy{
+  padding:clamp(24px, 2.6vw, 32px) !important;
+}
+.rituales-section .ritual-card-copy h3,
+.rituales-section .ritual-card:not(.ritual-card-featured) .ritual-card-copy h3{
+  font-size:clamp(26px, 2.2vw, 34px) !important;
+  line-height:.92 !important;
+  max-width:100% !important;
+}
+.rituales-section .ritual-card-copy p{
+  font-size:14px !important;
+  line-height:1.28 !important;
+  max-width:100% !important;
+}
+@media (max-width:1080px){
+  .rituales-section .rituales-grid{
+    grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+  }
+  .rituales-section .ritual-card,
+  .rituales-section .ritual-card-featured{
+    max-width:none !important;
+  }
+}
+@media (max-width:860px){
+  .rituales-section .rituales-grid{
+    grid-template-columns:1fr !important;
+    max-width:420px !important;
+    margin:0 auto !important;
+  }
+  .rituales-section .ritual-card,
+  .rituales-section .ritual-card-featured{
+    height:440px !important;
+    min-height:440px !important;
+  }
+}
+
+/* V133: Rituales - cards mas chaparras + CTA igual al boton de Historia */
+.rituales-section .rituales-grid{
+  grid-template-columns: repeat(3, minmax(0, 320px)) !important;
+  gap: clamp(24px, 3vw, 36px) !important;
+}
+.rituales-section .ritual-card,
+.rituales-section .ritual-card-featured{
+  max-width: 320px !important;
+  min-height: 430px !important;
+  height: 430px !important;
+  border-radius: 30px !important;
+}
+.rituales-section .ritual-card-copy{
+  padding: clamp(20px, 2.2vw, 28px) !important;
+}
+.rituales-section .ritual-card-copy h3,
+.rituales-section .ritual-card:not(.ritual-card-featured) .ritual-card-copy h3{
+  font-size: clamp(23px, 1.9vw, 30px) !important;
+  line-height: .94 !important;
+}
+.rituales-section .ritual-card-copy p{
+  margin-top: 12px !important;
+  font-size: 13px !important;
+  line-height: 1.24 !important;
+}
+.rituales-section .ritual-card-copy a{
+  margin-top: 16px !important;
+}
+
+/* CTA de Rituales con el mismo lenguaje del boton de Historia */
+.rituales-section .rituales-cta{
+  display: inline-grid !important;
+  place-items: center !important;
+  width: auto !important;
+  min-width: clamp(210px, 22vw, 290px) !important;
+  min-height: clamp(58px, 6vw, 78px) !important;
+  height: auto !important;
+  margin: clamp(30px, 4vw, 48px) auto 0 !important;
+  padding: 0 30px !important;
+  border: 2.5px solid var(--cream, #fff2da) !important;
+  border-radius: 18px !important;
+  background: transparent !important;
+  color: var(--cream, #fff2da) !important;
+  font-family: inherit !important;
+  font-size: clamp(14px, 1.2vw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: -.01em !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: background .35s ease, color .35s ease, transform .35s cubic-bezier(.19,1,.22,1) !important;
+}
+.rituales-section .rituales-cta:hover{
+  background: var(--cream, #fff2da) !important;
+  color: var(--nav-red, #FF0B00) !important;
+  transform: translateY(-3px) !important;
+}
+
+@media (max-width:1080px){
+  .rituales-section .rituales-grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  .rituales-section .ritual-card,
+  .rituales-section .ritual-card-featured{
+    max-width: none !important;
+    min-height: 410px !important;
+    height: 410px !important;
+  }
+}
+@media (max-width:860px){
+  .rituales-section .rituales-grid{
+    grid-template-columns: 1fr !important;
+    max-width: 360px !important;
+    margin: 0 auto !important;
+  }
+  .rituales-section .ritual-card,
+  .rituales-section .ritual-card-featured{
+    min-height: 390px !important;
+    height: 390px !important;
+  }
+}
+
+/* V134: Rituales CTA uses Stores button style */
+.rituales-section .rituales-cta{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:auto !important;
+  min-width:172px !important;
+  height:56px !important;
+  min-height:56px !important;
+  margin:clamp(30px, 4vw, 48px) auto 0 !important;
+  padding:0 30px !important;
+  border:2px solid var(--cream, #fff2da) !important;
+  border-radius:13px !important;
+  background:transparent !important;
+  color:var(--cream, #fff2da) !important;
+  font-family:inherit !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  letter-spacing:.02em !important;
+  text-transform:uppercase !important;
+  text-decoration:none !important;
+  cursor:pointer !important;
+  transform:none !important;
+  transition:background .25s ease, color .25s ease, transform .25s ease !important;
+}
+.rituales-section .rituales-cta:hover,
+.rituales-section .rituales-cta:focus-visible{
+  background:var(--cream, #fff2da) !important;
+  color:var(--nav-red, #FF0B00) !important;
+  transform:translateY(-2px) !important;
+  outline:none !important;
+}
+
+/* V135: Cubaraima can replaces moving bottle between Historia and Proceso */
+#historyBottle.history-bottle-wrap,
+#historyBottle.cubaraima-shared-can {
+  display: block !important;
+  position: fixed !important;
+  left: auto !important;
+  right: clamp(150px, 18vw, 290px) !important;
+  top: var(--historyBottleTop, 53vh) !important;
+  width: clamp(210px, 20vw, 330px) !important;
+  height: auto !important;
+  z-index: 2147481200 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 10deg)) !important;
+  transform-origin: 50% 55% !important;
+  will-change: left, top, width, transform, opacity !important;
+  transition: opacity .22s linear, visibility 0s linear .22s !important;
+}
+
+#historyBottle.history-bottle-wrap .history-bottle,
+#historyBottle.cubaraima-shared-can img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: auto !important;
+  filter: drop-shadow(0 28px 24px rgba(80, 0, 0, .24)) !important;
+  pointer-events: none !important;
+}
+
+body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity .22s linear !important;
+  left: auto !important;
+  right: clamp(150px, 18vw, 290px) !important;
+  top: var(--historyBottleTop, 53vh) !important;
+  width: clamp(210px, 20vw, 330px) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--historyBottleRotate, 10deg)) !important;
+}
+
+body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity .22s linear !important;
+  right: auto !important;
+  left: var(--sharedBottleLeft, 7vw) !important;
+  top: var(--sharedBottleTop, 49vh) !important;
+  width: var(--sharedBottleWidth, clamp(420px, 36vw, 610px)) !important;
+  transform: translate3d(0, -50%, 0) rotate(var(--sharedBottleRotate, -11deg)) !important;
+  z-index: 2147481200 !important;
+}
+
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  z-index: 2147480900 !important;
+}
+
+body.mixology-active > #historyBottle.history-bottle-wrap,
+body.recipe-page > #historyBottle.history-bottle-wrap,
+body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.history-section .history-copy,
+.process-section .process-copy {
+  position: relative !important;
+  z-index: 2140 !important;
+}
+
+.process-section .process-copy {
+  grid-column: 2 !important;
+  justify-self: center !important;
+  margin-left: clamp(40px, 6vw, 110px) !important;
+}
+
+@media (max-width: 980px) {
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    right: 8vw !important;
+    width: min(34vw, 260px) !important;
+  }
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    width: var(--sharedBottleWidth, min(48vw, 430px)) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    right: -2vw !important;
+    width: 42vw !important;
+  }
+  .process-section .process-copy {
+    grid-column: 1 !important;
+    margin-left: 0 !important;
+    justify-self: center !important;
+  }
+}
+
+
+/* V136: ajuste final lata Cubaraima Historia -> Proceso */
+#historyBottle.history-bottle-wrap,
+#historyBottle.cubaraima-shared-can {
+  width: clamp(242px, 23vw, 380px) !important;
+  transition: opacity .65s cubic-bezier(.19,1,.22,1), transform .75s cubic-bezier(.19,1,.22,1), visibility 0s linear .65s !important;
+}
+
+body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  width: clamp(242px, 23vw, 380px) !important;
+  transform: translate3d(0, calc(-50% + 0px), 0) rotate(var(--historyBottleRotate, 10deg)) !important;
+  transition: opacity .65s cubic-bezier(.19,1,.22,1), transform .75s cubic-bezier(.19,1,.22,1) !important;
+}
+
+body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap {
+  transform: translate3d(0, calc(-50% + 34px), 0) rotate(var(--historyBottleRotate, 10deg)) !important;
+}
+
+body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  top: var(--sharedBottleTop, calc(49vh + 50px)) !important;
+}
+
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  z-index: 2147480900 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity .28s ease, visibility 0s linear .28s !important;
+}
+
+.process-section .process-copy {
+  transform: translateX(50px) !important;
+}
+
+@media (max-width: 980px) {
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    width: min(39vw, 300px) !important;
+  }
+  .process-section .process-copy {
+    transform: translateX(28px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    width: 48vw !important;
+  }
+  .process-section .process-copy {
+    transform: none !important;
+  }
+}
+
+/* V137: ajustes finos Cubaraima Historia -> Proceso */
+#historyBottle.history-bottle-wrap,
+#historyBottle.cubaraima-shared-can,
+body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  width: clamp(290px, 27.6vw, 456px) !important;
+  transform: translate3d(0, calc(-50% + 0px), 0) rotate(0deg) !important;
+}
+
+body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap {
+  transform: translate3d(0, calc(-50% + 34px), 0) rotate(0deg) !important;
+}
+
+body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  top: var(--sharedBottleTop, calc(49vh + 35px)) !important;
+}
+
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  transition: opacity .45s ease, visibility 0s linear .45s !important;
+}
+
+.process-section .process-copy {
+  transform: translateX(95px) !important;
+}
+
+@media (max-width: 980px) {
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    width: min(46vw, 360px) !important;
+  }
+  .process-section .process-copy {
+    transform: translateX(42px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.mixology-active) > #historyBottle.history-bottle-wrap {
+    width: 54vw !important;
+  }
+  .process-section .process-copy {
+    transform: none !important;
+  }
+}
+
+
+/* V138 final: Cubaraima can motion fix, process placement, and white wave layer */
+body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  top: var(--sharedBottleTop, calc(49vh + 75px)) !important;
+}
+
+.process-section .process-copy {
+  transform: translateX(145px) !important;
+}
+
+/* The white wave must cover the moving can, not sit behind it. */
+.process-next-wave {
+  z-index: 2147481600 !important;
+}
+body.process-wave-covering .process-next-wave {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 2147481600 !important;
+}
+body.process-wave-covering:not(.mixology-active) > #historyBottle.history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2147481100 !important;
+  transition: opacity .45s ease, visibility 0s linear .45s !important;
+}
+body.mixology-active > #historyBottle.history-bottle-wrap,
+body.recipe-page > #historyBottle.history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 980px) {
+  .process-section .process-copy { transform: translateX(70px) !important; }
+}
+@media (max-width: 620px) {
+  .process-section .process-copy { transform: none !important; }
+}
+
+
+/* V139: final Cubaraima Historia -> Proceso polish
+   - Transition starts from the exact Historia position: no false jump.
+   - Proceso text moves 50px more to the right.
+   - Can keeps its Proceso placement, then hides again before the next block.
+   - White/cream wave stays above the can while covering it. */
+.process-section .process-copy {
+  transform: translateX(195px) !important;
+}
+
+/* Keep the can visible while it travels, but let the cream wave cover it and then remove it. */
+body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2147481100 !important;
+}
+
+body.process-can-hidden > #historyBottle.history-bottle-wrap,
+body.light-site-background > #historyBottle.history-bottle-wrap,
+body.mixology-active > #historyBottle.history-bottle-wrap,
+body.recipe-page > #historyBottle.history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity .22s ease, visibility 0s linear .22s !important;
+}
+
+.process-next-wave,
+body.process-wave-covering .process-next-wave {
+  z-index: 2147481600 !important;
+}
+
+@media (max-width: 980px) {
+  .process-section .process-copy { transform: translateX(120px) !important; }
+}
+@media (max-width: 620px) {
+  .process-section .process-copy { transform: none !important; }
+}
+
+
+/* V140: restore v137 disappearance timing for the Cubaraima can.
+   The white wave covers the can and the can is removed before the next block. */
+body.process-can-hidden > #historyBottle.history-bottle-wrap,
+body.light-site-background > #historyBottle.history-bottle-wrap,
+body.mixology-active > #historyBottle.history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  transition: opacity .18s ease, visibility 0s linear .18s !important;
+}
+body.process-can-hidden .process-next-wave,
+body.light-site-background .process-next-wave,
+body.mixology-active .process-next-wave {
+  z-index: 2147481600 !important;
+}
+
+
+/* V141: final fix - hide Cubaraima can as soon as the white wave enters Mixologia.
+   This prevents the shared can from leaking into the Mixologia cards area. */
+body.process-can-hidden > #historyBottle.history-bottle-wrap,
+body.process-can-hidden.process-parallax-active > #historyBottle.history-bottle-wrap,
+body.process-can-hidden.process-wave-covering > #historyBottle.history-bottle-wrap,
+body.mixology-active > #historyBottle.history-bottle-wrap,
+body.light-site-background > #historyBottle.history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+  transition: opacity .12s ease, visibility 0s linear .12s !important;
+}
+
+/* V142: softer Cubaraima can disappearance.
+   Keep the successful V141 hide trigger, but fade the can cleanly under the white wave
+   instead of cutting it abruptly or pushing it behind the page immediately. */
+body.process-can-hidden > #historyBottle.history-bottle-wrap,
+body.process-can-hidden.process-parallax-active > #historyBottle.history-bottle-wrap,
+body.process-can-hidden.process-wave-covering > #historyBottle.history-bottle-wrap,
+body.mixology-active > #historyBottle.history-bottle-wrap,
+body.light-site-background > #historyBottle.history-bottle-wrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: 2147481100 !important;
+  transition:
+    opacity .55s cubic-bezier(.19, 1, .22, 1),
+    transform .55s cubic-bezier(.19, 1, .22, 1),
+    visibility 0s linear .55s !important;
+}
+
+/* The cream wave remains above the can during the fade, creating a cleaner cover effect. */
+body.process-wave-covering .process-next-wave,
+.process-next-wave {
+  z-index: 2147481600 !important;
+}
+
+/* V143: lifestyle images for Rituales article cards */
+.rituales-section .ritual-img-1,
+.rituales-section .ritual-img-2,
+.rituales-section .ritual-img-3{
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.rituales-section .ritual-img-1{
+  background-image: url('assets/ritual-amigos-bar.png') !important;
+  background-position: center center !important;
+}
+
+.rituales-section .ritual-img-2{
+  background-image: url('assets/ritual-bartender.png') !important;
+  background-position: center center !important;
+}
+
+.rituales-section .ritual-img-3{
+  background-image: url('assets/ritual-rooftop.png') !important;
+  background-position: center center !important;
+}
+
+.rituales-section .ritual-card::after{
+  background: linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(40,4,2,.34) 42%, rgba(70,6,0,.82) 100%) !important;
+}
+
+.rituales-section .ritual-card:hover .ritual-card-image{
+  transform: scale(1.06) !important;
+  filter: saturate(1.08) contrast(1.04) !important;
+}
+
+/* V144: improve white typography legibility over Rituales lifestyle images */
+.rituales-section .ritual-card-copy,
+.rituales-section .ritual-card-copy h3,
+.rituales-section .ritual-card-copy p,
+.rituales-section .ritual-card-copy span,
+.rituales-section .ritual-card-copy a{
+  color: var(--cream, #FFF2DA) !important;
+  opacity: 1 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,.62), 0 10px 24px rgba(75,0,0,.48) !important;
+}
+
+.rituales-section .ritual-card-copy{
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  padding-top: 86px !important;
+  background: linear-gradient(180deg, rgba(60,0,0,0) 0%, rgba(60,0,0,.26) 22%, rgba(60,0,0,.68) 100%);
+}
+
+.rituales-section .ritual-card-copy span{
+  color: rgba(255,242,218,.86) !important;
+}
+
+.rituales-section .ritual-card-copy p{
+  color: rgba(255,242,218,.9) !important;
+}
+
+.rituales-section .ritual-card-copy a{
+  color: var(--cream, #FFF2DA) !important;
+  border-bottom: 1px solid rgba(255,242,218,.65);
+  padding-bottom: 4px;
+}
+
+.rituales-section .ritual-card::after{
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(20,0,0,.18) 38%, rgba(44,0,0,.78) 100%),
+    radial-gradient(circle at 50% 100%, rgba(255,11,0,.62), rgba(255,11,0,0) 58%) !important;
+  opacity: 1 !important;
+}
+
+.rituales-section .ritual-card:hover::after{
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(20,0,0,.16) 34%, rgba(255,11,0,.86) 100%),
+    radial-gradient(circle at 50% 100%, rgba(255,242,218,.18), rgba(255,11,0,0) 62%) !important;
+}
