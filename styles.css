@@ -12103,3 +12103,59 @@ body.mixology-active .process-next-wave__body{
   }
   .process-section .process-copy h2{ font-size:clamp(26px, 8.6vw, 38px) !important; }
 }
+
+/* V157: Mobile-only Cubaraima can choreography.
+   Historia: appears from the right in a diagonal upward motion.
+   Proceso: Historia can hides, then appears from the left in a diagonal upward motion.
+   Desktop remains untouched. */
+@media (max-width:700px){
+  #historyBottle.history-bottle-wrap{
+    transition: opacity .34s ease, visibility 0s linear .34s !important;
+    will-change: transform, opacity !important;
+  }
+
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    animation: mobileHistoryCanDiagonalIn .72s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    animation: mobileProcessCanDiagonalIn .72s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    animation: none !important;
+  }
+
+  body.process-can-hidden > #historyBottle.history-bottle-wrap,
+  body.mixology-active > #historyBottle.history-bottle-wrap,
+  body.light-site-background > #historyBottle.history-bottle-wrap{
+    animation: mobileCanSoftOut .36s ease both !important;
+  }
+}
+
+@keyframes mobileHistoryCanDiagonalIn{
+  from{
+    opacity:0;
+    transform:translate3d(34px, calc(-50% + 52px), 0) rotate(-13deg) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0, -50%, 0) rotate(-13deg) scale(1);
+  }
+}
+
+@keyframes mobileProcessCanDiagonalIn{
+  from{
+    opacity:0;
+    transform:translate3d(-38px, calc(-50% + 54px), 0) rotate(-13deg) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0, -50%, 0) rotate(-13deg) scale(1);
+  }
+}
+
+@keyframes mobileCanSoftOut{
+  from{ opacity:1; }
+  to{ opacity:0; }
+}

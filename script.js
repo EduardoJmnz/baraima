@@ -252,10 +252,20 @@ function updateProcessBlock() {
       const startRotate = isMobileMotion ? -13 : 0;
       const endRotate = isMobileMotion ? -13 : -11;
 
-      historyBottle.style.setProperty("--sharedBottleLeft", `${lerp(startLeft, endLeft, enterProgress)}px`);
-      historyBottle.style.setProperty("--sharedBottleTop", `${lerp(startTop, endTop, enterProgress)}px`);
-      historyBottle.style.setProperty("--sharedBottleWidth", `${lerp(historyWidth, processWidth, enterProgress)}px`);
-      historyBottle.style.setProperty("--sharedBottleRotate", `${lerp(startRotate, endRotate, enterProgress)}deg`);
+      if (isMobileMotion) {
+        // V157 mobile: Historia and Proceso use separate entrance moments.
+        // Do not interpolate horizontally between sections on mobile; it caused a sideways/jumpy transition.
+        // Historia can hides, then the same element appears from the left in Proceso with CSS diagonal-up animation.
+        historyBottle.style.setProperty("--sharedBottleLeft", `${endLeft}px`);
+        historyBottle.style.setProperty("--sharedBottleTop", `${endTop}px`);
+        historyBottle.style.setProperty("--sharedBottleWidth", `${processWidth}px`);
+        historyBottle.style.setProperty("--sharedBottleRotate", `${endRotate}deg`);
+      } else {
+        historyBottle.style.setProperty("--sharedBottleLeft", `${lerp(startLeft, endLeft, enterProgress)}px`);
+        historyBottle.style.setProperty("--sharedBottleTop", `${lerp(startTop, endTop, enterProgress)}px`);
+        historyBottle.style.setProperty("--sharedBottleWidth", `${lerp(historyWidth, processWidth, enterProgress)}px`);
+        historyBottle.style.setProperty("--sharedBottleRotate", `${lerp(startRotate, endRotate, enterProgress)}deg`);
+      }
     } else {
       document.body.classList.remove("process-parallax-active", "process-wave-covering", "process-copy-locked", "process-can-hidden");
     }
