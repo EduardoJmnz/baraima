@@ -12819,3 +12819,79 @@ body.mixology-active .process-next-wave__body{
   0%{ opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1); }
   100%{ opacity:0; transform:translate3d(-38px, calc(-50% + 54px), 0) rotate(13deg) scale(.985); }
 }
+
+
+/* V166: final mobile can state correction
+   Fixes: Historia no longer reappears after exit; Proceso can is not a flash;
+   both cans exit using the same diagonal/smooth motion they use to enter. */
+@media (max-width:700px){
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active):not(.light-site-background):not(.mobile-can-force-hidden) > #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) scale(1) !important;
+    animation:baraimaMobileCanHistoryInV166 .82s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.mobile-can-was-history:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering):not(.mobile-can-force-hidden) > #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    visibility:visible !important;
+    opacity:0 !important;
+    transform:translate3d(38px, calc(-50% + 52px), 0) rotate(-13deg) scale(.985) !important;
+    animation:baraimaMobileCanHistoryOutV166 .88s cubic-bezier(.22,.61,.36,1) both !important;
+  }
+
+  body.process-parallax-active:not(.mixology-active):not(.process-can-hidden):not(.mobile-can-force-hidden) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden):not(.mobile-can-force-hidden) > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) scale(1) !important;
+    animation:baraimaMobileCanProcessInV166 .82s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.mobile-can-was-process.process-can-hidden:not(.mobile-can-force-hidden) > #historyBottle.history-bottle-wrap,
+  body.mobile-can-was-process:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering):not(.mobile-can-force-hidden) > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    visibility:visible !important;
+    opacity:0 !important;
+    transform:translate3d(-34px, calc(-50% + 48px), 0) rotate(13deg) scale(.985) !important;
+    animation:baraimaMobileCanProcessOutV166 .74s cubic-bezier(.22,.61,.36,1) both !important;
+  }
+
+  body.mobile-can-force-hidden > #historyBottle.history-bottle-wrap,
+  body.light-site-background > #historyBottle.history-bottle-wrap,
+  body.mixology-active > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+}
+@keyframes baraimaMobileCanHistoryInV166{
+  from{opacity:0; transform:translate3d(42px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985);}
+  to{opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1);}
+}
+@keyframes baraimaMobileCanHistoryOutV166{
+  0%{opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1);}
+  100%{opacity:0; transform:translate3d(38px, calc(-50% + 52px), 0) rotate(-13deg) scale(.985);}
+}
+@keyframes baraimaMobileCanProcessInV166{
+  from{opacity:0; transform:translate3d(-36px, calc(-50% + 52px), 0) rotate(13deg) scale(.985);}
+  to{opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1);}
+}
+@keyframes baraimaMobileCanProcessOutV166{
+  0%{opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1);}
+  100%{opacity:0; transform:translate3d(-34px, calc(-50% + 48px), 0) rotate(13deg) scale(.985);}
+}

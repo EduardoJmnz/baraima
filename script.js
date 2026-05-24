@@ -86,8 +86,12 @@ function updateHistoryBottle() {
   const historyExitLine = isMobileViewport ? vh * 0.62 : vh * 0.2;
   const isHistoryVisible = rect.top <= vh * 0.16 && rect.bottom > historyExitLine;
   const processActive = document.body.classList.contains("process-parallax-active");
-  const mixologyActive = document.body.classList.contains("mixology-active");
-  const historyCanActive = isHistoryVisible && !processActive && !mixologyActive;
+  const mixologyActive = document.body.classList.contains("mixology-active") || document.body.classList.contains("light-site-background");
+  const processRectForHistory = document.getElementById("proceso")?.getBoundingClientRect();
+  // V166 mobile: once Proceso is close enough to take over, Historia must not re-trigger.
+  // This fixes the can flashing back after its first smooth exit.
+  const historyCanHandoffOpen = isMobileViewport ? (!processRectForHistory || processRectForHistory.top > vh * 0.82) : true;
+  const historyCanActive = isHistoryVisible && historyCanHandoffOpen && !processActive && !mixologyActive;
   document.body.classList.toggle("history-bottle-visible", historyCanActive);
   if (isMobileViewport && historyCanActive) {
     document.body.classList.add("mobile-can-was-history");
@@ -240,25 +244,25 @@ function updateProcessBlock() {
   // V161: mobile timing refined. On mobile the process can should not appear
   // until the History copy has already left, and it should remain longer in Proceso.
   const isMobileViewport = vw < 700;
-  // V164 mobile: Proceso can waits until Historia has fully cleared, then exits before the next block.
-  const enterStart = isMobileViewport ? vh * 0.26 : vh * 0.82;
-  const enterProgress = clamp01((enterStart - rect.top) / (vh * (isMobileViewport ? 0.42 : 0.95)));
+  // V166 mobile: Proceso can appears after Historia has exited, then stays visible long enough.
+  const enterStart = isMobileViewport ? vh * 0.56 : vh * 0.82;
+  const enterProgress = clamp01((enterStart - rect.top) / (vh * (isMobileViewport ? 0.34 : 0.95)));
   const leaveProgress = isMobileViewport
-    ? clamp01((-rect.top - vh * 0.98) / (vh * 0.42))
+    ? clamp01((-rect.top - vh * 1.18) / (vh * 0.54))
     : clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
-  const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? vh * 0.28 : -vh * 0.35);
+  const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? vh * 0.10 : -vh * 0.35);
 
   if (historyBottle) {
     const mixologySection = document.querySelector(".mixology-section");
     const mixologyTop = mixologySection ? mixologySection.getBoundingClientRect().top : Infinity;
     const isMobileCanTiming = vw < 700;
     const whiteWaveStarted = isMobileCanTiming
-      ? (leaveProgress > 0.16 || mixologyTop < vh * 0.82)
+      ? (leaveProgress > 0.48 || mixologyTop < vh * 0.60)
       : (leaveProgress > 0.08 || mixologyTop < vh * 0.94);
 
     const processCanActive = processVisible && !whiteWaveStarted;
     document.body.classList.toggle("process-parallax-active", processCanActive);
-    document.body.classList.toggle("process-wave-covering", isMobileCanTiming ? (leaveProgress > 0.16 || mixologyTop < vh * 0.84) : (leaveProgress > 0.05 || mixologyTop < vh));
+    document.body.classList.toggle("process-wave-covering", isMobileCanTiming ? (leaveProgress > 0.46 || mixologyTop < vh * 0.64) : (leaveProgress > 0.05 || mixologyTop < vh));
     document.body.classList.toggle("process-can-hidden", whiteWaveStarted || document.body.classList.contains("light-site-background") || document.body.classList.contains("mixology-active"));
     if (isMobileCanTiming && processCanActive) {
       document.body.classList.add("mobile-can-was-process");
@@ -341,8 +345,8 @@ function updateMobileCanBoundsGuard() {
   const proceso = document.getElementById("proceso") || document.querySelector(".process-section");
   const h = historia ? historia.getBoundingClientRect() : null;
   const pr = proceso ? proceso.getBoundingClientRect() : null;
-  const historyAllowed = h && h.top < vh * 0.96 && h.bottom > vh * 0.28;
-  const processAllowed = pr && pr.top < vh * 0.94 && pr.bottom > vh * 0.12;
+  const historyAllowed = h && h.top < vh * 0.96 && h.bottom > vh * 0.34 && (!pr || pr.top > vh * 0.78);
+  const processAllowed = pr && pr.top < vh * 0.70 && pr.bottom > vh * 0.10;
   const allowed = Boolean(historyAllowed || processAllowed);
   document.body.classList.toggle("mobile-can-force-hidden", !allowed);
   if (!allowed) {
