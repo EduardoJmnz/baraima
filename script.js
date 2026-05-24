@@ -80,12 +80,20 @@ function updateHistoryBottle() {
 
   const rect = section.getBoundingClientRect();
   const vh = window.innerHeight || 1;
-  // La botella empieza a aparecer hasta que Historia ya entro al viewport, no desde Hero.
-  const isHistoryVisible = rect.top <= vh * 0.16 && rect.bottom > vh * 0.2;
+  const vw = window.innerWidth || 1;
+  const isMobileViewport = vw < 700;
+  // Mobile V164: Historia can exits earlier and smoother, before Proceso copy begins to take focus.
+  const historyExitLine = isMobileViewport ? vh * 0.52 : vh * 0.2;
+  const isHistoryVisible = rect.top <= vh * 0.16 && rect.bottom > historyExitLine;
   const processActive = document.body.classList.contains("process-parallax-active");
   const mixologyActive = document.body.classList.contains("mixology-active");
-  document.body.classList.toggle("history-bottle-visible", isHistoryVisible && !processActive && !mixologyActive);
-  setSharedCanSource(window.innerWidth < 700 ? "mobile-history" : "desktop");
+  const historyCanActive = isHistoryVisible && !processActive && !mixologyActive;
+  document.body.classList.toggle("history-bottle-visible", historyCanActive);
+  if (isMobileViewport && historyCanActive) {
+    document.body.classList.add("mobile-can-was-history");
+    document.body.classList.remove("mobile-can-was-process");
+  }
+  setSharedCanSource(isMobileViewport ? "mobile-history" : "desktop");
   const progress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
 
   // La botella pertenece a Historia: sube ligeramente con el bloque y no queda fija de forma eterna.
@@ -232,24 +240,30 @@ function updateProcessBlock() {
   // V161: mobile timing refined. On mobile the process can should not appear
   // until the History copy has already left, and it should remain longer in Proceso.
   const isMobileViewport = vw < 700;
-  const enterStart = isMobileViewport ? vh * 0.34 : vh * 0.82;
-  const enterProgress = clamp01((enterStart - rect.top) / (vh * (isMobileViewport ? 0.56 : 0.95)));
+  // V164 mobile: Proceso can waits until Historia has fully cleared, then exits before the next block.
+  const enterStart = isMobileViewport ? vh * 0.12 : vh * 0.82;
+  const enterProgress = clamp01((enterStart - rect.top) / (vh * (isMobileViewport ? 0.42 : 0.95)));
   const leaveProgress = isMobileViewport
-    ? clamp01((-rect.top - vh * 1.02) / (vh * 0.48))
+    ? clamp01((-rect.top - vh * 0.84) / (vh * 0.38))
     : clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
-  const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? -vh * 0.08 : -vh * 0.35);
+  const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? vh * 0.28 : -vh * 0.35);
 
   if (historyBottle) {
     const mixologySection = document.querySelector(".mixology-section");
     const mixologyTop = mixologySection ? mixologySection.getBoundingClientRect().top : Infinity;
     const isMobileCanTiming = vw < 700;
     const whiteWaveStarted = isMobileCanTiming
-      ? (leaveProgress > 0.10 || mixologyTop < vh * 0.88)
+      ? (leaveProgress > 0.04 || mixologyTop < vh * 0.94)
       : (leaveProgress > 0.08 || mixologyTop < vh * 0.94);
 
-    document.body.classList.toggle("process-parallax-active", processVisible && !whiteWaveStarted);
+    const processCanActive = processVisible && !whiteWaveStarted;
+    document.body.classList.toggle("process-parallax-active", processCanActive);
     document.body.classList.toggle("process-wave-covering", isMobileCanTiming ? (leaveProgress > 0.04 || mixologyTop < vh * 0.96) : (leaveProgress > 0.05 || mixologyTop < vh));
     document.body.classList.toggle("process-can-hidden", whiteWaveStarted || document.body.classList.contains("light-site-background") || document.body.classList.contains("mixology-active"));
+    if (isMobileCanTiming && processCanActive) {
+      document.body.classList.add("mobile-can-was-process");
+      document.body.classList.remove("mobile-can-was-history");
+    }
     // El sticky de CSS mantiene el texto estable; no alternamos fixed para evitar brincos visuales.
 
     if (processVisible) {
@@ -346,7 +360,10 @@ function updateWhiteSectionUi() {
   const vh = window.innerHeight || 1;
 
   // La UI fija cambia cuando sus zonas entran al campo visual del bloque claro.
-  const topUiOnLight = isPointInsideLightSection(vw * 0.5, 64) || isPointInsideLightSection(vw - 82, 64);
+  const processWaveForUi = document.querySelector(".process-next-wave");
+  const processWaveRectForUi = processWaveForUi ? processWaveForUi.getBoundingClientRect() : null;
+  const mobileWhiteWaveTouchesNav = vw < 700 && processWaveRectForUi ? processWaveRectForUi.top <= 64 : true;
+  const topUiOnLight = mobileWhiteWaveTouchesNav && (isPointInsideLightSection(vw * 0.5, 64) || isPointInsideLightSection(vw - 82, 64));
   const scrollUiOnLight = isPointInsideLightSection(vw - 64, vh - 120);
   const onLight = topUiOnLight || scrollUiOnLight;
   const lightSiteVisible = lightSectionsForUi.some((section) => {

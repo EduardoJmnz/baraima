@@ -12670,3 +12670,86 @@ body.mixology-active .process-next-wave__body{
   0%{ opacity:1; transform:translate3d(0,-50%,0) rotate(var(--sharedBottleRotate, 13deg)) scale(1); }
   100%{ opacity:0; transform:translate3d(0,calc(-50% - 34px),0) rotate(var(--sharedBottleRotate, 13deg)) scale(.985); }
 }
+
+/* V164: final mobile can timing/state cleanup
+   - no vertical fallback frame after can appears
+   - History exits earlier with the reverse diagonal motion
+   - Process appears later, exits before the next block, and never remains over Mixologia
+*/
+@media (max-width:700px){
+  #historyBottle.history-bottle-wrap{
+    pointer-events:none !important;
+    will-change:opacity, transform !important;
+    backface-visibility:hidden !important;
+    transform-style:preserve-3d !important;
+  }
+
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active):not(.light-site-background) > #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) scale(1) !important;
+    animation:baraimaMobileHistoryCanInV164 .78s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.process-parallax-active:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) scale(1) !important;
+    animation:baraimaMobileProcessCanInV164 .78s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.mobile-can-was-history:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    visibility:visible !important;
+    opacity:0 !important;
+    animation:baraimaMobileHistoryCanOutV164 .82s cubic-bezier(.22,.61,.36,1) both !important;
+  }
+
+  body.mobile-can-was-process.process-can-hidden > #historyBottle.history-bottle-wrap,
+  body.mobile-can-was-process.mixology-active > #historyBottle.history-bottle-wrap,
+  body.mobile-can-was-process.light-site-background > #historyBottle.history-bottle-wrap,
+  body.mobile-can-was-process:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    visibility:visible !important;
+    opacity:0 !important;
+    animation:baraimaMobileProcessCanOutV164 .72s cubic-bezier(.22,.61,.36,1) both !important;
+  }
+
+  body:not(.mobile-can-was-history):not(.mobile-can-was-process):not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    animation:none !important;
+  }
+}
+
+@keyframes baraimaMobileHistoryCanInV164{
+  from{ opacity:0; transform:translate3d(42px, calc(-50% + 62px), 0) rotate(-13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+}
+@keyframes baraimaMobileHistoryCanOutV164{
+  from{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+  to{ opacity:0; transform:translate3d(42px, calc(-50% + 62px), 0) rotate(-13deg) scale(.985); }
+}
+@keyframes baraimaMobileProcessCanInV164{
+  from{ opacity:0; transform:translate3d(-40px, calc(-50% + 56px), 0) rotate(13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1); }
+}
+@keyframes baraimaMobileProcessCanOutV164{
+  from{ opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1); }
+  to{ opacity:0; transform:translate3d(-40px, calc(-50% + 56px), 0) rotate(13deg) scale(.985); }
+}
