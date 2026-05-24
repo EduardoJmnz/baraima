@@ -13408,3 +13408,37 @@ body{
       transform .92s cubic-bezier(.19,1,.22,1) !important;
   }
 }
+
+/* V175: final Historia mobile can exit copied from v171 behavior.
+   Only Historia mobile can is affected. Proceso and desktop remain untouched. */
+@media (max-width:700px){
+  .mobile-history-can-clean{
+    transform:translate3d(78px, 128px, 0) rotate(-13deg) scale(.96) !important;
+    opacity:0 !important;
+    filter:none !important;
+    animation:none !important;
+    transition:
+      opacity .92s cubic-bezier(.19,1,.22,1),
+      transform .92s cubic-bezier(.19,1,.22,1) !important;
+  }
+
+  .history-section.mobile-local-can-visible .mobile-history-can-clean{
+    opacity:1 !important;
+    transform:translate3d(0, 0, 0) rotate(-13deg) scale(1) !important;
+    filter:none !important;
+    animation:none !important;
+    transition:
+      opacity .92s cubic-bezier(.19,1,.22,1),
+      transform .92s cubic-bezier(.19,1,.22,1) !important;
+  }
+
+  .history-section.mobile-local-can-exit .mobile-history-can-clean{
+    opacity:0 !important;
+    transform:translate3d(46px, 64px, 0) rotate(-13deg) scale(.985) !important;
+    filter:none !important;
+    animation:none !important;
+    transition:
+      opacity .92s cubic-bezier(.19,1,.22,1),
+      transform .92s cubic-bezier(.19,1,.22,1) !important;
+  }
+}
