@@ -998,35 +998,101 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   modal.addEventListener('touchend', () => window.setTimeout(triggerCloseFromBottom, 80), { passive:true });
 })();
 
-/* V167 final mobile can timing controller.
-   This runs after the legacy desktop/mobile handlers and overrides mobile only.
-   Goal: Historia exits smoothly before Proceso text, Proceso enters smoothly, exits before Mixologia,
-   and the can can never remain visible outside Historia/Proceso. */
-(function setupMobileCanV167(){
-  const bottle = document.getElementById("historyBottle");
-  if (!bottle) return;
-  const states = ["v167-hidden", "v167-history", "v167-history-exit", "v167-process-pre", "v167-process", "v167-process-exit", "v167-hide-now"];
-  let lastState = "v167-hidden";
-  let ticking = false;
+/* V169: removed legacy V167 mobile can controller to avoid duplicate state conflicts. */
 
-  function setState(state){
-    if (lastState === state && document.body.classList.contains("mobile-can-v167")) return;
-    document.body.classList.add("mobile-can-v167");
-    states.forEach(cls => document.body.classList.remove(cls));
-    document.body.classList.add(state);
-    lastState = state;
+
+/* V169: removed legacy V168 mobile can controller to avoid duplicate state conflicts. */
+
+
+
+/* V169: single mobile-only Cubaraima can controller.
+   Desktop remains controlled by the original handlers. On mobile this is the only
+   controller allowed to show the shared can, preventing old rules from leaving it
+   stuck vertical or visible outside Historia/Proceso. */
+(function setupMobileCanV169(){
+  const can = document.getElementById("historyBottle");
+  if (!can) return;
+
+  const v169States = [
+    "v169-off",
+    "v169-history-in",
+    "v169-history-out",
+    "v169-process-pre",
+    "v169-process-in",
+    "v169-process-out"
+  ];
+  const legacyCanClasses = [
+    "history-bottle-visible",
+    "process-parallax-active",
+    "process-wave-covering",
+    "process-can-hidden",
+    "mobile-can-was-history",
+    "mobile-can-was-process",
+    "mobile-can-force-hidden",
+    "mobile-can-v167",
+    "v167-hidden",
+    "v167-history",
+    "v167-history-exit",
+    "v167-process-pre",
+    "v167-process",
+    "v167-process-exit",
+    "v167-hide-now",
+    "mobile-can-v168",
+    "v168-hard-hidden",
+    "v168-history-in",
+    "v168-history-out",
+    "v168-process-pre",
+    "v168-process-in",
+    "v168-process-out",
+    "v168-force-hidden"
+  ];
+
+  let currentState = "";
+  let ticking = false;
+  let hideTimer = null;
+
+  function isMobile(){
+    return (window.innerWidth || 1) < 700;
   }
 
-  function clearState(){
-    document.body.classList.remove("mobile-can-v167", ...states);
-    lastState = "v167-hidden";
+  function clearLegacyCanState(){
+    document.body.classList.remove(...legacyCanClasses);
+  }
+
+  function applyState(state){
+    clearLegacyCanState();
+    document.body.classList.add("mobile-can-v169");
+    if (state === currentState) return;
+    document.body.classList.remove(...v169States);
+    document.body.classList.add(state);
+    currentState = state;
+
+    if (hideTimer) {
+      window.clearTimeout(hideTimer);
+      hideTimer = null;
+    }
+    // Let exit transitions finish, then fully remove visibility so the can never
+    // remains touch/paint-active below Proceso.
+    if (state === "v169-off") {
+      hideTimer = window.setTimeout(() => {
+        if (currentState === "v169-off") document.body.classList.add("v169-off-complete");
+      }, 760);
+    } else {
+      document.body.classList.remove("v169-off-complete");
+    }
+  }
+
+  function clearForDesktop(){
+    if (hideTimer) window.clearTimeout(hideTimer);
+    hideTimer = null;
+    currentState = "";
+    document.body.classList.remove("mobile-can-v169", "v169-off-complete", ...v169States);
   }
 
   function update(){
     ticking = false;
-    const vw = window.innerWidth || 1;
-    if (vw >= 700) {
-      clearState();
+    if (!isMobile()) {
+      clearForDesktop();
       return;
     }
 
@@ -1035,7 +1101,7 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
     const process = document.getElementById("proceso") || document.querySelector(".process-section");
     const mixology = document.querySelector(".mixology-section");
     if (!history || !process) {
-      setState("v167-hidden");
+      applyState("v169-off");
       return;
     }
 
@@ -1043,51 +1109,54 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
     const p = process.getBoundingClientRect();
     const m = mixology ? mixology.getBoundingClientRect() : { top: Infinity };
 
-    // Hard bounds: outside these sections the can is not allowed to render.
-    const insideStoryArea = h.top < vh * 0.92 && h.bottom > vh * 0.26;
-    const insideProcessArea = p.top < vh * 0.82 && p.bottom > vh * 0.18 && m.top > vh * 0.76;
-    if (!insideStoryArea && !insideProcessArea) {
-      setState("v167-hidden");
+    // Hard guard: outside these two blocks, the can must be fully hidden.
+    const beforeHistory = h.top > vh * 0.98;
+    const afterProcess = m.top < vh * 0.86 || p.bottom < vh * 0.18;
+    if (beforeHistory || afterProcess) {
+      applyState("v169-off");
       return;
     }
 
-    // Historia: keep current liked entrance. Exit a little earlier and with the same diagonal feel.
-    if (insideStoryArea && p.top > vh * 0.88) {
-      setState("v167-history");
+    // HISTORIA: keep the approved appearance, but begin the smooth exit before
+    // Proceso text starts dominating the viewport.
+    if (h.top < vh * 0.96 && p.top > vh * 0.98) {
+      applyState("v169-history-in");
       return;
     }
-    if (insideStoryArea && p.top <= vh * 0.88 && p.top > vh * 0.72) {
-      setState("v167-history-exit");
-      return;
-    }
-
-    // Proceso: prepare hidden start briefly, then enter with the same smooth motion.
-    if (p.top <= vh * 0.72 && p.top > vh * 0.62 && m.top > vh * 0.92) {
-      setState("v167-process-pre");
-      return;
-    }
-    if (p.top <= vh * 0.62 && m.top > vh * 0.96 && p.bottom > vh * 0.24) {
-      setState("v167-process");
+    if (p.top <= vh * 0.98 && p.top > vh * 0.78) {
+      applyState("v169-history-out");
       return;
     }
 
-    // Exit before the next block/white wave collides with it.
-    if (m.top <= vh * 0.96 || p.bottom <= vh * 0.24) {
-      setState("v167-process-exit");
+    // Small hidden gap between the two sections. This prevents the can from
+    // flashing/reappearing after Historia exits.
+    if (p.top <= vh * 0.78 && p.top > vh * 0.66) {
+      applyState("v169-process-pre");
       return;
     }
 
-    setState("v167-hidden");
+    // PROCESO: enter with the same diagonal smooth motion and stay long enough
+    // to read as intentional, then exit before the next white wave/block.
+    if (p.top <= vh * 0.66 && m.top > vh * 0.96 && p.bottom > vh * 0.22) {
+      applyState("v169-process-in");
+      return;
+    }
+    if (m.top <= vh * 0.96 || p.bottom <= vh * 0.22) {
+      applyState("v169-process-out");
+      return;
+    }
+
+    applyState("v169-off");
   }
 
   function request(){
     if (!ticking) {
-      requestAnimationFrame(update);
+      window.requestAnimationFrame(update);
       ticking = true;
     }
   }
 
-  window.addEventListener("scroll", request, { passive: true });
+  window.addEventListener("scroll", request, { passive:true });
   window.addEventListener("resize", request);
   window.addEventListener("orientationchange", request);
   request();

@@ -12966,3 +12966,178 @@ body.mixology-active .process-next-wave__body{
     pointer-events:none !important;
   }
 }
+
+/* V168: definitive mobile can controller override.
+   This final layer wins over the accumulated V157-V167 mobile can rules.
+   It keeps the can hidden outside Historia/Proceso, uses one transform system only,
+   and makes both entry/exit use the same diagonal smooth motion. */
+@media (max-width:700px){
+  body.mobile-can-v168 > #historyBottle.history-bottle-wrap{
+    position:fixed !important;
+    z-index:22 !important;
+    pointer-events:none !important;
+    will-change:opacity, transform !important;
+    backface-visibility:hidden !important;
+    transition:
+      opacity .86s cubic-bezier(.22,.61,.36,1),
+      transform .86s cubic-bezier(.22,.61,.36,1),
+      top .86s cubic-bezier(.22,.61,.36,1),
+      left .86s cubic-bezier(.22,.61,.36,1),
+      right .86s cubic-bezier(.22,.61,.36,1),
+      width .86s cubic-bezier(.22,.61,.36,1) !important;
+    animation:none !important;
+  }
+
+  body.mobile-can-v168.v168-hard-hidden > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(46px, calc(-50% + 64px), 0) rotate(-13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v168.v168-history-in > #historyBottle.history-bottle-wrap{
+    opacity:1 !important;
+    visibility:visible !important;
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v168.v168-history-out > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:visible !important;
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(46px, calc(-50% + 64px), 0) rotate(-13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v168.v168-process-pre > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v168.v168-process-out > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:visible !important;
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(-42px, calc(-50% + 60px), 0) rotate(13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v168.v168-process-in > #historyBottle.history-bottle-wrap{
+    opacity:1 !important;
+    visibility:visible !important;
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v168.v168-force-hidden > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v168.mixology-active > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v168.light-site-background > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+}
+
+
+/* V169 definitive mobile can layer.
+   This block intentionally comes last and wins over all older mobile can rules.
+   It only affects mobile; desktop behavior remains untouched. */
+@media (max-width:700px){
+  body.mobile-can-v169 > #historyBottle.history-bottle-wrap{
+    position:fixed !important;
+    z-index:22 !important;
+    pointer-events:none !important;
+    animation:none !important;
+    will-change:opacity, transform, top, left, right, width !important;
+    backface-visibility:hidden !important;
+    transition:
+      opacity .72s cubic-bezier(.22,.61,.36,1),
+      transform .72s cubic-bezier(.22,.61,.36,1),
+      top .72s cubic-bezier(.22,.61,.36,1),
+      left .72s cubic-bezier(.22,.61,.36,1),
+      right .72s cubic-bezier(.22,.61,.36,1),
+      width .72s cubic-bezier(.22,.61,.36,1),
+      visibility 0s linear .72s !important;
+  }
+
+  body.mobile-can-v169.v169-history-in > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-history-out > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-pre > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-in > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-out > #historyBottle.history-bottle-wrap{
+    visibility:visible !important;
+    transition:
+      opacity .72s cubic-bezier(.22,.61,.36,1),
+      transform .72s cubic-bezier(.22,.61,.36,1),
+      top .72s cubic-bezier(.22,.61,.36,1),
+      left .72s cubic-bezier(.22,.61,.36,1),
+      right .72s cubic-bezier(.22,.61,.36,1),
+      width .72s cubic-bezier(.22,.61,.36,1),
+      visibility 0s linear 0s !important;
+  }
+
+  /* Historia: right side, cream text block composition. */
+  body.mobile-can-v169.v169-history-in > #historyBottle.history-bottle-wrap{
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:1 !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v169.v169-history-out > #historyBottle.history-bottle-wrap{
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:0 !important;
+    transform:translate3d(40px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985) !important;
+  }
+
+  /* Process hidden pre-state: already positioned at the left, but invisible.
+     This avoids the abrupt flash/vertical bug when entering Proceso. */
+  body.mobile-can-v169.v169-process-pre > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-out > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:0 !important;
+    transform:translate3d(-40px, calc(-50% + 58px), 0) rotate(13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v169.v169-process-in > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:1 !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v169.v169-off > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-off-complete > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.mixology-active > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.light-site-background > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(40px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985) !important;
+  }
+}
