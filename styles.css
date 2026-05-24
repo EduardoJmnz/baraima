@@ -13141,3 +13141,85 @@ body.mixology-active .process-next-wave__body{
     transform:translate3d(40px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985) !important;
   }
 }
+
+/* V170: mobile can bugfix - final override. Desktop untouched.
+   Only the mobile-v169 state machine may paint the can on mobile. */
+@media (max-width:700px){
+  body.mobile-can-v169 > #historyBottle.history-bottle-wrap{
+    position:fixed !important;
+    pointer-events:none !important;
+    z-index:22 !important;
+    will-change:opacity, transform !important;
+    transform-origin:center center !important;
+    transition:
+      opacity .86s cubic-bezier(.19,1,.22,1),
+      transform .86s cubic-bezier(.19,1,.22,1),
+      top .86s cubic-bezier(.19,1,.22,1),
+      left .86s cubic-bezier(.19,1,.22,1),
+      right .86s cubic-bezier(.19,1,.22,1),
+      width .86s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear .86s !important;
+  }
+
+  body.mobile-can-v169.v169-history-in > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-history-out > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-pre > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-in > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-out > #historyBottle.history-bottle-wrap{
+    visibility:visible !important;
+    transition:
+      opacity .86s cubic-bezier(.19,1,.22,1),
+      transform .86s cubic-bezier(.19,1,.22,1),
+      top .86s cubic-bezier(.19,1,.22,1),
+      left .86s cubic-bezier(.19,1,.22,1),
+      right .86s cubic-bezier(.19,1,.22,1),
+      width .86s cubic-bezier(.19,1,.22,1),
+      visibility 0s linear 0s !important;
+  }
+
+  body.mobile-can-v169.v169-history-in > #historyBottle.history-bottle-wrap{
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw,380px) !important;
+    opacity:1 !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v169.v169-history-out > #historyBottle.history-bottle-wrap{
+    left:auto !important;
+    right:-30vw !important;
+    top:38.5svh !important;
+    width:min(92vw,380px) !important;
+    opacity:0 !important;
+    transform:translate3d(44px,calc(-50% + 66px),0) rotate(-13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v169.v169-process-pre > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-process-out > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw,380px) !important;
+    opacity:0 !important;
+    transform:translate3d(-44px,calc(-50% + 66px),0) rotate(13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v169.v169-process-in > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw,380px) !important;
+    opacity:1 !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v169.v169-off > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.v169-off-complete > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.mixology-active > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v169.light-site-background > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+}

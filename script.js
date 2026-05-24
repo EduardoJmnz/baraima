@@ -82,6 +82,14 @@ function updateHistoryBottle() {
   const vh = window.innerHeight || 1;
   const vw = window.innerWidth || 1;
   const isMobileViewport = vw < 700;
+  if (isMobileViewport) {
+    // Mobile can choreography is handled exclusively by the final mobile controller near the end of this file.
+    // Do not let the legacy desktop/history parallax states fight it.
+    document.body.classList.remove("history-bottle-visible", "mobile-can-was-history");
+    setSharedCanSource("mobile-history");
+    historyTicking = false;
+    return;
+  }
   // Mobile V164: Historia can exits earlier and smoother, before Proceso copy begins to take focus.
   const historyExitLine = isMobileViewport ? vh * 0.62 : vh * 0.2;
   const isHistoryVisible = rect.top <= vh * 0.16 && rect.bottom > historyExitLine;
@@ -252,7 +260,7 @@ function updateProcessBlock() {
     : clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
   const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? vh * 0.10 : -vh * 0.35);
 
-  if (historyBottle) {
+  if (historyBottle && !isMobileViewport) {
     const mixologySection = document.querySelector(".mixology-section");
     const mixologyTop = mixologySection ? mixologySection.getBoundingClientRect().top : Infinity;
     const isMobileCanTiming = vw < 700;
@@ -1117,31 +1125,29 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
       return;
     }
 
-    // HISTORIA: keep the approved appearance, but begin the smooth exit before
-    // Proceso text starts dominating the viewport.
-    if (h.top < vh * 0.96 && p.top > vh * 0.98) {
+    // HISTORIA: one clean cycle. It exits before Proceso takes over.
+    if (h.top < vh * 0.96 && p.top > vh * 0.88) {
       applyState("v169-history-in");
       return;
     }
-    if (p.top <= vh * 0.98 && p.top > vh * 0.78) {
+    if (p.top <= vh * 0.88 && p.top > vh * 0.70) {
       applyState("v169-history-out");
       return;
     }
 
-    // Small hidden gap between the two sections. This prevents the can from
-    // flashing/reappearing after Historia exits.
-    if (p.top <= vh * 0.78 && p.top > vh * 0.66) {
+    // Clean handoff gap: no can between Historia exit and Proceso entrance.
+    if (p.top <= vh * 0.70 && p.top > vh * 0.56) {
       applyState("v169-process-pre");
       return;
     }
 
-    // PROCESO: enter with the same diagonal smooth motion and stay long enough
-    // to read as intentional, then exit before the next white wave/block.
-    if (p.top <= vh * 0.66 && m.top > vh * 0.96 && p.bottom > vh * 0.22) {
+    // PROCESO: enter after Historia is gone, stay visible through most of Proceso,
+    // then exit before the next white block/wave.
+    if (p.top <= vh * 0.56 && m.top > vh * 0.78 && p.bottom > vh * 0.16) {
       applyState("v169-process-in");
       return;
     }
-    if (m.top <= vh * 0.96 || p.bottom <= vh * 0.22) {
+    if (m.top <= vh * 0.78 || p.bottom <= vh * 0.16) {
       applyState("v169-process-out");
       return;
     }
