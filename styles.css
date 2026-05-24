@@ -13313,3 +13313,45 @@ body.mixology-active .process-next-wave__body{
     z-index:4 !important;
   }
 }
+
+/* V172: mobile Historia can entrance refinement only.
+   Keeps v171 timing and desktop untouched; makes the Historia can enter diagonally upward. */
+@media (max-width:700px){
+  @keyframes mobileHistoryCanDiagonalInV172{
+    0%{
+      opacity:0;
+      transform:translate3d(78px, 128px, 0) rotate(-13deg) scale(.96);
+      filter:blur(3px);
+    }
+    55%{
+      opacity:1;
+      filter:blur(0);
+    }
+    100%{
+      opacity:1;
+      transform:translate3d(0, 0, 0) rotate(-13deg) scale(1);
+      filter:blur(0);
+    }
+  }
+
+  .mobile-history-can-clean{
+    transform:translate3d(78px, 128px, 0) rotate(-13deg) scale(.96) !important;
+    transition:
+      opacity .92s cubic-bezier(.19,1,.22,1),
+      transform .92s cubic-bezier(.19,1,.22,1),
+      filter .62s cubic-bezier(.19,1,.22,1) !important;
+  }
+
+  .history-section.mobile-local-can-visible .mobile-history-can-clean{
+    opacity:1 !important;
+    transform:translate3d(0, 0, 0) rotate(-13deg) scale(1) !important;
+    animation:mobileHistoryCanDiagonalInV172 .98s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  .history-section.mobile-local-can-exit .mobile-history-can-clean{
+    animation:none !important;
+    opacity:0 !important;
+    transform:translate3d(58px, 96px, 0) rotate(-13deg) scale(.965) !important;
+    filter:blur(2px) !important;
+  }
+}
