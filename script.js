@@ -83,7 +83,7 @@ function updateHistoryBottle() {
   const vw = window.innerWidth || 1;
   const isMobileViewport = vw < 700;
   // Mobile V164: Historia can exits earlier and smoother, before Proceso copy begins to take focus.
-  const historyExitLine = isMobileViewport ? vh * 0.52 : vh * 0.2;
+  const historyExitLine = isMobileViewport ? vh * 0.62 : vh * 0.2;
   const isHistoryVisible = rect.top <= vh * 0.16 && rect.bottom > historyExitLine;
   const processActive = document.body.classList.contains("process-parallax-active");
   const mixologyActive = document.body.classList.contains("mixology-active");
@@ -241,10 +241,10 @@ function updateProcessBlock() {
   // until the History copy has already left, and it should remain longer in Proceso.
   const isMobileViewport = vw < 700;
   // V164 mobile: Proceso can waits until Historia has fully cleared, then exits before the next block.
-  const enterStart = isMobileViewport ? vh * 0.12 : vh * 0.82;
+  const enterStart = isMobileViewport ? vh * 0.26 : vh * 0.82;
   const enterProgress = clamp01((enterStart - rect.top) / (vh * (isMobileViewport ? 0.42 : 0.95)));
   const leaveProgress = isMobileViewport
-    ? clamp01((-rect.top - vh * 0.84) / (vh * 0.38))
+    ? clamp01((-rect.top - vh * 0.98) / (vh * 0.42))
     : clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
   const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? vh * 0.28 : -vh * 0.35);
 
@@ -253,12 +253,12 @@ function updateProcessBlock() {
     const mixologyTop = mixologySection ? mixologySection.getBoundingClientRect().top : Infinity;
     const isMobileCanTiming = vw < 700;
     const whiteWaveStarted = isMobileCanTiming
-      ? (leaveProgress > 0.04 || mixologyTop < vh * 0.94)
+      ? (leaveProgress > 0.16 || mixologyTop < vh * 0.82)
       : (leaveProgress > 0.08 || mixologyTop < vh * 0.94);
 
     const processCanActive = processVisible && !whiteWaveStarted;
     document.body.classList.toggle("process-parallax-active", processCanActive);
-    document.body.classList.toggle("process-wave-covering", isMobileCanTiming ? (leaveProgress > 0.04 || mixologyTop < vh * 0.96) : (leaveProgress > 0.05 || mixologyTop < vh));
+    document.body.classList.toggle("process-wave-covering", isMobileCanTiming ? (leaveProgress > 0.16 || mixologyTop < vh * 0.84) : (leaveProgress > 0.05 || mixologyTop < vh));
     document.body.classList.toggle("process-can-hidden", whiteWaveStarted || document.body.classList.contains("light-site-background") || document.body.classList.contains("mixology-active"));
     if (isMobileCanTiming && processCanActive) {
       document.body.classList.add("mobile-can-was-process");
@@ -326,6 +326,39 @@ function requestProcessBlock() {
 window.addEventListener("scroll", requestProcessBlock, { passive: true });
 window.addEventListener("resize", requestProcessBlock);
 requestProcessBlock();
+
+/* V165: mobile can guardrail.
+   The mobile can is allowed only while Historia or Proceso are meaningfully on screen.
+   This prevents the fixed shared element from getting stuck when scrolling back up/down quickly. */
+function updateMobileCanBoundsGuard() {
+  const vw = window.innerWidth || 1;
+  if (vw >= 700) {
+    document.body.classList.remove("mobile-can-force-hidden");
+    return;
+  }
+  const vh = window.innerHeight || 1;
+  const historia = document.getElementById("historia") || document.querySelector(".history-section");
+  const proceso = document.getElementById("proceso") || document.querySelector(".process-section");
+  const h = historia ? historia.getBoundingClientRect() : null;
+  const pr = proceso ? proceso.getBoundingClientRect() : null;
+  const historyAllowed = h && h.top < vh * 0.96 && h.bottom > vh * 0.28;
+  const processAllowed = pr && pr.top < vh * 0.94 && pr.bottom > vh * 0.12;
+  const allowed = Boolean(historyAllowed || processAllowed);
+  document.body.classList.toggle("mobile-can-force-hidden", !allowed);
+  if (!allowed) {
+    document.body.classList.remove(
+      "history-bottle-visible",
+      "process-parallax-active",
+      "process-wave-covering",
+      "process-can-hidden",
+      "mobile-can-was-history",
+      "mobile-can-was-process"
+    );
+  }
+}
+window.addEventListener("scroll", updateMobileCanBoundsGuard, { passive: true });
+window.addEventListener("resize", updateMobileCanBoundsGuard);
+updateMobileCanBoundsGuard();
 
 const lightSectionsForUi = Array.from(document.querySelectorAll(".mixology-section, .quote-section, .products-section, .rituales-section, .white-section, [data-ui-theme='light'], [data-ui-theme='warm']"));
 
