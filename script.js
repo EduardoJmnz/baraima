@@ -49,6 +49,20 @@ if (menuOverlay) {
 
 /* History bottle parallax */
 const historyBottle = document.getElementById("historyBottle");
+const historyBottleImg = historyBottle ? historyBottle.querySelector("img") : null;
+const CAN_DESKTOP_SRC = "assets/cubaraima-can.png";
+const CAN_MOBILE_HISTORY_SRC = "assets/cubaraima-mobile-history-a1.png";
+const CAN_MOBILE_PROCESS_SRC = "assets/cubaraima-mobile-process-a2.png";
+function setSharedCanSource(mode) {
+  if (!historyBottleImg) return;
+  const nextSrc = mode === "mobile-process"
+    ? CAN_MOBILE_PROCESS_SRC
+    : mode === "mobile-history"
+      ? CAN_MOBILE_HISTORY_SRC
+      : CAN_DESKTOP_SRC;
+  const current = historyBottleImg.getAttribute("src") || "";
+  if (!current.endsWith(nextSrc)) historyBottleImg.setAttribute("src", nextSrc);
+}
 if (historyBottle && historyBottle.parentElement !== document.body) document.body.appendChild(historyBottle);
 let historyTicking = false;
 
@@ -71,6 +85,7 @@ function updateHistoryBottle() {
   const processActive = document.body.classList.contains("process-parallax-active");
   const mixologyActive = document.body.classList.contains("mixology-active");
   document.body.classList.toggle("history-bottle-visible", isHistoryVisible && !processActive && !mixologyActive);
+  setSharedCanSource(window.innerWidth < 700 ? "mobile-history" : "desktop");
   const progress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
 
   // La botella pertenece a Historia: sube ligeramente con el bloque y no queda fija de forma eterna.
@@ -233,6 +248,7 @@ function updateProcessBlock() {
     // El sticky de CSS mantiene el texto estable; no alternamos fixed para evitar brincos visuales.
 
     if (processVisible) {
+      setSharedCanSource((window.innerWidth || 1) < 700 ? "mobile-process" : "desktop");
       // La misma lata de Historia viaja hacia Proceso: empieza a la derecha y termina grande a la izquierda como en PROCESS.pdf.
       // V139: match the exact Historia visual position as the start of the Proceso motion,
       // so the can does not jump when the scroll transition begins.
