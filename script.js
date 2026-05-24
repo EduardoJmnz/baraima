@@ -1245,3 +1245,52 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   window.addEventListener('orientationchange', request);
   request();
 })();
+
+/* V176: Hero text enters rising like bubbles, inspired by La Revoltosa's opening feel. */
+(function initHeroBubbleText(){
+  const heroCopy = document.querySelector('.hero-copy');
+  if (!heroCopy || heroCopy.dataset.heroBubbleReady === 'true') return;
+  const targets = heroCopy.querySelectorAll('p, h1');
+  let globalIndex = 0;
+
+  function splitTextNode(el){
+    const text = (el.textContent || '').trim();
+    if (!text) return;
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+
+    const words = text.split(/(\s+)/);
+    words.forEach((word) => {
+      if (/^\s+$/.test(word)) {
+        const space = document.createElement('span');
+        space.className = 'hero-bubble-space';
+        space.setAttribute('aria-hidden', 'true');
+        el.appendChild(space);
+        return;
+      }
+
+      const wordWrap = document.createElement('span');
+      wordWrap.className = 'hero-bubble-word';
+      wordWrap.setAttribute('aria-hidden', 'true');
+
+      Array.from(word).forEach((char) => {
+        const span = document.createElement('span');
+        span.className = 'hero-bubble-char';
+        span.textContent = char;
+        const wave = Math.sin(globalIndex * 0.95);
+        span.style.setProperty('--d', `${180 + globalIndex * 70}ms`);
+        span.style.setProperty('--r', `${wave * 5.5}deg`);
+        span.style.setProperty('--float-x', `${wave * 10}px`);
+        span.style.setProperty('--float-x-start', `${wave * -16}px`);
+        wordWrap.appendChild(span);
+        globalIndex += 1;
+      });
+
+      el.appendChild(wordWrap);
+    });
+  }
+
+  targets.forEach(splitTextNode);
+  heroCopy.dataset.heroBubbleReady = 'true';
+  requestAnimationFrame(() => heroCopy.classList.add('hero-bubble-ready'));
+})();

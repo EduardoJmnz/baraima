@@ -13442,3 +13442,447 @@ body{
       transform .92s cubic-bezier(.19,1,.22,1) !important;
   }
 }
+
+/* V176: tema rojo del navegador + hero text bubble-rise */
+:root{
+  --browser-theme-red:#FF0B00;
+}
+html,
+body{
+  background-color:var(--browser-theme-red) !important;
+}
+.hero-copy.hero-bubble-ready p,
+.hero-copy.hero-bubble-ready h1{
+  opacity:1 !important;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-word{
+  display:inline-block;
+  white-space:nowrap;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-char{
+  display:inline-block;
+  opacity:0;
+  transform:translate3d(0,42px,0) scale(.92) rotate(var(--r, 0deg));
+  filter:blur(10px);
+  transform-origin:50% 100%;
+  animation:heroBubbleRise 1150ms cubic-bezier(.16,1,.3,1) forwards;
+  animation-delay:var(--d, 0ms);
+  will-change:transform,opacity,filter;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-space{
+  display:inline-block;
+  width:.26em;
+}
+.hero-copy.hero-bubble-ready h1 .hero-bubble-char{
+  animation-duration:1280ms;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-word:nth-child(2n) .hero-bubble-char{
+  transform:translate3d(0,52px,0) scale(.9) rotate(var(--r, 0deg));
+}
+@keyframes heroBubbleRise{
+  0%{
+    opacity:0;
+    transform:translate3d(0,52px,0) scale(.9) rotate(var(--r, 0deg));
+    filter:blur(12px);
+  }
+  58%{
+    opacity:1;
+    transform:translate3d(var(--float-x, 0px),-8px,0) scale(1.025) rotate(calc(var(--r, 0deg) * -.35));
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1) rotate(0deg);
+    filter:blur(0);
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-copy.hero-bubble-ready .hero-bubble-char{
+    opacity:1;
+    transform:none;
+    filter:none;
+    animation:none;
+  }
+}
+
+
+
+/* V178: hero bubble text clean rise - no blur, deeper and slower */
+.hero-copy:not(.hero-bubble-ready) p,
+.hero-copy:not(.hero-bubble-ready) h1{
+  opacity:0;
+}
+.hero-copy.hero-bubble-ready p,
+.hero-copy.hero-bubble-ready h1{
+  opacity:1 !important;
+  filter:none !important;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-word{
+  display:inline-block;
+  white-space:nowrap;
+  overflow:visible;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-char{
+  display:inline-block;
+  opacity:0;
+  filter:none !important;
+  transform:translate3d(0,124px,0) scale(.96) rotate(var(--r, 0deg));
+  transform-origin:50% 100%;
+  animation:heroBubbleRiseClean 2100ms cubic-bezier(.16,.82,.18,1) forwards;
+  animation-delay:var(--d, 0ms);
+  will-change:transform,opacity;
+  backface-visibility:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+.hero-copy.hero-bubble-ready h1 .hero-bubble-char{
+  animation-duration:2380ms;
+}
+.hero-copy.hero-bubble-ready .hero-bubble-word:nth-child(2n) .hero-bubble-char{
+  transform:translate3d(0,150px,0) scale(.95) rotate(var(--r, 0deg));
+}
+@keyframes heroBubbleRiseClean{
+  0%{
+    opacity:0;
+    transform:translate3d(var(--float-x-start, 0px),150px,0) scale(.95) rotate(var(--r, 0deg));
+  }
+  46%{
+    opacity:1;
+    transform:translate3d(var(--float-x, 0px),18px,0) scale(1.012) rotate(calc(var(--r, 0deg) * -.22));
+  }
+  72%{
+    opacity:1;
+    transform:translate3d(calc(var(--float-x, 0px) * -.35),-7px,0) scale(1.006) rotate(calc(var(--r, 0deg) * .12));
+  }
+  100%{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1) rotate(0deg);
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-copy.hero-bubble-ready .hero-bubble-char{
+    opacity:1;
+    transform:none;
+    filter:none !important;
+    animation:none;
+  }
+}
+
+/* V179: recipe image fills the visual container completely.
+   Removes the orange side gutters visible in recipe detail pages. */
+body.recipe-page .recipe-visual {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  min-height: min(72vh, 720px);
+}
+
+body.recipe-page .recipe-visual img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: inherit !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+@media (max-width: 860px) {
+  body.recipe-page .recipe-visual {
+    min-height: 46vh !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  body.recipe-page .recipe-visual img {
+    min-height: 100% !important;
+  }
+}
+
+/* V182: Tipografía editorial Baraima inspirada en Druk + Recoleta
+   A = Druk Condensed / Bebas Neue
+   B = Recoleta / Fraunces
+   C-D = Montserrat
+   Solo cambios visuales de tipografía; no altera lógica ni motion.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:opsz,wght,SOFT,WONK@9..144,900,75,1&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --font-ui: 'Montserrat', Arial, Helvetica, sans-serif;
+  --font-a: 'Druk Condensed', 'Bebas Neue', 'Anton', 'Impact', sans-serif;
+  --font-b: 'Recoleta', 'Fraunces', 'Cooper Black', Georgia, serif;
+}
+
+body,
+button,
+input,
+textarea,
+select,
+a,
+p,
+li,
+span{
+  font-family: var(--font-ui) !important;
+}
+
+/* HERO */
+.hero-copy p,
+.hero-copy .hero-bubble-char{
+  font-family: var(--font-a) !important;
+}
+.hero-copy p{
+  letter-spacing: .08em !important;
+  font-weight: 400 !important;
+}
+.hero-copy h1,
+.hero-copy h1 .hero-bubble-char{
+  font-family: var(--font-b) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.045em !important;
+  line-height: .86 !important;
+}
+
+/* HISTORIA */
+.history-number{
+  font-family: var(--font-b) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.055em !important;
+  line-height: .82 !important;
+}
+.history-copy h2,
+.history-copy h2 span,
+.history-copy h2 strong,
+.history-copy h2 em{
+  font-family: var(--font-a) !important;
+  letter-spacing: .015em !important;
+  line-height: .98 !important;
+  font-style: normal !important;
+}
+.history-copy h2 strong{
+  font-weight: 400 !important;
+}
+
+/* PROCESO */
+.process-copy h2,
+.process-copy h2 span,
+.process-copy h2 strong{
+  font-family: var(--font-a) !important;
+  font-weight: 400 !important;
+  letter-spacing: .018em !important;
+  line-height: .98 !important;
+}
+
+/* MIXOLOGIA, MIS RONES, STORES, RITUALES, CONTACTO */
+.mixology-header h2,
+.products-header h2,
+.stores-header h2,
+.rituales-header h2,
+.contact-content h2{
+  font-family: var(--font-b) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.045em !important;
+  line-height: .88 !important;
+}
+
+.mixology-header .section-subtitle,
+.mixology-header .section-subtitle strong,
+.products-header .section-subtitle,
+.products-header .section-subtitle strong,
+.stores-header .section-subtitle,
+.stores-header .section-subtitle strong,
+.rituales-header .section-subtitle,
+.rituales-header .section-subtitle strong,
+.contact-section .section-subtitle,
+.contact-section .section-subtitle strong{
+  font-family: var(--font-a) !important;
+  font-weight: 400 !important;
+  letter-spacing: .08em !important;
+  line-height: 1.08 !important;
+}
+
+/* QUOTE */
+.quote-section h2,
+.quote-section h2 span,
+.quote-section h2 strong{
+  font-family: var(--font-a) !important;
+  font-weight: 400 !important;
+  letter-spacing: .025em !important;
+  line-height: .98 !important;
+}
+
+/* UI secundaria limpia */
+.menu-nav a,
+.rum-product-card__eyebrow,
+.rum-product-card__tagline,
+.rum-product-card__icons span,
+.mixology-card-copy h3,
+.ritual-card-copy h3,
+.stores-cta,
+.rituales-cta,
+.contact-cta,
+.history-cta,
+.process-cta,
+.mixology-cta{
+  font-family: var(--font-ui) !important;
+}
+
+/* Ajustes responsive para evitar cortes con display serif */
+@media (max-width: 768px){
+  .hero-copy h1{
+    letter-spacing: -.04em !important;
+    line-height: .9 !important;
+  }
+  .history-number{
+    letter-spacing: -.045em !important;
+  }
+  .history-copy h2,
+  .process-copy h2{
+    letter-spacing: .01em !important;
+    line-height: 1 !important;
+  }
+  .mixology-header h2,
+  .products-header h2,
+  .stores-header h2,
+  .rituales-header h2,
+  .contact-content h2{
+    letter-spacing: -.035em !important;
+    line-height: .92 !important;
+  }
+  .section-subtitle{
+    letter-spacing: .055em !important;
+  }
+}
+
+
+/* V183: Ajustes finales de tipografia y UX copy en modales */
+/* Stores: subtitulo con la tipografia B (serif editorial) */
+.stores-header .section-subtitle,
+.stores-header .section-subtitle strong{
+  font-family: var(--font-b) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.035em !important;
+  line-height: .95 !important;
+}
+
+/* Titulos dentro de modales: misma personalidad editorial */
+.history-modal-content h2,
+.process-modal-content h2,
+.stores-modal-panel h2,
+.contact-modal-panel h2{
+  font-family: var(--font-b) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.045em !important;
+  line-height: .88 !important;
+}
+
+/* Indicador global cuando un modal esta abierto */
+body.history-modal-active .scroll p,
+body.process-modal-active .scroll p,
+body.stores-modal-active .scroll p,
+body.contact-modal-active .scroll p{
+  font-size: 0 !important;
+  line-height: 1 !important;
+}
+
+body.history-modal-active .scroll p::after,
+body.process-modal-active .scroll p::after,
+body.stores-modal-active .scroll p::after,
+body.contact-modal-active .scroll p::after{
+  content: "SCROLL TO CLOSE";
+  display: block;
+  font-family: var(--font-ui) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .12em !important;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px){
+  .stores-header .section-subtitle,
+  .stores-header .section-subtitle strong{
+    letter-spacing: -.025em !important;
+    line-height: 1 !important;
+  }
+  .history-modal-content h2,
+  .process-modal-content h2,
+  .stores-modal-panel h2,
+  .contact-modal-panel h2{
+    letter-spacing: -.035em !important;
+    line-height: .92 !important;
+  }
+  body.history-modal-active .scroll p::after,
+  body.process-modal-active .scroll p::after,
+  body.stores-modal-active .scroll p::after,
+  body.contact-modal-active .scroll p::after{
+    font-size: 9px !important;
+    letter-spacing: .1em !important;
+  }
+}
+
+/* V184: visual typography fixes requested after v183 */
+/* Prevent Mixologia display title from clipping after the new display font. */
+.mixology-header{
+  overflow: visible !important;
+  padding-inline: 12px !important;
+}
+.mixology-header h2{
+  overflow: visible !important;
+  white-space: normal !important;
+  text-wrap: balance;
+  font-size: clamp(42px, 6.4vw, 82px) !important;
+  line-height: .94 !important;
+  max-width: min(100%, 980px) !important;
+  margin-inline: auto !important;
+}
+
+/* Mixologia subtitle should keep its natural casing, not forced uppercase. */
+.mixology-header .section-subtitle,
+.mixology-header .section-subtitle strong{
+  text-transform: none !important;
+}
+
+/* Modal titles were too large with the display serif. Keep the new personality, reduce scale. */
+.history-modal-content h2,
+.process-modal-content h2,
+.stores-modal-panel h2,
+.contact-modal-panel h2{
+  font-size: clamp(34px, 5.2vw, 74px) !important;
+  line-height: .94 !important;
+  letter-spacing: -.038em !important;
+  max-width: 980px !important;
+}
+
+/* Stores paragraph: use font A and make it white for stronger contrast. */
+.stores-header p{
+  font-family: var(--font-a) !important;
+  color: var(--cream, #fff1cf) !important;
+  font-weight: 400 !important;
+  letter-spacing: .065em !important;
+  line-height: 1.06 !important;
+  text-transform: none !important;
+}
+
+@media (max-width: 768px){
+  .mixology-header h2{
+    font-size: clamp(42px, 16vw, 68px) !important;
+    line-height: .96 !important;
+    letter-spacing: -.038em !important;
+  }
+  .mixology-header .section-subtitle,
+  .mixology-header .section-subtitle strong{
+    text-transform: none !important;
+  }
+  .history-modal-content h2,
+  .process-modal-content h2,
+  .stores-modal-panel h2,
+  .contact-modal-panel h2{
+    font-size: clamp(30px, 11vw, 48px) !important;
+    line-height: .98 !important;
+    letter-spacing: -.03em !important;
+  }
+  .stores-header p{
+    font-size: clamp(26px, 8vw, 36px) !important;
+    line-height: .98 !important;
+    letter-spacing: .035em !important;
+  }
+}
