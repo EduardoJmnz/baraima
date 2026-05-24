@@ -997,3 +997,98 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   modal.addEventListener('scroll', triggerCloseFromBottom, { passive:true });
   modal.addEventListener('touchend', () => window.setTimeout(triggerCloseFromBottom, 80), { passive:true });
 })();
+
+/* V167 final mobile can timing controller.
+   This runs after the legacy desktop/mobile handlers and overrides mobile only.
+   Goal: Historia exits smoothly before Proceso text, Proceso enters smoothly, exits before Mixologia,
+   and the can can never remain visible outside Historia/Proceso. */
+(function setupMobileCanV167(){
+  const bottle = document.getElementById("historyBottle");
+  if (!bottle) return;
+  const states = ["v167-hidden", "v167-history", "v167-history-exit", "v167-process-pre", "v167-process", "v167-process-exit", "v167-hide-now"];
+  let lastState = "v167-hidden";
+  let ticking = false;
+
+  function setState(state){
+    if (lastState === state && document.body.classList.contains("mobile-can-v167")) return;
+    document.body.classList.add("mobile-can-v167");
+    states.forEach(cls => document.body.classList.remove(cls));
+    document.body.classList.add(state);
+    lastState = state;
+  }
+
+  function clearState(){
+    document.body.classList.remove("mobile-can-v167", ...states);
+    lastState = "v167-hidden";
+  }
+
+  function update(){
+    ticking = false;
+    const vw = window.innerWidth || 1;
+    if (vw >= 700) {
+      clearState();
+      return;
+    }
+
+    const vh = window.innerHeight || 1;
+    const history = document.getElementById("historia") || document.querySelector(".history-section");
+    const process = document.getElementById("proceso") || document.querySelector(".process-section");
+    const mixology = document.querySelector(".mixology-section");
+    if (!history || !process) {
+      setState("v167-hidden");
+      return;
+    }
+
+    const h = history.getBoundingClientRect();
+    const p = process.getBoundingClientRect();
+    const m = mixology ? mixology.getBoundingClientRect() : { top: Infinity };
+
+    // Hard bounds: outside these sections the can is not allowed to render.
+    const insideStoryArea = h.top < vh * 0.92 && h.bottom > vh * 0.26;
+    const insideProcessArea = p.top < vh * 0.82 && p.bottom > vh * 0.18 && m.top > vh * 0.76;
+    if (!insideStoryArea && !insideProcessArea) {
+      setState("v167-hidden");
+      return;
+    }
+
+    // Historia: keep current liked entrance. Exit a little earlier and with the same diagonal feel.
+    if (insideStoryArea && p.top > vh * 0.88) {
+      setState("v167-history");
+      return;
+    }
+    if (insideStoryArea && p.top <= vh * 0.88 && p.top > vh * 0.72) {
+      setState("v167-history-exit");
+      return;
+    }
+
+    // Proceso: prepare hidden start briefly, then enter with the same smooth motion.
+    if (p.top <= vh * 0.72 && p.top > vh * 0.62 && m.top > vh * 0.92) {
+      setState("v167-process-pre");
+      return;
+    }
+    if (p.top <= vh * 0.62 && m.top > vh * 0.96 && p.bottom > vh * 0.24) {
+      setState("v167-process");
+      return;
+    }
+
+    // Exit before the next block/white wave collides with it.
+    if (m.top <= vh * 0.96 || p.bottom <= vh * 0.24) {
+      setState("v167-process-exit");
+      return;
+    }
+
+    setState("v167-hidden");
+  }
+
+  function request(){
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", request, { passive: true });
+  window.addEventListener("resize", request);
+  window.addEventListener("orientationchange", request);
+  request();
+})();

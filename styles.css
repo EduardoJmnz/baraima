@@ -12895,3 +12895,74 @@ body.mixology-active .process-next-wave__body{
   0%{opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1);}
   100%{opacity:0; transform:translate3d(-34px, calc(-50% + 48px), 0) rotate(13deg) scale(.985);}
 }
+
+/* V167: mobile can choreography final override.
+   Uses transition-based states instead of repeated keyframes to avoid flicker/stuck vertical frames. */
+@media (max-width:700px){
+  body.mobile-can-v167 > #historyBottle.history-bottle-wrap{
+    position:fixed !important;
+    z-index:22 !important;
+    pointer-events:none !important;
+    transition: opacity .82s cubic-bezier(.19,1,.22,1), transform .82s cubic-bezier(.19,1,.22,1), top .82s cubic-bezier(.19,1,.22,1), left .82s cubic-bezier(.19,1,.22,1), right .82s cubic-bezier(.19,1,.22,1), width .82s cubic-bezier(.19,1,.22,1) !important;
+    will-change: opacity, transform, top, left, right !important;
+  }
+
+  body.mobile-can-v167.v167-hidden > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    transform:translate3d(-36px, calc(-50% + 52px), 0) rotate(13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v167.v167-history > #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v167.v167-history-exit > #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:0 !important;
+    visibility:visible !important;
+    transform:translate3d(42px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v167.v167-process-pre > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v167.v167-process-exit > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:0 !important;
+    visibility:visible !important;
+    transform:translate3d(-36px, calc(-50% + 52px), 0) rotate(13deg) scale(.985) !important;
+  }
+
+  body.mobile-can-v167.v167-process > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) scale(1) !important;
+  }
+
+  body.mobile-can-v167.v167-hide-now > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v167.light-site-background > #historyBottle.history-bottle-wrap,
+  body.mobile-can-v167.mixology-active > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+}
