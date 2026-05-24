@@ -1167,3 +1167,81 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   window.addEventListener("orientationchange", request);
   request();
 })();
+
+/* V171: clean local mobile can controller.
+   This avoids the older fixed shared-can state machine on mobile. */
+(function setupCleanLocalMobileCans(){
+  const history = document.getElementById('historia') || document.querySelector('.history-section');
+  const process = document.getElementById('proceso') || document.querySelector('.process-section');
+  const mixology = document.querySelector('.mixology-section');
+  if (!history || !process) return;
+
+  let ticking = false;
+
+  function isMobile(){
+    return (window.innerWidth || 1) < 700;
+  }
+
+  function clearSectionStates(){
+    history.classList.remove('mobile-local-can-visible','mobile-local-can-exit');
+    process.classList.remove('mobile-local-can-visible','mobile-local-can-exit');
+  }
+
+  function update(){
+    ticking = false;
+
+    if (!isMobile()) {
+      clearSectionStates();
+      return;
+    }
+
+    /* Neutralize every legacy mobile/fixed-can class without affecting desktop. */
+    document.body.classList.remove(
+      'mobile-can-v169','v169-off','v169-history-in','v169-history-out',
+      'v169-process-pre','v169-process-in','v169-process-out','v169-off-complete',
+      'mobile-can-v168','mobile-can-v167','mobile-can-force-hidden',
+      'history-bottle-visible','process-parallax-active','process-wave-covering',
+      'mobile-can-was-history','mobile-can-was-process','process-can-hidden'
+    );
+
+    const vh = window.innerHeight || 1;
+    const h = history.getBoundingClientRect();
+    const p = process.getBoundingClientRect();
+    const m = mixology ? mixology.getBoundingClientRect() : { top: Infinity };
+
+    clearSectionStates();
+
+    /* Historia: visible while the approved mobile composition is in view.
+       Exit starts before Proceso text takes over. */
+    if (h.top < vh * 0.92 && p.top > vh * 0.72 && h.bottom > vh * 0.22) {
+      history.classList.add('mobile-local-can-visible');
+      return;
+    }
+    if (p.top <= vh * 0.72 && p.top > vh * 0.56) {
+      history.classList.add('mobile-local-can-exit');
+      return;
+    }
+
+    /* Proceso: appears after Historia has already faded out, remains through the
+       useful part of Proceso, and exits before Mixologia / the white wave takes over. */
+    if (p.top <= vh * 0.56 && p.bottom > vh * 0.26 && m.top > vh * 0.82) {
+      process.classList.add('mobile-local-can-visible');
+      return;
+    }
+    if ((m.top <= vh * 0.82 || p.bottom <= vh * 0.26) && p.bottom > 0) {
+      process.classList.add('mobile-local-can-exit');
+    }
+  }
+
+  function request(){
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', request, { passive:true });
+  window.addEventListener('resize', request);
+  window.addEventListener('orientationchange', request);
+  request();
+})();

@@ -13223,3 +13223,93 @@ body.mixology-active .process-next-wave__body{
     pointer-events:none !important;
   }
 }
+
+/* V171: clean mobile-only can reset.
+   Desktop remains untouched. On mobile, the old shared/fixed can is disabled and
+   Historia/Proceso each use their own local can element. This prevents inherited
+   desktop transforms and old mobile state machines from leaving the can stuck. */
+.mobile-history-can-clean,
+.mobile-process-can-clean{
+  display:none;
+}
+
+@media (max-width:700px){
+  /* Do not let any legacy fixed can controller paint on mobile. */
+  #historyBottle.history-bottle-wrap{
+    display:none !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+
+  .history-section,
+  .process-section{
+    position:relative !important;
+    overflow:hidden !important;
+  }
+
+  .mobile-history-can-clean,
+  .mobile-process-can-clean{
+    display:block !important;
+    position:absolute !important;
+    z-index:3 !important;
+    pointer-events:none !important;
+    opacity:0;
+    will-change:transform, opacity;
+    transition:
+      opacity .92s cubic-bezier(.19,1,.22,1),
+      transform .92s cubic-bezier(.19,1,.22,1) !important;
+  }
+
+  .mobile-history-can-clean img,
+  .mobile-process-can-clean img{
+    display:block;
+    width:100%;
+    height:auto;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+
+  /* Historia: can at the right, same visual direction as the approved mockup. */
+  .mobile-history-can-clean{
+    width:min(92vw, 390px) !important;
+    right:-31vw !important;
+    top:14.5svh !important;
+    transform:translate3d(52px, 72px, 0) rotate(-13deg) scale(.985) !important;
+  }
+
+  .history-section.mobile-local-can-visible .mobile-history-can-clean{
+    opacity:1 !important;
+    transform:translate3d(0, 0, 0) rotate(-13deg) scale(1) !important;
+  }
+
+  .history-section.mobile-local-can-exit .mobile-history-can-clean{
+    opacity:0 !important;
+    transform:translate3d(46px, 64px, 0) rotate(-13deg) scale(.985) !important;
+  }
+
+  /* Proceso: can at the left, with the same smooth diagonal-up entrance. */
+  .mobile-process-can-clean{
+    width:min(90vw, 380px) !important;
+    left:-33vw !important;
+    top:17.5svh !important;
+    transform:translate3d(-52px, 72px, 0) rotate(13deg) scale(.985) !important;
+  }
+
+  .process-section.mobile-local-can-visible .mobile-process-can-clean{
+    opacity:1 !important;
+    transform:translate3d(0, 0, 0) rotate(13deg) scale(1) !important;
+  }
+
+  .process-section.mobile-local-can-exit .mobile-process-can-clean{
+    opacity:0 !important;
+    transform:translate3d(-46px, 64px, 0) rotate(13deg) scale(.985) !important;
+  }
+
+  /* Keep text above bubbles but under the product where intended by the design. */
+  .history-copy,
+  .process-copy{
+    position:relative !important;
+    z-index:4 !important;
+  }
+}
