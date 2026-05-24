@@ -407,7 +407,7 @@ function updateWhiteSectionUi() {
   // La UI fija cambia cuando sus zonas entran al campo visual del bloque claro.
   const processWaveForUi = document.querySelector(".process-next-wave");
   const processWaveRectForUi = processWaveForUi ? processWaveForUi.getBoundingClientRect() : null;
-  const mobileWhiteWaveTouchesNav = vw < 700 && processWaveRectForUi ? processWaveRectForUi.top <= 64 : true;
+  const mobileWhiteWaveTouchesNav = vw < 700 && processWaveRectForUi ? processWaveRectForUi.top <= 0 : true;
   const topUiOnLight = mobileWhiteWaveTouchesNav && (isPointInsideLightSection(vw * 0.5, 64) || isPointInsideLightSection(vw - 82, 64));
   const scrollUiOnLight = isPointInsideLightSection(vw - 64, vh - 120);
   const onLight = topUiOnLight || scrollUiOnLight;

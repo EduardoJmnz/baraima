@@ -13355,3 +13355,42 @@ body.mixology-active .process-next-wave__body{
     filter:blur(2px) !important;
   }
 }
+
+
+/* V173: final mobile polish.
+   - Historia can keeps the approved diagonal entrance, but exits with a matching smooth diagonal fade.
+   - Mobile top UI waits until the white wave actually reaches the top before switching to light mode.
+   - Theme color stays Baraima red for mobile browser chrome/notch areas. */
+:root{
+  --baraima-theme-red:#FF0B00;
+}
+html,
+body{
+  background-color:var(--baraima-theme-red);
+}
+@media (max-width:700px){
+  @keyframes mobileHistoryCanDiagonalOutV173{
+    0%{
+      opacity:1;
+      transform:translate3d(0, 0, 0) rotate(-13deg) scale(1);
+      filter:blur(0);
+    }
+    45%{
+      opacity:.72;
+      filter:blur(.35px);
+    }
+    100%{
+      opacity:0;
+      transform:translate3d(70px, 118px, 0) rotate(-13deg) scale(.96);
+      filter:blur(2.6px);
+    }
+  }
+
+  .history-section.mobile-local-can-exit .mobile-history-can-clean{
+    opacity:0 !important;
+    transform:translate3d(70px, 118px, 0) rotate(-13deg) scale(.96) !important;
+    filter:blur(2.6px) !important;
+    animation:mobileHistoryCanDiagonalOutV173 1.04s cubic-bezier(.22,.61,.36,1) both !important;
+    transition:none !important;
+  }
+}
