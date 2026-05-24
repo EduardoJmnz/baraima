@@ -12456,3 +12456,97 @@ body.mixology-active .process-next-wave__body{
   to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
 }
 @keyframes baraimaMobileCanFadeOut{ from{opacity:1;} to{opacity:0;} }
+
+/* V160: mobile Cubaraima can refinement per approved mockup
+   - Historia: cream typography, smaller type, can more visible from the right
+   - Proceso: can appears from the left but tilted to the right
+*/
+@media (max-width:700px){
+  .history-section .history-copy,
+  .history-section .history-copy *,
+  .history-number,
+  .history-copy h2,
+  .history-copy h2 span,
+  .history-copy h2 strong,
+  .history-copy h2 em{
+    color:#fff2da !important;
+  }
+  .history-section .history-copy{
+    top:24svh !important;
+    left:26px !important;
+    width:56vw !important;
+    max-width:56vw !important;
+  }
+  .history-number{
+    font-size:clamp(70px, 23vw, 96px) !important;
+    line-height:.82 !important;
+    margin-bottom:18px !important;
+  }
+  .history-copy h2{
+    font-size:clamp(25px, 7.45vw, 33px) !important;
+    line-height:1.12 !important;
+    letter-spacing:-.025em !important;
+    max-width:54vw !important;
+  }
+  .history-cta{
+    color:#fff2da !important;
+    border-color:#fff2da !important;
+  }
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  #historyBottle.history-bottle-wrap{
+    right:-30vw !important;
+    left:auto !important;
+    top:38.5svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) !important;
+    animation:baraimaMobileHistoryCanRiseV160 .74s cubic-bezier(.19,1,.22,1) both !important;
+  }
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:-32vw !important;
+    right:auto !important;
+    top:48svh !important;
+    width:min(92vw, 380px) !important;
+    transform:translate3d(0,-50%,0) rotate(13deg) !important;
+    animation:baraimaMobileProcessCanRiseV160 .74s cubic-bezier(.19,1,.22,1) both !important;
+  }
+  .process-section .process-copy h2{
+    color:#fff2da !important;
+    font-size:clamp(25px, 7.4vw, 34px) !important;
+  }
+  .process-section .process-copy h2 strong{
+    color:#fff2da !important;
+  }
+}
+@media (max-width:390px){
+  .history-section .history-copy{
+    top:24svh !important;
+    width:57vw !important;
+    max-width:57vw !important;
+  }
+  .history-number{
+    font-size:clamp(68px, 22vw, 88px) !important;
+  }
+  .history-copy h2{
+    font-size:clamp(24px, 7vw, 31px) !important;
+    max-width:55vw !important;
+  }
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  #historyBottle.history-bottle-wrap{
+    right:-33vw !important;
+    width:min(95vw, 360px) !important;
+  }
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:-36vw !important;
+    width:min(95vw, 360px) !important;
+  }
+}
+@keyframes baraimaMobileHistoryCanRiseV160{
+  from{ opacity:0; transform:translate3d(42px, calc(-50% + 64px), 0) rotate(-13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+}
+@keyframes baraimaMobileProcessCanRiseV160{
+  from{ opacity:0; transform:translate3d(-42px, calc(-50% + 64px), 0) rotate(13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1); }
+}

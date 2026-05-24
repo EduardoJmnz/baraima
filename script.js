@@ -266,7 +266,7 @@ function updateProcessBlock() {
       const startTop = isMobileMotion ? vh * 0.425 : desktopStartTop;
       const endTop = isMobileMotion ? vh * 0.50 : vh * 0.49 + 75;
       const startRotate = isMobileMotion ? -13 : 0;
-      const endRotate = isMobileMotion ? -13 : -11;
+      const endRotate = isMobileMotion ? 13 : -11;
 
       if (isMobileMotion) {
         // V157 mobile: Historia and Proceso use separate entrance moments.
