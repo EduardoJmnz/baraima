@@ -229,21 +229,26 @@ function updateProcessBlock() {
   const rect = processSection.getBoundingClientRect();
   const vh = window.innerHeight || 1;
   const vw = window.innerWidth || 1;
-  // V138: start the Historia -> Proceso motion only when Proceso is actually entering,
-  // avoiding the small false jump that happened as soon as the section touched the viewport.
-  const enterStart = vh * 0.82;
-  const enterProgress = clamp01((enterStart - rect.top) / (vh * 0.95));
-  // V140: restore the v137 disappearance timing so the can is hidden before it reaches the next block.
-  const leaveProgress = clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
-  const processVisible = rect.top < enterStart && rect.bottom > -vh * 0.35;
+  // V161: mobile timing refined. On mobile the process can should not appear
+  // until the History copy has already left, and it should remain longer in Proceso.
+  const isMobileViewport = vw < 700;
+  const enterStart = isMobileViewport ? vh * 0.52 : vh * 0.82;
+  const enterProgress = clamp01((enterStart - rect.top) / (vh * (isMobileViewport ? 0.72 : 0.95)));
+  const leaveProgress = isMobileViewport
+    ? clamp01((-rect.top - vh * 1.62) / (vh * 0.9))
+    : clamp01((-rect.top - vh * 1.16) / (vh * 0.82));
+  const processVisible = rect.top < enterStart && rect.bottom > (isMobileViewport ? -vh * 0.08 : -vh * 0.35);
 
   if (historyBottle) {
     const mixologySection = document.querySelector(".mixology-section");
     const mixologyTop = mixologySection ? mixologySection.getBoundingClientRect().top : Infinity;
-    const whiteWaveStarted = leaveProgress > 0.08 || mixologyTop < vh * 0.94;
+    const isMobileCanTiming = vw < 700;
+    const whiteWaveStarted = isMobileCanTiming
+      ? (leaveProgress > 0.32 || mixologyTop < vh * 0.42)
+      : (leaveProgress > 0.08 || mixologyTop < vh * 0.94);
 
     document.body.classList.toggle("process-parallax-active", processVisible && !whiteWaveStarted);
-    document.body.classList.toggle("process-wave-covering", leaveProgress > 0.05 || mixologyTop < vh);
+    document.body.classList.toggle("process-wave-covering", isMobileCanTiming ? (leaveProgress > 0.10 || mixologyTop < vh * 0.82) : (leaveProgress > 0.05 || mixologyTop < vh));
     document.body.classList.toggle("process-can-hidden", whiteWaveStarted || document.body.classList.contains("light-site-background") || document.body.classList.contains("mixology-active"));
     // El sticky de CSS mantiene el texto estable; no alternamos fixed para evitar brincos visuales.
 
