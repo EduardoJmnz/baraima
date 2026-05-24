@@ -13599,290 +13599,292 @@ body.recipe-page .recipe-visual img {
   }
 }
 
-/* V182: Tipografía editorial Baraima inspirada en Druk + Recoleta
-   A = Druk Condensed / Bebas Neue
-   B = Recoleta / Fraunces
-   C-D = Montserrat
-   Solo cambios visuales de tipografía; no altera lógica ni motion.
+
+/* V185: restaurar tipografia original en toda la web, excepto HERO.
+   A = Druk Condensed / Bebas Neue para "EL RITUAL".
+   B = Recoleta / Fraunces para "EMPIEZA AQUI".
+   No se toca la tipografia de otras secciones ni modales.
 */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:opsz,wght,SOFT,WONK@9..144,900,75,1&family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:opsz,wght,SOFT,WONK@9..144,900,75,1&display=swap');
 
 :root{
-  --font-ui: 'Montserrat', Arial, Helvetica, sans-serif;
-  --font-a: 'Druk Condensed', 'Bebas Neue', 'Anton', 'Impact', sans-serif;
-  --font-b: 'Recoleta', 'Fraunces', 'Cooper Black', Georgia, serif;
+  --font-hero-a: 'Druk Condensed', 'Bebas Neue', 'Anton', 'Impact', sans-serif;
+  --font-hero-b: 'Recoleta', 'Fraunces', 'Cooper Black', Georgia, serif;
 }
 
-body,
-button,
-input,
-textarea,
-select,
-a,
-p,
-li,
-span{
-  font-family: var(--font-ui) !important;
-}
-
-/* HERO */
 .hero-copy p,
-.hero-copy .hero-bubble-char{
-  font-family: var(--font-a) !important;
-}
-.hero-copy p{
-  letter-spacing: .08em !important;
+.hero-copy p .hero-bubble-char{
+  font-family: var(--font-hero-a) !important;
   font-weight: 400 !important;
+  letter-spacing: .08em !important;
 }
+
 .hero-copy h1,
 .hero-copy h1 .hero-bubble-char{
-  font-family: var(--font-b) !important;
+  font-family: var(--font-hero-b) !important;
   font-weight: 900 !important;
   letter-spacing: -.045em !important;
   line-height: .86 !important;
 }
 
-/* HISTORIA */
-.history-number{
-  font-family: var(--font-b) !important;
-  font-weight: 900 !important;
-  letter-spacing: -.055em !important;
-  line-height: .82 !important;
-}
-.history-copy h2,
-.history-copy h2 span,
-.history-copy h2 strong,
-.history-copy h2 em{
-  font-family: var(--font-a) !important;
-  letter-spacing: .015em !important;
-  line-height: .98 !important;
-  font-style: normal !important;
-}
-.history-copy h2 strong{
-  font-weight: 400 !important;
-}
-
-/* PROCESO */
-.process-copy h2,
-.process-copy h2 span,
-.process-copy h2 strong{
-  font-family: var(--font-a) !important;
-  font-weight: 400 !important;
-  letter-spacing: .018em !important;
-  line-height: .98 !important;
-}
-
-/* MIXOLOGIA, MIS RONES, STORES, RITUALES, CONTACTO */
-.mixology-header h2,
-.products-header h2,
-.stores-header h2,
-.rituales-header h2,
-.contact-content h2{
-  font-family: var(--font-b) !important;
-  font-weight: 900 !important;
-  letter-spacing: -.045em !important;
-  line-height: .88 !important;
-}
-
-.mixology-header .section-subtitle,
-.mixology-header .section-subtitle strong,
-.products-header .section-subtitle,
-.products-header .section-subtitle strong,
-.stores-header .section-subtitle,
-.stores-header .section-subtitle strong,
-.rituales-header .section-subtitle,
-.rituales-header .section-subtitle strong,
-.contact-section .section-subtitle,
-.contact-section .section-subtitle strong{
-  font-family: var(--font-a) !important;
-  font-weight: 400 !important;
-  letter-spacing: .08em !important;
-  line-height: 1.08 !important;
-}
-
-/* QUOTE */
-.quote-section h2,
-.quote-section h2 span,
-.quote-section h2 strong{
-  font-family: var(--font-a) !important;
-  font-weight: 400 !important;
-  letter-spacing: .025em !important;
-  line-height: .98 !important;
-}
-
-/* UI secundaria limpia */
-.menu-nav a,
-.rum-product-card__eyebrow,
-.rum-product-card__tagline,
-.rum-product-card__icons span,
-.mixology-card-copy h3,
-.ritual-card-copy h3,
-.stores-cta,
-.rituales-cta,
-.contact-cta,
-.history-cta,
-.process-cta,
-.mixology-cta{
-  font-family: var(--font-ui) !important;
-}
-
-/* Ajustes responsive para evitar cortes con display serif */
 @media (max-width: 768px){
-  .hero-copy h1{
+  .hero-copy h1,
+  .hero-copy h1 .hero-bubble-char{
     letter-spacing: -.04em !important;
     line-height: .9 !important;
   }
-  .history-number{
-    letter-spacing: -.045em !important;
-  }
-  .history-copy h2,
-  .process-copy h2{
-    letter-spacing: .01em !important;
-    line-height: 1 !important;
-  }
-  .mixology-header h2,
-  .products-header h2,
-  .stores-header h2,
-  .rituales-header h2,
-  .contact-content h2{
-    letter-spacing: -.035em !important;
-    line-height: .92 !important;
-  }
-  .section-subtitle{
-    letter-spacing: .055em !important;
-  }
 }
 
 
-/* V183: Ajustes finales de tipografia y UX copy en modales */
-/* Stores: subtitulo con la tipografia B (serif editorial) */
-.stores-header .section-subtitle,
-.stores-header .section-subtitle strong{
-  font-family: var(--font-b) !important;
-  font-weight: 900 !important;
-  letter-spacing: -.035em !important;
-  line-height: .95 !important;
-}
-
-/* Titulos dentro de modales: misma personalidad editorial */
-.history-modal-content h2,
-.process-modal-content h2,
-.stores-modal-panel h2,
-.contact-modal-panel h2{
-  font-family: var(--font-b) !important;
-  font-weight: 900 !important;
-  letter-spacing: -.045em !important;
-  line-height: .88 !important;
-}
-
-/* Indicador global cuando un modal esta abierto */
-body.history-modal-active .scroll p,
-body.process-modal-active .scroll p,
-body.stores-modal-active .scroll p,
-body.contact-modal-active .scroll p{
-  font-size: 0 !important;
-  line-height: 1 !important;
-}
-
-body.history-modal-active .scroll p::after,
-body.process-modal-active .scroll p::after,
-body.stores-modal-active .scroll p::after,
-body.contact-modal-active .scroll p::after{
-  content: "SCROLL TO CLOSE";
-  display: block;
-  font-family: var(--font-ui) !important;
-  font-size: 11px !important;
+/* V186: SCROLL TO CLOSE hint in all modals */
+.modal-scroll-hint {
+  position: relative;
+  z-index: 4;
+  display: block !important;
+  width: fit-content;
+  margin: 56px auto 90px !important;
+  color: var(--red) !important;
+  font-family: var(--font-ui, inherit);
+  font-size: clamp(11px, 1.05vw, 14px) !important;
   font-weight: 600 !important;
-  letter-spacing: .12em !important;
-  white-space: nowrap;
+  letter-spacing: .16em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+  opacity: .72;
+  pointer-events: none;
+}
+.process-modal .modal-scroll-hint {
+  display: block !important;
+}
+.contact-modal .modal-scroll-hint,
+.stores-modal .modal-scroll-hint {
+  color: var(--red) !important;
+  margin: 42px auto 24px !important;
+}
+@media (max-width: 760px) {
+  .modal-scroll-hint {
+    margin: 42px auto 72px !important;
+    font-size: 10px !important;
+    letter-spacing: .14em !important;
+  }
+  .contact-modal .modal-scroll-hint,
+  .stores-modal .modal-scroll-hint {
+    margin-bottom: 20px !important;
+  }
 }
 
-@media (max-width: 768px){
-  .stores-header .section-subtitle,
-  .stores-header .section-subtitle strong{
-    letter-spacing: -.025em !important;
-    line-height: 1 !important;
+
+/* V187: Modal scroll indicator uses the same animated visual language as the site scroll cue */
+.modal-scroll-hint {
+  position: relative !important;
+  z-index: 5 !important;
+  width: max-content !important;
+  margin: 72px auto 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 10px !important;
+  color: var(--red) !important;
+  opacity: 1 !important;
+  text-transform: uppercase !important;
+  pointer-events: none !important;
+}
+
+.modal-scroll-hint span {
+  position: relative !important;
+  display: block !important;
+  width: 1px !important;
+  height: 58px !important;
+  background: rgba(177, 33, 36, .28) !important;
+  overflow: hidden !important;
+}
+
+.modal-scroll-hint span::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 34% !important;
+  background: var(--red) !important;
+  transform: translateY(-120%) !important;
+  animation: scrollLine 1.55s cubic-bezier(.76,0,.24,1) infinite !important;
+}
+
+.modal-scroll-hint p {
+  margin: 0 !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  letter-spacing: .18em !important;
+  font-weight: 600 !important;
+  color: currentColor !important;
+}
+
+.contact-scroll-hint,
+.stores-scroll-hint {
+  margin-top: 56px !important;
+}
+
+@media (max-width: 700px) {
+  .modal-scroll-hint {
+    margin-top: 52px !important;
+    gap: 8px !important;
   }
-  .history-modal-content h2,
-  .process-modal-content h2,
-  .stores-modal-panel h2,
-  .contact-modal-panel h2{
-    letter-spacing: -.035em !important;
-    line-height: .92 !important;
+  .modal-scroll-hint span {
+    height: 46px !important;
   }
-  body.history-modal-active .scroll p::after,
-  body.process-modal-active .scroll p::after,
-  body.stores-modal-active .scroll p::after,
-  body.contact-modal-active .scroll p::after{
+  .modal-scroll-hint p {
+    font-size: 10px !important;
+    letter-spacing: .14em !important;
+  }
+}
+
+/* V188: modal scroll cue lives inside the modal, on the right side where the site scroll indicator normally sits. */
+body.history-modal-active > .scroll,
+body.process-modal-active > .scroll,
+body.stores-modal-active > .scroll,
+body.contact-modal-active > .scroll {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.history-modal .modal-scroll-hint,
+.process-modal .modal-scroll-hint,
+.contact-modal .modal-scroll-hint,
+.stores-modal .modal-scroll-hint {
+  position: fixed !important;
+  right: 44px !important;
+  bottom: 60px !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 2147483650 !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 22px !important;
+  color: var(--red) !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+.history-modal .modal-scroll-hint span,
+.process-modal .modal-scroll-hint span,
+.contact-modal .modal-scroll-hint span,
+.stores-modal .modal-scroll-hint span {
+  position: relative !important;
+  display: block !important;
+  width: 1px !important;
+  height: 68px !important;
+  background: rgba(177, 33, 36, .32) !important;
+  overflow: hidden !important;
+}
+
+.history-modal .modal-scroll-hint span::after,
+.process-modal .modal-scroll-hint span::after,
+.contact-modal .modal-scroll-hint span::after,
+.stores-modal .modal-scroll-hint span::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 34% !important;
+  background: var(--red) !important;
+  transform: translateY(-120%) !important;
+  animation: scrollLine 1.55s cubic-bezier(.76,0,.24,1) infinite !important;
+}
+
+.history-modal .modal-scroll-hint p,
+.process-modal .modal-scroll-hint p,
+.contact-modal .modal-scroll-hint p,
+.stores-modal .modal-scroll-hint p {
+  margin: 0 !important;
+  writing-mode: vertical-rl !important;
+  transform: rotate(180deg) !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+  font-weight: 600 !important;
+  color: currentColor !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 700px) {
+  .history-modal .modal-scroll-hint,
+  .process-modal .modal-scroll-hint,
+  .contact-modal .modal-scroll-hint,
+  .stores-modal .modal-scroll-hint {
+    right: 18px !important;
+    bottom: 30px !important;
+    gap: 16px !important;
+  }
+
+  .history-modal .modal-scroll-hint span,
+  .process-modal .modal-scroll-hint span,
+  .contact-modal .modal-scroll-hint span,
+  .stores-modal .modal-scroll-hint span {
+    height: 52px !important;
+  }
+
+  .history-modal .modal-scroll-hint p,
+  .process-modal .modal-scroll-hint p,
+  .contact-modal .modal-scroll-hint p,
+  .stores-modal .modal-scroll-hint p {
     font-size: 9px !important;
-    letter-spacing: .1em !important;
+    letter-spacing: .07em !important;
   }
 }
 
-/* V184: visual typography fixes requested after v183 */
-/* Prevent Mixologia display title from clipping after the new display font. */
-.mixology-header{
-  overflow: visible !important;
-  padding-inline: 12px !important;
-}
-.mixology-header h2{
-  overflow: visible !important;
-  white-space: normal !important;
-  text-wrap: balance;
-  font-size: clamp(42px, 6.4vw, 82px) !important;
-  line-height: .94 !important;
-  max-width: min(100%, 980px) !important;
-  margin-inline: auto !important;
+
+/* V189: final modal scroll cue alignment + menu close visual polish */
+.contact-modal .modal-scroll-hint,
+.stores-modal .modal-scroll-hint {
+  position: fixed !important;
+  right: 44px !important;
+  bottom: 60px !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 2147483650 !important;
+  margin: 0 !important;
+  transform: none !important;
+  color: var(--red) !important;
 }
 
-/* Mixologia subtitle should keep its natural casing, not forced uppercase. */
-.mixology-header .section-subtitle,
-.mixology-header .section-subtitle strong{
-  text-transform: none !important;
+.menu-close {
+  width: 68px !important;
+  height: 68px !important;
+  border-radius: 18px !important;
+  background: var(--cream) !important;
+  border: 0 !important;
+  display: grid !important;
+  place-content: center !important;
+  gap: 8px !important;
+  box-shadow: none !important;
+  transition: transform .45s cubic-bezier(.19,1,.22,1), background .45s cubic-bezier(.19,1,.22,1) !important;
 }
 
-/* Modal titles were too large with the display serif. Keep the new personality, reduce scale. */
-.history-modal-content h2,
-.process-modal-content h2,
-.stores-modal-panel h2,
-.contact-modal-panel h2{
-  font-size: clamp(34px, 5.2vw, 74px) !important;
-  line-height: .94 !important;
-  letter-spacing: -.038em !important;
-  max-width: 980px !important;
+.menu-close:hover {
+  transform: scale(.96) !important;
 }
 
-/* Stores paragraph: use font A and make it white for stronger contrast. */
-.stores-header p{
-  font-family: var(--font-a) !important;
-  color: var(--cream, #fff1cf) !important;
-  font-weight: 400 !important;
-  letter-spacing: .065em !important;
-  line-height: 1.06 !important;
-  text-transform: none !important;
+.menu-close span {
+  width: 34px !important;
+  height: 5px !important;
+  border-radius: 999px !important;
+  background: var(--red) !important;
 }
 
-@media (max-width: 768px){
-  .mixology-header h2{
-    font-size: clamp(42px, 16vw, 68px) !important;
-    line-height: .96 !important;
-    letter-spacing: -.038em !important;
-  }
-  .mixology-header .section-subtitle,
-  .mixology-header .section-subtitle strong{
-    text-transform: none !important;
-  }
-  .history-modal-content h2,
-  .process-modal-content h2,
-  .stores-modal-panel h2,
-  .contact-modal-panel h2{
-    font-size: clamp(30px, 11vw, 48px) !important;
-    line-height: .98 !important;
-    letter-spacing: -.03em !important;
-  }
-  .stores-header p{
-    font-size: clamp(26px, 8vw, 36px) !important;
-    line-height: .98 !important;
-    letter-spacing: .035em !important;
+@media (max-width: 700px) {
+  .contact-modal .modal-scroll-hint,
+  .stores-modal .modal-scroll-hint {
+    right: 18px !important;
+    bottom: 30px !important;
   }
 }
