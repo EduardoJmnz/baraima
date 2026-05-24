@@ -13394,3 +13394,17 @@ body{
     transition:none !important;
   }
 }
+
+/* V174: restore ONLY Historia mobile can exit behavior from v171.
+   Keeps the approved v172 diagonal entrance and does not touch Proceso/desktop. */
+@media (max-width:700px){
+  .history-section.mobile-local-can-exit .mobile-history-can-clean{
+    animation:none !important;
+    opacity:0 !important;
+    transform:translate3d(46px, 64px, 0) rotate(-13deg) scale(.985) !important;
+    filter:none !important;
+    transition:
+      opacity .92s cubic-bezier(.19,1,.22,1),
+      transform .92s cubic-bezier(.19,1,.22,1) !important;
+  }
+}
