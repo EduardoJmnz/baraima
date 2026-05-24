@@ -12574,3 +12574,49 @@ body.mixology-active .process-next-wave__body{
   from{ opacity:1; transform:translate3d(0,-50%,0) rotate(var(--sharedBottleRotate, 13deg)) scale(1); }
   to{ opacity:0; transform:translate3d(0,calc(-50% - 18px),0) rotate(var(--sharedBottleRotate, 13deg)) scale(.985); }
 }
+
+/* V162: mobile can timing polish.
+   - History can exits with a smooth diagonal fade, not a hard cut.
+   - Process can waits longer before entering.
+   - Process can exits before the next white block and with the same smooth feel. */
+@media (max-width:700px){
+  #historyBottle.history-bottle-wrap{
+    backface-visibility:hidden !important;
+    transform-style:preserve-3d !important;
+    will-change:transform, opacity !important;
+  }
+
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    animation:baraimaMobileHistoryCanRiseV162 .86s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    animation:baraimaMobileProcessCanRiseV162 .86s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap,
+  body.process-can-hidden > #historyBottle.history-bottle-wrap,
+  body.mixology-active > #historyBottle.history-bottle-wrap,
+  body.light-site-background > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    transition:opacity .86s cubic-bezier(.22,.61,.36,1), visibility 0s linear .86s !important;
+    animation:baraimaMobileCanSmoothOutV162 .86s cubic-bezier(.22,.61,.36,1) both !important;
+  }
+}
+
+@keyframes baraimaMobileHistoryCanRiseV162{
+  from{ opacity:0; transform:translate3d(42px, calc(-50% + 64px), 0) rotate(-13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+}
+
+@keyframes baraimaMobileProcessCanRiseV162{
+  from{ opacity:0; transform:translate3d(-42px, calc(-50% + 64px), 0) rotate(13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1); }
+}
+
+@keyframes baraimaMobileCanSmoothOutV162{
+  0%{ opacity:1; transform:translate3d(0,-50%,0) rotate(var(--sharedBottleRotate, 13deg)) scale(1); }
+  100%{ opacity:0; transform:translate3d(0,calc(-50% - 42px),0) rotate(var(--sharedBottleRotate, 13deg)) scale(.982); }
+}
