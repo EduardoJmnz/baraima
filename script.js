@@ -51,8 +51,8 @@ if (menuOverlay) {
 const historyBottle = document.getElementById("historyBottle");
 const historyBottleImg = historyBottle ? historyBottle.querySelector("img") : null;
 const CAN_DESKTOP_SRC = "assets/cubaraima-can.png";
-const CAN_MOBILE_HISTORY_SRC = "assets/cubaraima-mobile-history-a1.png";
-const CAN_MOBILE_PROCESS_SRC = "assets/cubaraima-mobile-process-a2.png";
+const CAN_MOBILE_HISTORY_SRC = "assets/cubaraima-can.png";
+const CAN_MOBILE_PROCESS_SRC = "assets/cubaraima-can.png";
 function setSharedCanSource(mode) {
   if (!historyBottleImg) return;
   const nextSrc = mode === "mobile-process"

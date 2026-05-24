@@ -12249,3 +12249,210 @@ body.mixology-active .process-next-wave__body{
   from{ opacity:0; transform:translate3d(-42px, calc(-50% + 52px), 0) rotate(0deg) scale(.985); }
   to{ opacity:1; transform:translate3d(0, -50%, 0) rotate(0deg) scale(1); }
 }
+
+/* V159: mobile Historia/Proceso Cubaraima layout from final mockup.
+   Use full can asset with CSS fade, keep desktop untouched. */
+@media (max-width:700px){
+  html, body{
+    overflow-x:hidden !important;
+    max-width:100% !important;
+  }
+  .history-section{
+    min-height:100svh !important;
+    height:100svh !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:#ff1908 !important;
+  }
+  .history-section .history-copy{
+    position:absolute !important;
+    left:26px !important;
+    top:22svh !important;
+    width:58vw !important;
+    max-width:58vw !important;
+    z-index:6 !important;
+    text-align:left !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+  .history-number{
+    font-size:clamp(72px, 25vw, 106px) !important;
+    line-height:.82 !important;
+    margin:0 0 20px !important;
+    letter-spacing:-.055em !important;
+    color:#fff2da !important;
+  }
+  .history-copy h2{
+    max-width:58vw !important;
+    font-size:clamp(30px, 9.2vw, 40px) !important;
+    line-height:1.08 !important;
+    letter-spacing:-.035em !important;
+    color:#fff !important;
+  }
+  .history-copy h2 span{ display:block !important; }
+  .history-copy h2 strong,
+  .history-copy h2 em{ color:#fff !important; font-style:normal !important; }
+  .history-cta{
+    width:min(286px, 59vw) !important;
+    height:50px !important;
+    margin-top:26px !important;
+    border:3px solid #fff !important;
+    border-radius:13px !important;
+    color:#fff !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    font-size:11px !important;
+    letter-spacing:.06em !important;
+  }
+
+  /* Full can on the right, cropped by viewport, with bottom fade into red. */
+  #historyBottle.history-bottle-wrap,
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    display:block !important;
+    position:fixed !important;
+    left:auto !important;
+    right:-46vw !important;
+    top:40svh !important;
+    width:min(96vw, 390px) !important;
+    height:auto !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    z-index:5 !important;
+    pointer-events:none !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) !important;
+    filter:none !important;
+    transition:opacity .42s ease, visibility 0s linear .42s !important;
+    animation:baraimaMobileHistoryCanRise .74s cubic-bezier(.19,1,.22,1) both !important;
+    overflow:visible !important;
+  }
+  #historyBottle.history-bottle-wrap .history-bottle{
+    width:100% !important;
+    height:auto !important;
+    display:block !important;
+    filter:drop-shadow(0 18px 24px rgba(120,0,0,.18)) !important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 72%,rgba(0,0,0,.82) 82%,rgba(0,0,0,.35) 92%,transparent 100%) !important;
+    mask-image:linear-gradient(to bottom,#000 0%,#000 72%,rgba(0,0,0,.82) 82%,rgba(0,0,0,.35) 92%,transparent 100%) !important;
+  }
+
+  body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap,
+  body.mixology-active > #historyBottle.history-bottle-wrap,
+  body.process-can-hidden > #historyBottle.history-bottle-wrap{
+    opacity:0 !important;
+    visibility:hidden !important;
+    animation:baraimaMobileCanFadeOut .32s ease both !important;
+  }
+
+  /* Proceso mobile: same visual language, can comes from the left and copy sits right. */
+  .process-section{
+    min-height:100svh !important;
+    height:100svh !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:#ff1908 !important;
+  }
+  .process-section .process-copy{
+    position:absolute !important;
+    right:24px !important;
+    left:auto !important;
+    top:27svh !important;
+    width:52vw !important;
+    max-width:52vw !important;
+    z-index:6 !important;
+    transform:none !important;
+    text-align:right !important;
+  }
+  .process-section .process-copy h2{
+    font-size:clamp(28px, 8.4vw, 38px) !important;
+    line-height:1.08 !important;
+    letter-spacing:-.025em !important;
+    color:#fff !important;
+    text-align:right !important;
+  }
+  .process-section .process-copy h2 strong{ color:#fff !important; }
+  .process-section .process-cta{
+    width:min(260px, 50vw) !important;
+    height:52px !important;
+    margin:30px 0 0 auto !important;
+    border:3px solid #fff !important;
+    border-radius:13px !important;
+    background:transparent !important;
+    color:#fff !important;
+    box-shadow:none !important;
+    font-size:11px !important;
+  }
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:-46vw !important;
+    right:auto !important;
+    top:42svh !important;
+    width:min(96vw, 390px) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    z-index:5 !important;
+    transform:translate3d(0,-50%,0) rotate(-13deg) !important;
+    animation:baraimaMobileProcessCanRise .74s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  /* Preserve the liked mobile spacing between Historia and Proceso. */
+  .history-section + .process-section{ margin-top:0 !important; }
+
+  /* Mobile red wave to stores: force clean full-width wave connector. */
+  .products-section .products-red-wave{
+    display:block !important;
+    position:relative !important;
+    left:50% !important;
+    width:100vw !important;
+    height:148px !important;
+    margin:44px 0 -2px !important;
+    transform:translateX(-50%) !important;
+    overflow:hidden !important;
+    background:transparent !important;
+    z-index:9 !important;
+  }
+  .products-section .products-red-wave svg,
+  .products-section .products-red-wave__svg{
+    position:absolute !important;
+    left:-12vw !important;
+    top:0 !important;
+    width:124vw !important;
+    height:112px !important;
+    max-width:none !important;
+  }
+  .products-section .products-red-wave path{ fill:#ff1205 !important; }
+  .products-section .products-red-wave__body{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:88px !important;
+    bottom:-6px !important;
+    background:#ff1205 !important;
+  }
+}
+@media (max-width:390px){
+  .history-section .history-copy{ left:24px !important; top:23svh !important; width:60vw !important; max-width:60vw !important; }
+  .history-number{ font-size:clamp(68px, 24vw, 98px) !important; margin-bottom:18px !important; }
+  .history-copy h2{ font-size:clamp(28px, 8.8vw, 37px) !important; max-width:60vw !important; }
+  .history-cta{ width:min(260px, 58vw) !important; height:48px !important; }
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active) > #historyBottle.history-bottle-wrap{
+    right:-50vw !important;
+    top:40svh !important;
+    width:min(102vw, 365px) !important;
+  }
+  body.process-parallax-active:not(.mixology-active) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    left:-50vw !important;
+    top:42svh !important;
+    width:min(102vw, 365px) !important;
+  }
+  .process-section .process-copy{ right:22px !important; width:54vw !important; max-width:54vw !important; }
+  .process-section .process-copy h2{ font-size:clamp(26px, 8vw, 35px) !important; }
+}
+@keyframes baraimaMobileHistoryCanRise{
+  from{ opacity:0; transform:translate3d(34px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+}
+@keyframes baraimaMobileProcessCanRise{
+  from{ opacity:0; transform:translate3d(-34px, calc(-50% + 58px), 0) rotate(-13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+}
+@keyframes baraimaMobileCanFadeOut{ from{opacity:1;} to{opacity:0;} }
