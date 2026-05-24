@@ -12620,3 +12620,53 @@ body.mixology-active .process-next-wave__body{
   0%{ opacity:1; transform:translate3d(0,-50%,0) rotate(var(--sharedBottleRotate, 13deg)) scale(1); }
   100%{ opacity:0; transform:translate3d(0,calc(-50% - 42px),0) rotate(var(--sharedBottleRotate, 13deg)) scale(.982); }
 }
+
+/* V163: mobile can timing/stability fix
+   - Exit uses a real smooth diagonal fade without visibility cutting it off.
+   - Process can appears sooner than v162 but still after Historia clears.
+   - Process can exits before Mixologia/white wave and never remains visible after these sections. */
+@media (max-width:700px){
+  #historyBottle.history-bottle-wrap{
+    pointer-events:none !important;
+    will-change:opacity, transform !important;
+    transition:opacity .64s cubic-bezier(.22,.61,.36,1), transform .64s cubic-bezier(.22,.61,.36,1) !important;
+  }
+
+  body.history-bottle-visible:not(.process-parallax-active):not(.process-wave-covering):not(.mixology-active):not(.light-site-background) > #historyBottle.history-bottle-wrap{
+    visibility:visible !important;
+    opacity:1 !important;
+    animation:baraimaMobileHistoryCanRiseV163 .78s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body.process-parallax-active:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap,
+  body.process-wave-covering:not(.mixology-active):not(.process-can-hidden) > #historyBottle.history-bottle-wrap{
+    visibility:visible !important;
+    opacity:1 !important;
+    animation:baraimaMobileProcessCanRiseV163 .72s cubic-bezier(.19,1,.22,1) both !important;
+  }
+
+  body:not(.history-bottle-visible):not(.process-parallax-active):not(.process-wave-covering) > #historyBottle.history-bottle-wrap,
+  body.process-can-hidden > #historyBottle.history-bottle-wrap,
+  body.mixology-active > #historyBottle.history-bottle-wrap,
+  body.light-site-background > #historyBottle.history-bottle-wrap{
+    visibility:visible !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    animation:baraimaMobileCanSmoothOutV163 .64s cubic-bezier(.22,.61,.36,1) both !important;
+  }
+}
+
+@keyframes baraimaMobileHistoryCanRiseV163{
+  from{ opacity:0; transform:translate3d(42px, calc(-50% + 62px), 0) rotate(-13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(-13deg) scale(1); }
+}
+
+@keyframes baraimaMobileProcessCanRiseV163{
+  from{ opacity:0; transform:translate3d(-40px, calc(-50% + 56px), 0) rotate(13deg) scale(.985); }
+  to{ opacity:1; transform:translate3d(0,-50%,0) rotate(13deg) scale(1); }
+}
+
+@keyframes baraimaMobileCanSmoothOutV163{
+  0%{ opacity:1; transform:translate3d(0,-50%,0) rotate(var(--sharedBottleRotate, 13deg)) scale(1); }
+  100%{ opacity:0; transform:translate3d(0,calc(-50% - 34px),0) rotate(var(--sharedBottleRotate, 13deg)) scale(.985); }
+}
