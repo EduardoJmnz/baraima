@@ -1294,3 +1294,26 @@ document.querySelectorAll('.products-tabs, .products-tab').forEach((el) => {
   heroCopy.dataset.heroBubbleReady = 'true';
   requestAnimationFrame(() => heroCopy.classList.add('hero-bubble-ready'));
 })();
+
+/* V190: close Contact modal when the user reaches the end of its scroll,
+   matching the scroll-to-close behavior used in Historia/Proceso/Stores. */
+(function(){
+  const modal = document.getElementById('contactModal');
+  if (!modal) return;
+  let closingByScroll = false;
+
+  function triggerCloseFromBottom(){
+    if (!modal.classList.contains('is-open') || closingByScroll) return;
+    const maxScroll = modal.scrollHeight - modal.clientHeight;
+    if (maxScroll <= 12) return;
+    const distanceToBottom = maxScroll - modal.scrollTop;
+    if (distanceToBottom <= 10) {
+      closingByScroll = true;
+      if (typeof closeContactModal === 'function') closeContactModal();
+      window.setTimeout(() => { closingByScroll = false; }, 760);
+    }
+  }
+
+  modal.addEventListener('scroll', triggerCloseFromBottom, { passive:true });
+  modal.addEventListener('touchend', () => window.setTimeout(triggerCloseFromBottom, 80), { passive:true });
+})();
